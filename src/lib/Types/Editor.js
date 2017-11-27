@@ -1,0 +1,26 @@
+// Actions
+export const SELECT = 'SELECT'
+
+export const NEW_SURVEY = 'NEW_SURVEY'
+export const SET_SURVEY = 'SET_SURVEY'
+
+export const ADD_PAGE = 'ADD_PAGE'
+export const REMOVE_PAGE = 'REMOVE_PAGE'
+export const SET_PAGE = 'SET_PAGE'
+export const MOVE_PAGE = 'MOVE_PAGE'
+
+export const ADD_QUESTION = 'ADD_QUESTION'
+export const REMOVE_QUESTION = 'REMOVE_QUESTION'
+export const SET_QUESTION = 'SET_QUESTION'
+export const MOVE_QUESTION = 'MOVE_QUESTION'
+
+// Types
+export const SURVEY = 'SURVEY'
+export const PAGE = 'PAGE'
+export const QUESTION_TEXT = 'QUESTION_TEXT'
+export const QUESTION_DATE = 'QUESTION_DATE'
+export const QUESTION_DISCRETE_SCALE = 'QUESTION_DISCRETE_SCALE'
+export const QUESTION_NUMERICAL_SCALE = 'QUESTION_NUMERICAL_SCALE'
+export const QUESTION_CHOICES = 'QUESTION_CHOICES'
+export const QUESTION_IMAGE = 'QUESTION_IMAGE'
+export const QUESTION_RANK = 'QUESTION_RANK'
