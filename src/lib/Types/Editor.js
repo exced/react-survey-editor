@@ -1,18 +1,8 @@
 // Actions
-export const SELECT = 'SELECT'
-
-export const NEW_SURVEY = 'NEW_SURVEY'
-export const SET_SURVEY = 'SET_SURVEY'
-
-export const ADD_PAGE = 'ADD_PAGE'
-export const REMOVE_PAGE = 'REMOVE_PAGE'
-export const SET_PAGE = 'SET_PAGE'
-export const MOVE_PAGE = 'MOVE_PAGE'
-
-export const ADD_QUESTION = 'ADD_QUESTION'
-export const REMOVE_QUESTION = 'REMOVE_QUESTION'
-export const SET_QUESTION = 'SET_QUESTION'
-export const MOVE_QUESTION = 'MOVE_QUESTION'
+export const ADD_ITEM = 'ADD_ITEM'
+export const REMOVE_ITEM = 'REMOVE_ITEM'
+export const SET_ITEM = 'SET_ITEM'
+export const MOVE_ITEM = 'MOVE_ITEM'
 
 // Types
 export const SURVEY = 'SURVEY'

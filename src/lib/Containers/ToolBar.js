@@ -3,7 +3,19 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Menu, Icon, Button, Layout } from 'antd'
 import { ActionCreators as UndoRedo } from 'redux-undo'
-import { addPage } from '../Actions/Editor'
+import { addItem } from '../Actions/Editor'
+import { getPages } from '../Selectors/Editor'
+import {
+  // Types
+  PAGE,
+  QUESTION_TEXT,
+  QUESTION_DATE,
+  QUESTION_DISCRETE_SCALE,
+  QUESTION_NUMERICAL_SCALE,
+  QUESTION_CHOICES,
+  QUESTION_IMAGE,
+  QUESTION_RANK,
+} from '../Types/Editor'
 
 const SubMenu = Menu.SubMenu
 const MenuItemGroup = Menu.ItemGroup
@@ -31,10 +43,10 @@ class ToolBar extends Component {
 
   onClick = ({ key }) => {
 
-    const { addPage } = this.props
+    const { addPage, pages } = this.props
 
     if (key === "addPage") {
-      addPage()
+      addPage(pages.length)
     }
   }
 
@@ -79,13 +91,13 @@ class ToolBar extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-
+  pages: getPages(state),
 })
 
 const mapDispatchToProps = dispatch => ({
   undo: () => dispatch(UndoRedo.undo()),
   redo: () => dispatch(UndoRedo.redo()),
-  addPage: () => dispatch(addPage()),
+  addPage: (index) => dispatch(addItem(PAGE, index)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ToolBar)

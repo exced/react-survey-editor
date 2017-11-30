@@ -2,10 +2,10 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Layout, Menu, Icon, BackTop, Affix, Button } from 'antd'
-import Editor from '../Components/Editor'
-import EditorHeader from '../Components/EditorHeader'
 import ToolBar from './ToolBar'
 import FAB from './FAB'
+import { getPages } from '../Selectors/Editor'
+import PageList from '../Components/PageList'
 
 const { Header, Footer, Sider, Content } = Layout
 
@@ -16,7 +16,7 @@ export class SurveyEditor extends Component {
 
   render() {
 
-    const { survey } = this.props
+    const { pages } = this.props
 
     return (
       <div>
@@ -30,7 +30,7 @@ export class SurveyEditor extends Component {
           <Content style={{ marginTop: 20 }}>
             <BackTop />
             <div style={{ padding: 24, background: '#fff', textAlign: 'center' }}>
-              <Editor survey={survey} />
+              <PageList data={pages} />
             </div>
           </Content>
           <Footer style={{ textAlign: 'center' }}>
@@ -43,7 +43,7 @@ export class SurveyEditor extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-  survey: state.editor.survey,
+  pages: getPages(state),
 })
 
 const mapDispatchToProps = dispatch => ({

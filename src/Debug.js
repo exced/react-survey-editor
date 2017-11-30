@@ -1,12 +1,14 @@
 import Reactotron from 'reactotron-react-js'
 import Immutable from 'seamless-immutable'
-import { reactotronRedux as reduxPlugin } from 'reactotron-redux'
+import { reactotronRedux } from 'reactotron-redux'
 
-if (process.env.NODE_ENV === 'development') {
+export const __DEV__ = process.env.NODE_ENV === 'development'
+
+if (__DEV__) {
   // https://github.com/infinitered/reactotron for more options!
   Reactotron
     .configure({ name: 'Survey Web' })
-    .use(reduxPlugin({ onRestore: Immutable }))
+    .use(reactotronRedux({ onRestore: Immutable }))
     .connect()
 
   // Let's clear Reactotron on every time we load the app

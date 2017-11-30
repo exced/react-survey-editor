@@ -1,86 +1,38 @@
 import {
-    SELECT,
-    NEW_SURVEY,
-    ADD_PAGE,
-    REMOVE_PAGE,
-    SET_PAGE,
-    MOVE_PAGE,
-    ADD_QUESTION,
-    REMOVE_QUESTION,
-    SET_QUESTION,
-    MOVE_QUESTION,
-    SURVEY,
-    PAGE,
+    ADD_ITEM,
+    REMOVE_ITEM,
+    SET_ITEM,
+    MOVE_ITEM,
 } from '../Types/Editor'
 
 // Action Creators
-export const select = (selected) => ({
-    type: SELECT,
+export const addItem = (type, index, parentId) => ({
+    type: ADD_ITEM,
     payload: {
-        selected,
-    }
-})
-
-export const newSurvey = () => ({
-    type: NEW_SURVEY,
-})
-
-export const addPage = () => ({
-    type: ADD_PAGE,
-})
-
-export const removePage = (index) => ({
-    type: REMOVE_PAGE,
-    payload: {
-        index
-    }
-})
-
-export const setPage = (index, value) => ({
-    type: SET_PAGE,
-    payload: {
+        type,
         index,
+        parentId,
+    }
+})
+
+export const removeItem = (id) => ({
+    type: REMOVE_ITEM,
+    payload: {
+        id
+    }
+})
+
+export const setItem = (id, value) => ({
+    type: SET_ITEM,
+    payload: {
+        id,
         value
     }
 })
 
-export const movePage = (oldIndex, newIndex) => ({
-    type: MOVE_PAGE,
+export const moveItem = (oldIndex, newIndex) => ({
+    type: MOVE_ITEM,
     payload: {
-        oldIndex,
-        newIndex,
-    }
-})
-
-export const addQuestion = (pageIndex, type) => ({
-    type: ADD_QUESTION,
-    payload: {
-        pageIndex,
-        type,
-    }
-})
-
-export const removeQuestion = (pageIndex, questionIndex) => ({
-    type: REMOVE_QUESTION,
-    payload: {
-        pageIndex,
-        questionIndex,
-    }
-})
-
-export const setQuestion = (pageIndex, questionIndex, value) => ({
-    type: SET_QUESTION,
-    payload: {
-        pageIndex,
-        questionIndex,
-        value,
-    }
-})
-
-export const moveQuestion = (pageIndex, oldIndex, newIndex) => ({
-    type: MOVE_QUESTION,
-    payload: {
-        pageIndex,
         oldIndex,
         newIndex,
     }
