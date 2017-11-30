@@ -185,7 +185,7 @@ module.exports = {
       {
         test: /\.css$/,
         use: ExtractTextPlugin.extract({
-        fallback: 'style-loader',
+          fallback: 'style-loader',
           use: [
             {
               loader: 'css-loader',
@@ -194,14 +194,14 @@ module.exports = {
                 localIdentName: '[name]__[local]___[hash:base64:5]'
               }
             },
-          'postcss-loader'
+            'postcss-loader'
           ]
         })
       },
       {
         test: /\.s[ac]ss$/,
         use: ExtractTextPlugin.extract({
-        fallback: 'style-loader',
+          fallback: 'style-loader',
           use: [
             {
               loader: 'css-loader',
@@ -212,25 +212,23 @@ module.exports = {
                 localIdentName: '[name]__[local]___[hash:base64:5]'
               }
             },
-          'sass-loader'
+            'sass-loader'
           ]
         })
       },
+      // Ant design
       {
-        test: /\.less$/,
+        test: /antd.*\.less$/,
         use: ExtractTextPlugin.extract({
-        fallback: 'style-loader',
+          fallback: 'style-loader',
           use: [
             {
               loader: 'css-loader',
               options: {
-                modules: true,
-                sourceMap: true,
-                importLoaders: 2,
-                localIdentName: '[name]__[local]___[hash:base64:5]'
+                sourceMap: 1,
               }
             },
-          'less-loader'
+            'less-loader'
           ]
         })
       },
