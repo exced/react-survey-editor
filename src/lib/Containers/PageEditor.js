@@ -34,10 +34,18 @@ class PageEditor extends Component {
 
   onAddQuestion = (type) => this.props.addQuestion(type, this.props.questions.length, this.props.data.item.id)
 
+  onClickOptions = ({ key }) => { }
+
   render() {
 
     const { collapsed } = this.state
     const { data: { item, index }, questions } = this.props
+
+    const options = (
+      <Menu onClick={this.onClickOptions}>
+        <Menu.Item key="1">Visible si</Menu.Item>
+      </Menu>
+    )
 
     return (
       <Layout style={layoutStyle}>
@@ -58,6 +66,9 @@ class PageEditor extends Component {
                 <Button type="secondary" shape="circle" icon="plus" size='large' />
               </Dropdown>
               <Button onClick={this.toggle} shape="circle" icon={collapsed ? 'down' : 'up'} size='large' />
+              <Dropdown overlay={options}>
+                <Button shape="circle" icon='ellipsis' size='large' />
+              </Dropdown>
               <Button type="danger" onClick={this.toggle} shape="circle" icon='delete' size='large' />
             </div>
           </Col>
@@ -75,7 +86,7 @@ const mapStateToProps = (state, ownProps) => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  removePage: () => dispatch(removeItem()),
+  removePage: (id) => dispatch(removeItem(id)),
   addQuestion: (type, index, pageId) => dispatch(addItem(type, index, pageId)),
 })
 
