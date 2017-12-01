@@ -2,6 +2,7 @@ import {
     ADD_ITEM,
     REMOVE_ITEM,
     SET_ITEM,
+    RESET_ITEM,
     MOVE_ITEM,
 } from '../Types/Editor'
 
@@ -27,6 +28,14 @@ export const setItem = (id, value) => ({
     payload: {
         id,
         value
+    }
+})
+
+export const resetItem = (id, type) => ({
+    type: RESET_ITEM,
+    payload: {
+        id,
+        type
     }
 })
 

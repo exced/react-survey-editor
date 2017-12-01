@@ -1,23 +1,18 @@
-sudo: false
-
 language: node_js
 node_js:
-  - "node"
-
+  - "stable"
 cache:
   directories:
-    - $HOME/.npm
-
-before_install:
-  - npm install coveralls
-  - git config --global user.email "thomas.barras26@gmail.com"
-  - git config --global user.name "exced"
-
-script: "npm run test:coverage"
-
-after_success:
-  - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
-
-branches:
-  only:
-    - master
+  - node_modules
+script:
+  - npm test -- --coverage # Include coverage when running tests
+  - npm run build
+after_script: # Upload coverage reports 
+  - COVERALLS_REPO_TOKEN=$coveralls_repo_token npm run coveralls
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $github_token
+  local_dir: build
+  on:
+    branch: master

@@ -3,10 +3,12 @@ import PropTypes from 'prop-types'
 import { Menu } from 'antd'
 import {
   QUESTION_TEXT,
+  QUESTION_TEXT_AREA,
   QUESTION_DATE,
   QUESTION_DISCRETE_SCALE,
   QUESTION_NUMERICAL_SCALE,
   QUESTION_CHOICES,
+  QUESTION_MATRIX,
   QUESTION_IMAGE,
   QUESTION_RANK,
 } from '../Types/Editor'
@@ -18,12 +20,12 @@ const QuestionMenu = ({ onClick }) => {
   const onClickType = ({ key }) => {
     const type = ({
       "1.1": QUESTION_TEXT,
-      "1.2": QUESTION_TEXT,
+      "1.2": QUESTION_TEXT_AREA,
       "2": QUESTION_DATE,
       "3.1": QUESTION_DISCRETE_SCALE,
       "3.2": QUESTION_NUMERICAL_SCALE,
       "4.1": QUESTION_CHOICES,
-      "4.2": QUESTION_CHOICES,
+      "4.2": QUESTION_MATRIX,
       "5": QUESTION_IMAGE,
       "6": QUESTION_RANK,
     })[key]

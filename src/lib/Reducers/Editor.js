@@ -3,6 +3,7 @@ import {
   ADD_ITEM,
   REMOVE_ITEM,
   SET_ITEM,
+  RESET_ITEM,
   MOVE_ITEM,
 } from '../Types/Editor'
 import { types, values } from '../Models/Editor'
@@ -21,7 +22,13 @@ const reducer = (state = initialState, action) => {
       const id = uniqueId()
       return {
         ...state,
-        items: { ...state.items, [id]: { id, type: action.payload.type, parentId: action.payload.parentId, ...values[action.payload.type] } },
+        items: {
+          ...state.items, [id]: {
+            id,
+            ...action.payload,
+            ...values[action.payload.type],
+          }
+        },
       }
     }
 
@@ -37,6 +44,13 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         items: { ...state.items, [action.payload.id]: action.payload.value }
+      }
+    }
+
+    case RESET_ITEM: {
+      return {
+        ...state,
+        items: { ...state.items, [action.payload.id]: { ...state.items[action.payload.id], type: action.payload.type, ...values[action.payload.type] } }
       }
     }
 

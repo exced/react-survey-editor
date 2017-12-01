@@ -3,9 +3,10 @@ import { connect } from 'react-redux'
 import { Row, Col, Button, Icon, Layout, Dropdown, Menu } from 'antd'
 import Handle from '../Components/Handle'
 import QuestionList from '../Components/QuestionList'
-import { removeItem, addItem } from '../Actions/Editor'
+import { removeItem, addItem, setItem } from '../Actions/Editor'
 import QuestionMenu from '../Components/QuestionMenu'
 import { getQuestions } from '../Selectors/Editor'
+import { EditText } from '../Components/EditFields'
 
 import style from './Styles/Editor'
 
@@ -34,12 +35,21 @@ class PageEditor extends Component {
 
   onAddQuestion = (type) => this.props.addQuestion(type, this.props.questions.length, this.props.data.item.id)
 
+  setItem = (value) => {
+    const { data: { item }, setPage } = this.props
+    setPage(item.id, { ...item, ...value })
+  }
+
+  removeItem = () => this.props.removePage(this.props.data.item.id)
+
   onClickOptions = ({ key }) => { }
 
   render() {
 
     const { collapsed } = this.state
     const { data: { item, index }, questions } = this.props
+
+    const { id, title } = item
 
     const options = (
       <Menu onClick={this.onClickOptions}>
@@ -57,7 +67,9 @@ class PageEditor extends Component {
           </Col>
           <Col span={18}>
             <div style={{ textAlign: 'center' }}>
-              <h2>{`${item.title} ${index}`}</h2>
+              <h2>
+                <EditText value={title} onChange={title => this.setItem({ title })} size="large" placeholder="Page" />
+              </h2>
             </div>
           </Col>
           <Col span={4}>
@@ -86,6 +98,7 @@ const mapStateToProps = (state, ownProps) => ({
 })
 
 const mapDispatchToProps = dispatch => ({
+  setPage: (id, value) => dispatch(setItem(id, value)),
   removePage: (id) => dispatch(removeItem(id)),
   addQuestion: (type, index, pageId) => dispatch(addItem(type, index, pageId)),
 })

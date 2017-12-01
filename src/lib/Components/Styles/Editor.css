@@ -1,7 +1,9 @@
-.test {
-  height: 20px;
-  width: 20px;
-  background-color: red;
+.IELarge {
+  border: 0; 
+  cursor: text;
+  font-size: 20;
+  font-weight: bold;
+  background-color: transparent;
 }
 
 .root {
