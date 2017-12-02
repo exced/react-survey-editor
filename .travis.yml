@@ -8,7 +8,7 @@ cache:
 notifications:
   email: false  
 script:
-  - yarn test -- --coverage
+  - yarn test --coverage
   - yarn lib
   - yarn build
 after_script:
