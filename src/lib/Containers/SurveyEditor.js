@@ -5,7 +5,8 @@ import { Layout, Menu, Icon, BackTop, Affix, Button } from 'antd'
 import ToolBar from './ToolBar'
 import FAB from './FAB'
 import { getPages } from '../Selectors/Editor'
-import PageList from '../Components/PageList'
+import DragList from '../Components/DragList'
+import PageEditor from './PageEditor'
 
 const { Header, Footer, Sider, Content } = Layout
 
@@ -30,7 +31,7 @@ export class SurveyEditor extends Component {
           <Content style={{ marginTop: 20 }}>
             <BackTop />
             <div style={{ padding: 24, background: '#fff', textAlign: 'center' }}>
-              <PageList data={pages} />
+              <DragList Component={PageEditor} data={pages} />
             </div>
           </Content>
           <Footer style={{ textAlign: 'center' }}>

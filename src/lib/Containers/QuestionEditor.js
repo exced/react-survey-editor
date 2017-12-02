@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Row, Col, Button, Icon, Layout, Dropdown, Menu } from 'antd'
-import Handle from '../Components/Handle'
+import { Handle } from '../Components/DragList'
 import {
   QUESTION_TEXT,
   QUESTION_TEXT_AREA,
@@ -27,7 +27,7 @@ import QuestionMenu from '../Components/QuestionMenu'
 import { resetItem, setItem, moveItem, removeItem } from '../Actions/Editor'
 import { typeToName } from '../Transforms/Editor'
 
-import style from './Styles/Editor'
+import style from './Styles/Editor.css'
 
 const layoutStyle = {
   margin: 20,

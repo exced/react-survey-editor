@@ -61,7 +61,9 @@
     "lib": "babel src/lib --out-dir lib --copy-files",
     "test": "node scripts/test.js --env=jsdom",
     "coverage": "react-scripts test --env=jsdom --coverage",
-    "coveralls": "cat ./coverage/lcov.info | node node_modules/.bin/coveralls"
+    "coveralls": "cat ./coverage/lcov.info | node node_modules/.bin/coveralls",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "jest": {
     "collectCoverageFrom": [
@@ -113,6 +115,9 @@
     "babel-preset-stage-0": "^6.24.1",
     "coveralls": "^3.0.0",
     "reactotron-react-js": "^1.13.0",
-    "reactotron-redux": "^1.13.0"
+    "reactotron-redux": "^1.13.0",
+    "@storybook/react": "^3.2.16",
+    "@storybook/addon-actions": "^3.2.16",
+    "@storybook/addon-links": "^3.2.16"
   }
 }

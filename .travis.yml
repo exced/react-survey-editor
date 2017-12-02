@@ -2,13 +2,20 @@ language: node_js
 node_js:
   - "stable"
 cache:
+  yarn: true
   directories:
   - node_modules
+notifications:
+  email: false  
 script:
-  - npm test -- --coverage # Include coverage when running tests
-  - npm run build
-after_script: # Upload coverage reports 
-  - COVERALLS_REPO_TOKEN=$coveralls_repo_token npm run coveralls
+  - yarn test -- --coverage
+  - yarn lib
+  - yarn build
+after_script:
+  - COVERALLS_REPO_TOKEN=$coveralls_repo_token yarn coveralls
+before_deploy:
+  - yarn lib
+  - yarn build-storybook
 deploy:
   provider: pages
   skip_cleanup: true
@@ -16,3 +23,6 @@ deploy:
   local_dir: build
   on:
     branch: master
+branches:
+  only:
+  - master

@@ -2,9 +2,14 @@
 
 [![Build Status](https://travis-ci.org/exced/react-survey-editor.svg?branch=master)](https://travis-ci.org/exced/react-survey-editor)
 
-## Getting Started
+## Install
 
-Clone repo
+```bash
+yarn add react-survey-editor
+```
 
-````
-git clone https://github.com/exced/react-survey-editor.git
+## Getting started
+
+## API
+
+All contributions are welcome.

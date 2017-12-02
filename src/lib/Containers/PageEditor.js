@@ -1,14 +1,14 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Row, Col, Button, Icon, Layout, Dropdown, Menu } from 'antd'
-import Handle from '../Components/Handle'
-import QuestionList from '../Components/QuestionList'
+import DragList, { Handle } from '../Components/DragList'
+import QuestionEditor from './QuestionEditor'
 import { removeItem, addItem, setItem } from '../Actions/Editor'
 import QuestionMenu from '../Components/QuestionMenu'
 import { getQuestions } from '../Selectors/Editor'
 import { EditText } from '../Components/EditFields'
 
-import style from './Styles/Editor'
+import style from './Styles/Editor.css'
 
 const { Header, Footer, Sider, Content } = Layout
 const ButtonGroup = Button.Group
@@ -86,7 +86,7 @@ class PageEditor extends Component {
           </Col>
         </Row>
         <Content>
-          <QuestionList collapsed={collapsed} data={questions} />
+          <DragList collapsed={collapsed} Component={QuestionEditor} data={questions} />
         </Content>
       </Layout>
     )

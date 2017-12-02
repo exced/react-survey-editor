@@ -9,6 +9,7 @@ import {
 import { types, values } from '../Models/Editor'
 import { uniqueId } from 'lodash'
 import Immutable from 'seamless-immutable'
+import undoable from 'redux-undo'
 
 // Normalized state. Item Map. O(1) access
 const initialState = Immutable({
@@ -60,3 +61,7 @@ const reducer = (state = initialState, action) => {
 }
 
 export default reducer
+
+  //  undoable(reducer, {
+  //   limit: 10 // history limit
+  // }),

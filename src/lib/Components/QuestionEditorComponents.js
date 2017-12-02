@@ -9,10 +9,14 @@ import {
   Form,
 } from 'antd'
 
-import style from './Styles/Editor'
+import style from './Styles/Editor.css'
 
 const Option = Select.Option
 const FormItem = Form.Item
+
+const Edit = () => { }
+
+const MetaData = () => { }
 
 export const QuestionText = ({ onChange, value }) => (
   <Row type="flex" align="bottom">

@@ -1,9 +1,9 @@
 import { combineReducers, createStore, applyMiddleware, compose } from 'redux'
-import Reducers from './lib/Reducers'
+import { Reducer as editor } from './lib'
 import { __DEV__ } from './Debug'
 
 const rootReducer = combineReducers({
-  ...Reducers,
+  editor,
 })
 
 const initialState = {}

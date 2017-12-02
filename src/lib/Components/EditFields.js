@@ -15,7 +15,7 @@ import {
 } from 'antd'
 import styled, { css } from 'styled-components'
 
-import style from './Styles/Editor'
+import style from './Styles/Editor.css'
 
 const StyledInput = styled(Input) `
 color: ${props => props.color ? props.color : '#181919'};

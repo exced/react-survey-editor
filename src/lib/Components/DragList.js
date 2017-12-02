@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
-import { arrayMove } from 'react-sortable-hoc'
+import { SortableHandle, SortableContainer, SortableElement, arrayMove } from 'react-sortable-hoc'
 
-import style from './Styles/Editor'
+import style from './Styles/Editor.css'
 
-export default class DragListWrapper extends Component {
+export const Handle = SortableHandle(() => <div className={style.handle} />)
+
+export class Wrapper extends Component {
 
   static propTypes = {
     data: PropTypes.array,
@@ -73,5 +75,37 @@ export default class DragListWrapper extends Component {
     }
 
     return <Component {...this.props} {...props} />
+  }
+}
+
+export default class DragList extends Component {
+
+  static propTypes = {
+    data: PropTypes.array.isRequired,
+    Component: PropTypes.element.isRequired,
+  }
+
+  render() {
+
+    const { Component, data } = this.props
+
+    const Element = SortableElement(props => <Component {...props} />)
+    const Container = SortableContainer(({ data, ...props }) => (
+      <div>
+        {data.map((item, index) => (
+          <Element key={item.id} index={index} data={{ item, index }} {...props} />
+        ))}
+      </div>
+    ))
+
+    return (
+      <Wrapper
+        component={Container}
+        data={data}
+        shouldUseDragHandle={true}
+        helperClass={style.stylizedHelper}
+        {...this.props}
+      />
+    )
   }
 }
