@@ -23,7 +23,6 @@ const { Sider } = Layout
 
 class ToolBar extends Component {
   static propTypes = {
-    prop: PropTypes
   }
 
   state = {

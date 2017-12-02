@@ -12,7 +12,6 @@ const { Header, Footer, Sider, Content } = Layout
 
 export class SurveyEditor extends Component {
   static propTypes = {
-    prop: PropTypes
   }
 
   render() {

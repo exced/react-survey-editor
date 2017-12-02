@@ -82,7 +82,7 @@ export default class DragList extends Component {
 
   static propTypes = {
     data: PropTypes.array.isRequired,
-    Component: PropTypes.element.isRequired,
+    Component: PropTypes.func.isRequired,
   }
 
   render() {
