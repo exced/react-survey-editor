@@ -87,7 +87,7 @@ export default class DragList extends Component {
 
   render() {
 
-    const { Component, data } = this.props
+    const { Component, data, onMove } = this.props
 
     const Element = SortableElement(props => <Component {...props} />)
     const Container = SortableContainer(({ data, ...props }) => (
@@ -99,13 +99,16 @@ export default class DragList extends Component {
     ))
 
     return (
-      <Wrapper
-        component={Container}
-        data={data}
-        shouldUseDragHandle={true}
-        helperClass={style.stylizedHelper}
-        {...this.props}
-      />
+      <div style={{ position: 'relative' }}>
+        <Wrapper
+          component={Container}
+          data={data}
+          shouldUseDragHandle={true}
+          helperClass={style.stylizedHelper}
+          {...this.props}
+        />
+        <Handle style={{ position: 'absolute', top: 0, left: 0 }} />
+      </div>
     )
   }
 }

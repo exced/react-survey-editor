@@ -1,28 +1,20 @@
-import React, { Component } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
-import { Layout } from 'antd'
-import Editor from './Editor'
-import Survey from './Survey'
+import { EditText } from '../Components/EditFields'
+import PageList from '../Containers/PageList'
 
-const { Header, Footer, Sider, Content } = Layout
+const SurveyEditor = ({ title, onChange }) => (
+  <div style={{ textAlign: 'center' }}>
+    <h3>
+      <EditText value={title} onChange={title => onChange({ title })} size="large" placeholder="Questionnaire" />
+    </h3>
+    <PageList />
+  </div>
+)
 
-export default class SurveyEditor extends Component {
-  static propTypes = {
-    survey: PropTypes.object.isRequired
-  }
-
-  render() {
-
-    const { survey } = this.props
-
-    return (
-      <div>
-        <Layout style={{ minHeight: '100vh' }}>
-          <Content>
-            <Editor survey={survey} />
-          </Content>
-        </Layout>
-      </div>
-    )
-  }
+SurveyEditor.propTypes = {
+  title: PropTypes.string.isRequired,
+  onChange: PropTypes.string.isRequired,
 }
+
+export default SurveyEditor

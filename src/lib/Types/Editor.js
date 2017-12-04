@@ -1,12 +1,22 @@
 // Actions
-export const ADD_ITEM = 'ADD_ITEM'
-export const REMOVE_ITEM = 'REMOVE_ITEM'
-export const SET_ITEM = 'SET_ITEM'
-export const RESET_ITEM = 'RESET_ITEM'
-export const MOVE_ITEM = 'MOVE_ITEM'
+export const SET = 'SET'
+export const RESET = 'RESET'
+
+export const SET_SURVEY = 'SET_SURVEY'
+
+export const ADD_PAGE = 'ADD_PAGE'
+export const REMOVE_PAGE = 'REMOVE_PAGE'
+export const SET_PAGE = 'SET_PAGE'
+export const RESET_PAGE = 'RESET_PAGE'
+export const MOVE_PAGE = 'MOVE_PAGE'
+
+export const ADD_QUESTION = 'ADD_QUESTION'
+export const REMOVE_QUESTION = 'REMOVE_QUESTION'
+export const SET_QUESTION = 'SET_QUESTION'
+export const RESET_QUESTION = 'RESET_QUESTION'
+export const MOVE_QUESTION = 'MOVE_QUESTION'
 
 // Types
-export const SURVEY = 'SURVEY'
 export const PAGE = 'PAGE'
 export const QUESTION_TEXT = 'QUESTION_TEXT'
 export const QUESTION_TEXT_AREA = 'QUESTION_TEXT_AREA'

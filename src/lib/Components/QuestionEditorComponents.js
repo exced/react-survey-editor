@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import {
   Row,
@@ -9,19 +9,17 @@ import {
   Form,
 } from 'antd'
 
-import style from './Styles/Editor.css'
-
 const Option = Select.Option
 const FormItem = Form.Item
 
-const Edit = () => { }
+export const QuestionTextItem = ({ disabled, value, onChange }) => (
+  <Input disabled={disabled} placeholder="Réponse courte" size={value.size} style={{ width: 'auto' }} />
+)
 
-const MetaData = () => { }
-
-export const QuestionText = ({ onChange, value }) => (
+export const QuestionText = ({ value, onChange }) => (
   <Row type="flex" align="bottom">
     <Col span={16}>
-      <Input disabled placeholder="Réponse courte" size={value.size} style={{ width: 'auto' }} />
+      <QuestionTextItem disabled value={value} onChange={onChange} />
     </Col>
     <Col span={8}>
       <h3>Méta données</h3>
@@ -35,6 +33,11 @@ export const QuestionText = ({ onChange, value }) => (
     </Col>
   </Row>
 )
+
+QuestionText.propTypes = {
+  onChange: PropTypes.func.isRequired,
+  value: PropTypes.object.isRequired,
+}
 
 export const QuestionTextArea = ({ onChange, value }) => (
   <Input disabled placeholder="Réponse longue" />
