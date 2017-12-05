@@ -6,9 +6,9 @@ import PageList from '../Containers/PageList'
 const SurveyEditor = ({ item, onChange }) => (
   <div style={{ textAlign: 'center' }}>
     <h3>
-      <EditText value={item.title} onChange={title => onChange(item.id, { title })} size="large" placeholder="Questionnaire" />
+      <EditText value={item.title} onChange={title => onChange({ title })} size="large" placeholder="Questionnaire" />
     </h3>
-    <PageList />
+    <PageList parent={item} data={item.pages} />
   </div>
 )
 

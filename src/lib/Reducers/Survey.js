@@ -3,6 +3,10 @@ import {
   SET,
   SET_SURVEY,
 } from '../Types/Survey'
+import {
+  ADD_PAGE,
+  REMOVE_PAGE,
+} from '../Types/Page'
 
 const initialState = Immutable({})
 
@@ -19,6 +23,27 @@ const reducer = (state = initialState, action) => {
         [action.payload.id]: {
           ...state[action.payload.id],
           ...action.payload
+        }
+      }
+
+    case ADD_PAGE:
+      return {
+        ...state,
+        [action.payload.surveyId]: {
+          ...state[action.payload.surveyId],
+          pages: [
+            ...state[action.payload.surveyId].pages,
+            action.payload.id,
+          ]
+        }
+      }
+
+    case REMOVE_PAGE:
+      return {
+        ...state,
+        [action.payload.surveyId]: {
+          ...state[action.payload.surveyId],
+          pages: state[action.payload.surveyId].pages.filter(e => e !== action.payload.id)
         }
       }
 

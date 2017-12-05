@@ -1,13 +1,12 @@
 import { connect } from 'react-redux'
 import { movePage } from '../Actions/Page'
-import { getPageIds } from '../Selectors/Page'
 import PageList from '../Components/PageList'
 
-const mapStateToProps = (state) => ({
-  data: getPageIds(state),
+const mapStateToProps = (state, ownProps) => ({
+
 })
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch, ownProps) => ({
   onMove: (oldIndex, newIndex) => dispatch(movePage(oldIndex, newIndex)),
 })
 

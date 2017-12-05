@@ -9,8 +9,9 @@
             "import",
             {
                 "libraryName": "antd",
-                "style": true
+                "libraryDirectory": "es",
+                "style": true // `style: true` for less
             }
-        ] // `style: true` for less
+        ]
     ]
 }

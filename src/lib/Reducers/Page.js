@@ -58,6 +58,15 @@ const reducer = (state = initialState, action) => {
         }
       }
 
+    case REMOVE_QUESTION:
+      return {
+        ...state,
+        [action.payload.pageId]: {
+          ...state[action.payload.pageId],
+          questions: state[action.payload.pageId].questions.filter(e => e !== action.payload.id)
+        }
+      }
+
     default:
       return state
   }

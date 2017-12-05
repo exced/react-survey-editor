@@ -14,6 +14,6 @@ export const questionKeys = (state) => Object.keys(state.editor.entities.questio
 
 // Selectors
 export const getQuestion = createSelector(
-    [questionValues, id],
+    [questions, id],
     (questions, id) => questions[id]
 )

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Row, Col, Button, Layout, Dropdown, Menu } from 'antd'
+import { Row, Col, Button, Layout, Dropdown } from 'antd'
+import { Handle } from '../Components/DragList'
 import { EditText } from '../Components/EditFields'
 import QuestionMenu from '../Components/QuestionMenu'
 import QuestionList from '../Containers/QuestionList'
@@ -18,44 +19,45 @@ const layoutStyle = {
 
 export default class PageEditor extends Component {
 
-  onClickOptions = ({ key }) => { }
+  constructor(props) {
+    super(props)
+    this.state = {
+      collapsed: false,
+    }
+  }
+
+  toggle = () => this.setState({ collapsed: !this.state.collapsed })
 
   render() {
 
-    const { data, onChange, onRemove, onAdd, collapsed } = this.props
+    const { collapsed } = this.state
 
-    const options = (
-      <Menu onClick={this.onClickOptions}>
-        <Menu.Item key="1">Visible si</Menu.Item>
-      </Menu>
-    )
+    const { item, onChange, onRemove, onAdd } = this.props
 
     return (
       <div>
         <Layout style={layoutStyle}>
-          <Row>
-            <Col span={20}>
+          <Row style={{ padding: 10 }}>
+            <Col span={2}>
+              <Handle />
+            </Col>
+            <Col span={18}>
               <div style={{ textAlign: 'center' }}>
                 <h2>
-                  <EditText value={data.title} onChange={title => onChange({ title })} size="large" placeholder="Page" />
+                  <EditText value={item.title} onChange={title => onChange({ title })} size="large" placeholder="Page" />
                 </h2>
               </div>
             </Col>
             <Col span={4}>
-              <div style={{ padding: 10 }}>
-                <Dropdown overlay={<QuestionMenu onClick={onAdd} />}>
-                  <Button type="secondary" shape="circle" icon="plus" size='large' />
-                </Dropdown>
-                <Button onClick={this.toggle} shape="circle" icon={collapsed ? 'down' : 'up'} size='large' />
-                <Dropdown overlay={options}>
-                  <Button shape="circle" icon='ellipsis' size='large' />
-                </Dropdown>
-                <Button type="danger" onClick={onRemove} shape="circle" icon='delete' size='large' />
-              </div>
+              <Dropdown overlay={<QuestionMenu onClick={onAdd} />}>
+                <Button type="secondary" shape="circle" icon="plus" size='large' />
+              </Dropdown>
+              <Button onClick={this.toggle} shape="circle" icon={collapsed ? 'down' : 'up'} size='large' />
+              <Button type="danger" onClick={onRemove} shape="circle" icon='delete' size='large' />
             </Col>
           </Row>
           <Content>
-            <QuestionList data={data.questions} />
+            <QuestionList collapsed={collapsed} parent={item} data={item.questions} />
           </Content>
         </Layout>
       </div>
@@ -64,7 +66,7 @@ export default class PageEditor extends Component {
 }
 
 PageEditor.propTypes = {
-  data: PropTypes.object.isRequired,
+  item: PropTypes.object.isRequired,
   onChange: PropTypes.func.isRequired,
   onRemove: PropTypes.func.isRequired,
   onAdd: PropTypes.func.isRequired,

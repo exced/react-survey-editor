@@ -8,10 +8,11 @@ import {
 } from '../Types/Page'
 
 // Action Creators
-export const addPage = () => ({
+export const addPage = (surveyId) => ({
   type: ADD_PAGE,
   payload: {
     id: uniqueId(),
+    surveyId,
     title: 'Page',
     enabledIf: `true`,
     questions: [],
@@ -26,9 +27,10 @@ export const setPage = (id, value) => ({
   }
 })
 
-export const removePage = (id) => ({
+export const removePage = (surveyId, id) => ({
   type: REMOVE_PAGE,
   payload: {
+    surveyId,
     id,
   }
 })

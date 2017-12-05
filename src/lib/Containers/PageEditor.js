@@ -5,12 +5,12 @@ import { getPage } from '../Selectors/Page'
 import PageEditor from '../Components/PageEditor'
 
 const mapStateToProps = (state, ownProps) => ({
-  data: getPage(state, ownProps)
+  item: getPage(state, ownProps)
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
   onChange: (value) => dispatch(setPage(ownProps.id, value)),
-  onRemove: () => dispatch(removePage(ownProps.id)),
+  onRemove: () => dispatch(removePage(ownProps.parent.id, ownProps.id)),
   onAdd: (type) => dispatch(addQuestion(ownProps.id, type)),
 })
 

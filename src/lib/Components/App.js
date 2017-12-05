@@ -5,16 +5,16 @@ import SurveyEditor from '../Containers/SurveyEditor'
 
 const { Content } = Layout
 
-const App = () => (
+const App = ({ item }) => (
   <div>
-    <Layout style={{ margin: 20, position: 'relative' }}>
-      <Affix style={{ position: 'absolute', bottom: 20, right: 20 }}>
-        <FAB />
+    <Layout>
+      <Affix style={{ position: 'absolute', bottom: 30, right: 30 }}>
+        <FAB item={item} />
       </Affix>
       <BackTop />
-      <Content style={{ marginTop: 20 }}>
+      <Content>
         <div style={{ padding: 24, background: '#fff', textAlign: 'center' }}>
-          <SurveyEditor />
+          <SurveyEditor item={item} />
         </div>
       </Content>
     </Layout>

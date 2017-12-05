@@ -10,20 +10,24 @@ import {
   QUESTION_CHOICES,
   QUESTION_IMAGE,
   QUESTION_RANK,
+  QUESTION_MATRIX,
+  QUESTION_CASCADE,
 } from '../Types/Question'
-import {
-  QuestionText,
-  QuestionTextArea,
-  QuestionDate,
-  QuestionDiscreteScale,
-  QuestionNumericalScale,
-  QuestionChoices,
-  QuestionImage,
-  QuestionRank,
-} from '../Components/QuestionEditorComponents'
-import { EditText } from '../Components/EditFields'
+import QuestionText from './QuestionText'
+import QuestionTextArea from './QuestionTextArea'
+import QuestionDate from './QuestionDate'
+import QuestionDiscreteScale from './QuestionDiscreteScale'
+import QuestionNumericalScale from './QuestionNumericalScale'
+import QuestionChoices from './QuestionChoices'
+import QuestionImage from './QuestionImage'
+import QuestionRank from './QuestionRank'
+import QuestionMatrix from './QuestionMatrix'
+import { Handle } from '../Components/DragList'
+import ItemOptions from '../Components/ItemOptions'
 import QuestionMenu from '../Components/QuestionMenu'
+import QuestionCascade from '../Components/QuestionCascade'
 import { typeToName } from '../Transforms/Editor'
+import { EditText } from '../Components/EditFields'
 
 const layoutStyle = {
   margin: 20,
@@ -37,59 +41,54 @@ const layoutStyle = {
 
 const { Content } = Layout
 
-const dispatcher = {
+const node = (type) => ({
   [QUESTION_TEXT]: QuestionText,
   [QUESTION_TEXT_AREA]: QuestionTextArea,
   [QUESTION_DATE]: QuestionDate,
   [QUESTION_DISCRETE_SCALE]: QuestionDiscreteScale,
   [QUESTION_NUMERICAL_SCALE]: QuestionNumericalScale,
   [QUESTION_CHOICES]: QuestionChoices,
+  [QUESTION_MATRIX]: QuestionMatrix,
   [QUESTION_IMAGE]: QuestionImage,
   [QUESTION_RANK]: QuestionRank,
-}
+  [QUESTION_CASCADE]: QuestionCascade,
+})[type]
 
 export default class QuestionEditor extends Component {
 
-  onClickOptions = ({ key }) => { }
-
   render() {
 
-    const { data, onChange, onRemove, onReset, collapsed } = this.props
+    const { item, onChange, onRemove, onReset, collapsed } = this.props
 
-    const options = (
-      <Menu onClick={this.onClickOptions}>
-        <Menu.Item key="1">Visible si</Menu.Item>
-      </Menu>
-    )
-
-    const EditorComponent = dispatcher[data.type]
+    const Node = node(item.type)
 
     return (
       <div>
         <Layout style={layoutStyle}>
-          <Row>
-            <Col span={18}>
+          <Row style={{ padding: 10 }}>
+            <Col span={2}>
+              <Handle />
+            </Col>
+            <Col span={14}>
               <div style={{ textAlign: 'center' }}>
                 <h3>
-                  <EditText value={data.title} onChange={title => onChange({ title })} size="large" placeholder="Question" />
+                  <EditText value={item.title} onChange={title => onChange({ title })} size="large" placeholder="Question" />
                   <sup>
-                    <Button type="dashed" onClick={() => onChange({ mandatory: !data.mandatory })} shape="circle" icon={data.mandatory ? 'star' : 'star-o'} size='small' />
+                    <Button type="dashed" onClick={() => onChange({ mandatory: !item.mandatory })} shape="circle" icon={item.mandatory ? 'star' : 'star-o'} size='small' />
                   </sup>
                 </h3>
               </div>
             </Col>
-            <Col span={4}>
+            <Col span={8}>
               <Dropdown overlay={<QuestionMenu onClick={(type) => onReset(type)} />}>
                 <Button shape="circle" type="secondary" icon="setting" size='large'>{typeToName()}</Button>
               </Dropdown>
-              <Dropdown overlay={options}>
-                <Button shape="circle" icon='ellipsis' size='large' />
-              </Dropdown>
-              <Button type="danger" onClick={() => this.removeItem()} shape="circle" icon='delete' size='large' />
+              <ItemOptions />
+              <Button type="danger" onClick={onRemove} shape="circle" icon='delete' size='large' />
             </Col>
           </Row>
           <Content style={{ textAlign: 'left', margin: 10, marginLeft: 50 }}>
-            {!collapsed && <EditorComponent value={data} onChange={this.setItem} />}
+            {!collapsed && <Node value={item} onChange={onChange} />}
           </Content>
         </Layout>
       </div>
@@ -98,7 +97,7 @@ export default class QuestionEditor extends Component {
 }
 
 QuestionEditor.propTypes = {
-  data: PropTypes.object.isRequired,
+  item: PropTypes.object.isRequired,
   onChange: PropTypes.func.isRequired,
   onRemove: PropTypes.func.isRequired,
   onReset: PropTypes.func.isRequired,

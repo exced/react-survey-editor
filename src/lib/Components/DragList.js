@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import PropTypes, { instanceOf } from 'prop-types'
+import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import { SortableHandle, SortableContainer, SortableElement, arrayMove } from 'react-sortable-hoc'
 
@@ -8,25 +8,6 @@ import style from './Styles/Editor.css'
 export const Handle = SortableHandle(() => <div className={style.handle} />)
 
 export class Wrapper extends Component {
-
-  static propTypes = {
-    data: PropTypes.array,
-    className: PropTypes.string,
-    itemClass: PropTypes.string,
-    width: PropTypes.number,
-    height: PropTypes.number,
-    onSortStart: PropTypes.func,
-    onSortEnd: PropTypes.func,
-    component: PropTypes.func,
-    shouldUseDragHandle: PropTypes.bool,
-  }
-
-  static defaultProps = {
-    className: classNames(style.list, style.stylizedList),
-    itemClass: classNames(style.item, style.stylizedItem),
-    width: 400,
-    height: 600,
-  }
 
   constructor(props) {
     super(props)
@@ -78,11 +59,28 @@ export class Wrapper extends Component {
   }
 }
 
+Wrapper.propTypes = {
+  data: PropTypes.array,
+  className: PropTypes.string,
+  itemClass: PropTypes.string,
+  width: PropTypes.number,
+  height: PropTypes.number,
+  onSortStart: PropTypes.func,
+  onSortEnd: PropTypes.func,
+  component: PropTypes.func,
+  shouldUseDragHandle: PropTypes.bool,
+}
+
+Wrapper.defaultProps = {
+  className: classNames(style.list, style.stylizedList),
+  itemClass: classNames(style.item, style.stylizedItem),
+}
+
 export default class DragList extends Component {
 
   static propTypes = {
     data: PropTypes.array.isRequired, // ids
-    Component: PropTypes.func.isRequired,
+    Component: PropTypes.node.isRequired,
   }
 
   render() {
@@ -91,15 +89,16 @@ export default class DragList extends Component {
 
     const Element = SortableElement(props => <Component {...props} />)
     const Container = SortableContainer(({ data, ...props }) => (
+      // pass a list of ids instead of plain objects to avoid useless re-rendering on item changes
       <div>
         {data.map((item, index) => (
-          <Element key={item} index={index} id={item} data={{ item, index }} {...props} />
+          <Element key={item} index={index} id={item} {...props} />
         ))}
       </div>
     ))
 
     return (
-      <div style={{ position: 'relative' }}>
+      <div>
         <Wrapper
           component={Container}
           data={data}
@@ -107,7 +106,6 @@ export default class DragList extends Component {
           helperClass={style.stylizedHelper}
           {...this.props}
         />
-        <Handle style={{ position: 'absolute', top: 0, left: 0 }} />
       </div>
     )
   }

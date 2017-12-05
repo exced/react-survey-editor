@@ -38,8 +38,9 @@ const initialValue = (type) => ({
     mandatory: false,
     enabledIf: `true`,
     tooltip: '',
-    begin: null,
-    end: null,
+    dateType: 'date',
+    min: null,
+    max: null,
   },
   [QUESTION_DISCRETE_SCALE]: {
     type: QUESTION_DISCRETE_SCALE,
@@ -47,8 +48,8 @@ const initialValue = (type) => ({
     mandatory: false,
     enabledIf: `true`,
     tooltip: '',
-    begin: 0,
-    end: 100,
+    min: 0,
+    max: 100,
     step: 1,
   },
   [QUESTION_NUMERICAL_SCALE]: {
@@ -57,8 +58,8 @@ const initialValue = (type) => ({
     mandatory: false,
     enabledIf: `true`,
     tooltip: '',
-    begin: 0,
-    end: 100,
+    min: 0,
+    max: 100,
     step: 1,
   },
   [QUESTION_CHOICES]: {
@@ -68,6 +69,7 @@ const initialValue = (type) => ({
     enabledIf: `true`,
     tooltip: '',
     choices: [],
+    max: 1,
   },
   [QUESTION_IMAGE]: {
     type: QUESTION_IMAGE,
@@ -105,9 +107,10 @@ export const setQuestion = (id, value) => ({
   }
 })
 
-export const removeQuestion = (id) => ({
+export const removeQuestion = (pageId, id) => ({
   type: REMOVE_QUESTION,
   payload: {
+    pageId,
     id,
   }
 })
