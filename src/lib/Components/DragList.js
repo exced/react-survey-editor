@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import PropTypes, { instanceOf } from 'prop-types'
 import classNames from 'classnames'
 import { SortableHandle, SortableContainer, SortableElement, arrayMove } from 'react-sortable-hoc'
 
@@ -81,7 +81,7 @@ export class Wrapper extends Component {
 export default class DragList extends Component {
 
   static propTypes = {
-    data: PropTypes.array.isRequired,
+    data: PropTypes.array.isRequired, // ids
     Component: PropTypes.func.isRequired,
   }
 
@@ -93,7 +93,7 @@ export default class DragList extends Component {
     const Container = SortableContainer(({ data, ...props }) => (
       <div>
         {data.map((item, index) => (
-          <Element key={item.id} index={index} data={{ item, index }} {...props} />
+          <Element key={item} index={index} id={item} data={{ item, index }} {...props} />
         ))}
       </div>
     ))

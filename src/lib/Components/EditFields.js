@@ -1,21 +1,9 @@
-import React, { Component } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import {
-  Form,
   Input,
-  Checkbox,
-  Select,
-  Switch,
-  Radio,
-  InputNumber,
-  Slider,
-  Button,
-  Upload,
-  Icon
 } from 'antd'
-import styled, { css } from 'styled-components'
-
-import style from './Styles/Editor.css'
+import styled from 'styled-components'
 
 const StyledInput = styled(Input) `
 color: ${props => props.color ? props.color : '#181919'};
@@ -40,3 +28,7 @@ export const EditText = ({ onChange, value, size, placeholder }) => (
     placeholder={placeholder}
   />
 )
+
+EditText.propTypes = {
+  onChange: PropTypes.func.isRequired,
+}

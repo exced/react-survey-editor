@@ -22,7 +22,7 @@ export default class PageEditor extends Component {
 
   render() {
 
-    const { data: { item, index }, onChange, onRemove, onAdd, collapsed } = this.props
+    const { data, onChange, onRemove, onAdd, collapsed } = this.props
 
     const options = (
       <Menu onClick={this.onClickOptions}>
@@ -37,7 +37,7 @@ export default class PageEditor extends Component {
             <Col span={20}>
               <div style={{ textAlign: 'center' }}>
                 <h2>
-                  <EditText value={item.title} onChange={title => onChange({ title })} size="large" placeholder="Page" />
+                  <EditText value={data.title} onChange={title => onChange({ title })} size="large" placeholder="Page" />
                 </h2>
               </div>
             </Col>
@@ -55,7 +55,7 @@ export default class PageEditor extends Component {
             </Col>
           </Row>
           <Content>
-            <QuestionList pageIndex={index} />
+            <QuestionList data={data.questions} />
           </Content>
         </Layout>
       </div>
@@ -64,10 +64,7 @@ export default class PageEditor extends Component {
 }
 
 PageEditor.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.shape({
-    item: PropTypes.object.isRequired,
-    index: PropTypes.number.isRequired,
-  })).isRequired,
+  data: PropTypes.object.isRequired,
   onChange: PropTypes.func.isRequired,
   onRemove: PropTypes.func.isRequired,
   onAdd: PropTypes.func.isRequired,

@@ -10,7 +10,7 @@ import {
   QUESTION_CHOICES,
   QUESTION_IMAGE,
   QUESTION_RANK,
-} from '../Types/Editor'
+} from '../Types/Question'
 import {
   QuestionText,
   QuestionTextArea,
@@ -54,7 +54,7 @@ export default class QuestionEditor extends Component {
 
   render() {
 
-    const { data: { item, index }, onChange, onRemove, onReset, collapsed } = this.props
+    const { data, onChange, onRemove, onReset, collapsed } = this.props
 
     const options = (
       <Menu onClick={this.onClickOptions}>
@@ -62,7 +62,7 @@ export default class QuestionEditor extends Component {
       </Menu>
     )
 
-    const EditorComponent = dispatcher[item.type]
+    const EditorComponent = dispatcher[data.type]
 
     return (
       <div>
@@ -71,9 +71,9 @@ export default class QuestionEditor extends Component {
             <Col span={18}>
               <div style={{ textAlign: 'center' }}>
                 <h3>
-                  <EditText value={item.title} onChange={title => onChange({ title })} size="large" placeholder="Question" />
+                  <EditText value={data.title} onChange={title => onChange({ title })} size="large" placeholder="Question" />
                   <sup>
-                    <Button type="dashed" onClick={() => onChange({ mandatory: !item.mandatory })} shape="circle" icon={item.mandatory ? 'star' : 'star-o'} size='small' />
+                    <Button type="dashed" onClick={() => onChange({ mandatory: !data.mandatory })} shape="circle" icon={data.mandatory ? 'star' : 'star-o'} size='small' />
                   </sup>
                 </h3>
               </div>
@@ -89,7 +89,7 @@ export default class QuestionEditor extends Component {
             </Col>
           </Row>
           <Content style={{ textAlign: 'left', margin: 10, marginLeft: 50 }}>
-            {!collapsed && <EditorComponent value={item} onChange={this.setItem} />}
+            {!collapsed && <EditorComponent value={data} onChange={this.setItem} />}
           </Content>
         </Layout>
       </div>
@@ -98,10 +98,7 @@ export default class QuestionEditor extends Component {
 }
 
 QuestionEditor.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.shape({
-    item: PropTypes.object.isRequired,
-    index: PropTypes.number.isRequired,
-  })).isRequired,
+  data: PropTypes.object.isRequired,
   onChange: PropTypes.func.isRequired,
   onRemove: PropTypes.func.isRequired,
   onReset: PropTypes.func.isRequired,

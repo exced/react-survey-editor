@@ -1,9 +1,9 @@
 import { connect } from 'react-redux'
-import { moveQuestion } from '../Actions/Editor'
+import { moveQuestion } from '../Actions/Question'
 import QuestionList from '../Components/QuestionList'
 
 const mapStateToProps = (state, ownProps) => ({
-  data: state.editor.pages[ownProps.pageIndex].questions,
+
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({

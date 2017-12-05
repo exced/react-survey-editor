@@ -2,9 +2,13 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import AppComponent from '../Components/App'
-import { set, reset } from '../Actions/Editor'
+import { set, reset } from '../Actions/Survey'
 
 class App extends Component {
+
+  componentWillMount = () => {
+    this.props.reset()
+  }
 
   componentWillReceiveProps = (nextProps) => {
     if (nextProps.initialValue) {

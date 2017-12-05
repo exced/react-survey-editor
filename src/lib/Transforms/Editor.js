@@ -1,7 +1,4 @@
 import {
-  // Types
-  SURVEY,
-  PAGE,
   QUESTION_TEXT,
   QUESTION_DATE,
   QUESTION_DISCRETE_SCALE,
@@ -9,10 +6,9 @@ import {
   QUESTION_CHOICES,
   QUESTION_IMAGE,
   QUESTION_RANK,
-} from '../Types/Editor'
+} from '../Types/Question'
 
 export const typeToName = (type) => ({
-  [SURVEY]: "Questionnaire",
   [QUESTION_TEXT]: "Texte",
   [QUESTION_DATE]: "Date",
   [QUESTION_DISCRETE_SCALE]: "Échelle discrète",

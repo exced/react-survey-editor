@@ -1,9 +1,10 @@
 import { connect } from 'react-redux'
-import { movePage } from '../Actions/Editor'
+import { movePage } from '../Actions/Page'
+import { getPageIds } from '../Selectors/Page'
 import PageList from '../Components/PageList'
 
-const mapStateToProps = (state, ownProps) => ({
-  data: state.editor.pages
+const mapStateToProps = (state) => ({
+  data: getPageIds(state),
 })
 
 const mapDispatchToProps = dispatch => ({

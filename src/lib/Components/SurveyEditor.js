@@ -3,17 +3,17 @@ import PropTypes from 'prop-types'
 import { EditText } from '../Components/EditFields'
 import PageList from '../Containers/PageList'
 
-const SurveyEditor = ({ title, onChange }) => (
+const SurveyEditor = ({ item, onChange }) => (
   <div style={{ textAlign: 'center' }}>
     <h3>
-      <EditText value={title} onChange={title => onChange({ title })} size="large" placeholder="Questionnaire" />
+      <EditText value={item.title} onChange={title => onChange(item.id, { title })} size="large" placeholder="Questionnaire" />
     </h3>
     <PageList />
   </div>
 )
 
 SurveyEditor.propTypes = {
-  title: PropTypes.string.isRequired,
+  item: PropTypes.object.isRequired,
   onChange: PropTypes.string.isRequired,
 }
 

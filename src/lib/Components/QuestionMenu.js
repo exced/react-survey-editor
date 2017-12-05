@@ -11,7 +11,7 @@ import {
   QUESTION_MATRIX,
   QUESTION_IMAGE,
   QUESTION_RANK,
-} from '../Types/Editor'
+} from '../Types/Question'
 
 const SubMenu = Menu.SubMenu
 
