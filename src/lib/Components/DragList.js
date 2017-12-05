@@ -33,17 +33,19 @@ export class Wrapper extends Component {
   }
 
   onSortEnd = ({ oldIndex, newIndex }) => {
-    const { onSortEnd, onMove } = this.props
-    const data = arrayMove(this.state.data, oldIndex, newIndex)
+    if (this.state.data.length > 1) {
+      const { onSortEnd, onMove } = this.props
+      const data = arrayMove(this.state.data, oldIndex, newIndex)
 
-    this.setState({ data, isSorting: false })
+      this.setState({ data, isSorting: false })
 
-    if (onSortEnd) {
-      onSortEnd(this.refs.component)
-    }
+      if (onSortEnd) {
+        onSortEnd(this.refs.component)
+      }
 
-    if (onMove) {
-      onMove(data)
+      if (onMove) {
+        onMove(data)
+      }
     }
   }
 
