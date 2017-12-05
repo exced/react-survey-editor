@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Row, Col, Input, Form, Icon, Button, InputNumber, Radio, Checkbox } from 'antd'
-import { EditText } from '../Components/EditFields'
 
 const { RadioGroup } = Radio
 const FormItem = Form.Item
@@ -38,12 +37,10 @@ const Meta = ({ value, onChange }) => (
       </FormItem>
       {value.choices.map((a, i) => (
         <FormItem label={`choix ${i}`}>
-          <EditText
+          <Input
             value={a}
-            onChange={v => onChange({ choices: value.choices.map((b, j) => (j === i) ? v : b) })}
-            size="small"
-            placeholder={`Choix ${i}`}
-          />
+            onChange={e => onChange({ choices: value.choices.map((b, j) => (j === i) ? e.target.value : b) })}
+            placeholder={`Choix ${i}`} size="small" style={{ width: 'auto' }} />
           <Icon
             type="minus-circle-o"
             disabled={value.choices.length === 1}
@@ -58,6 +55,9 @@ const Meta = ({ value, onChange }) => (
       >
         <Icon type="plus" /> Ajouter choix
     </Button>
+      <FormItem label="Indications">
+        <Input value={value.tooltip} onChange={e => onChange({ tooltip: e.target.value })} placeholder="Indications" size="small" style={{ width: 'auto' }} />
+      </FormItem>
     </Col>
   </Row>
 )

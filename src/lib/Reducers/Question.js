@@ -3,7 +3,6 @@ import {
   ADD_QUESTION,
   REMOVE_QUESTION,
   SET_QUESTION,
-  MOVE_QUESTION,
 } from '../Types/Question'
 import {
   SET,

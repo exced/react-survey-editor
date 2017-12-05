@@ -1,12 +1,16 @@
-import undoable from 'redux-undo'
+import undoable, { excludeAction } from 'redux-undo'
 import { combineReducers } from 'redux'
 import pages from './Page'
-import questions from './Question'
-import survey from './Survey'
-import result from './Result'
+import { SET } from '../Types/Survey'
+import questions from '../Reducers/Question'
+import survey from '../Reducers/Survey'
+import result from '../Reducers/Result'
 
 const entities = combineReducers({ pages, questions, survey })
 
 export default {
-  editor: combineReducers({ entities, result })
+  editor: undoable(combineReducers({ entities, result }), {
+    limit: 10, // history limit
+    filter: excludeAction([SET])
+  })
 }

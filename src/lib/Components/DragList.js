@@ -33,13 +33,17 @@ export class Wrapper extends Component {
   }
 
   onSortEnd = ({ oldIndex, newIndex }) => {
-    const { onSortEnd } = this.props
-    const { data } = this.state
+    const { onSortEnd, onMove } = this.props
+    const data = arrayMove(this.state.data, oldIndex, newIndex)
 
-    this.setState({ data: arrayMove(data, oldIndex, newIndex), isSorting: false })
+    this.setState({ data, isSorting: false })
 
     if (onSortEnd) {
       onSortEnd(this.refs.component)
+    }
+
+    if (onMove) {
+      onMove(data)
     }
   }
 
@@ -49,8 +53,8 @@ export class Wrapper extends Component {
     const props = {
       isSorting,
       data,
-      onSortEnd: this.onSortEnd,
       onSortStart: this.onSortStart,
+      onSortEnd: this.onSortEnd,
       ref: 'component',
       useDragHandle: this.props.shouldUseDragHandle,
     }
@@ -65,6 +69,7 @@ Wrapper.propTypes = {
   itemClass: PropTypes.string,
   width: PropTypes.number,
   height: PropTypes.number,
+  onMove: PropTypes.func,
   onSortStart: PropTypes.func,
   onSortEnd: PropTypes.func,
   component: PropTypes.func,
@@ -76,37 +81,33 @@ Wrapper.defaultProps = {
   itemClass: classNames(style.item, style.stylizedItem),
 }
 
-export default class DragList extends Component {
-
-  static propTypes = {
-    data: PropTypes.array.isRequired, // ids
-    Component: PropTypes.node.isRequired,
-  }
-
-  render() {
-
-    const { Component, data, onMove } = this.props
-
-    const Element = SortableElement(props => <Component {...props} />)
-    const Container = SortableContainer(({ data, ...props }) => (
-      // pass a list of ids instead of plain objects to avoid useless re-rendering on item changes
-      <div>
-        {data.map((item, index) => (
-          <Element key={item} index={index} id={item} {...props} />
-        ))}
-      </div>
-    ))
-
-    return (
-      <div>
-        <Wrapper
-          component={Container}
-          data={data}
-          shouldUseDragHandle={true}
-          helperClass={style.stylizedHelper}
-          {...this.props}
-        />
-      </div>
-    )
-  }
+const DragList = ({ Component, data, onMove, ...rest }) => {
+  const Element = SortableElement(props => <Component {...props} />)
+  const Container = SortableContainer(({ data, ...props }) => (
+    // pass a list of ids instead of plain objects to avoid useless re-rendering on item changes
+    <div>
+      {data.map((item, index) => (
+        <Element key={item} index={index} id={item} {...props} />
+      ))}
+    </div>
+  ))
+  return (
+    <div>
+      <Wrapper
+        component={Container}
+        data={data}
+        shouldUseDragHandle={true}
+        helperClass={style.stylizedHelper}
+        onMove={onMove}
+        {...rest}
+      />
+    </div>
+  )
 }
+
+DragList.propTypes = {
+  data: PropTypes.array.isRequired, // ids
+  Component: PropTypes.func.isRequired,
+}
+
+export default DragList

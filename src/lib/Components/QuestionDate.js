@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Row, Col, DatePicker, Form, Select } from 'antd'
+import { Row, Col, Input, DatePicker, Form, Select } from 'antd'
 
 const { MonthPicker, RangePicker, WeekPicker } = DatePicker
 
@@ -42,6 +42,9 @@ const Meta = ({ value, onChange }) => (
           <Option value="week">Semaine</Option>
           <Option value="range">Durée</Option>
         </Select>
+      </FormItem>
+      <FormItem label="Indications">
+        <Input value={value.tooltip} onChange={tooltip => onChange({ tooltip })} placeholder="Indications" size="small" style={{ width: 'auto' }} />
       </FormItem>
     </Col>
   </Row>

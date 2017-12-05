@@ -16,12 +16,15 @@ const Meta = ({ value, onChange }) => (
     </Col>
     <Col span={8}>
       <h3>Méta données</h3>
-      <FormItem label="taille">
+      <FormItem label="Taille">
         <Select defaultValue={value.size} style={{ width: 120 }} onChange={size => onChange({ size })}>
           <Option value="small">Petit</Option>
           <Option value="default">Défaut</Option>
           <Option value="large">Grand</Option>
         </Select>
+      </FormItem>
+      <FormItem label="Indications">
+        <Input value={value.tooltip} onChange={e => onChange({ tooltip: e.target.value })} placeholder="Indications" size="small" style={{ width: 'auto' }} />
       </FormItem>
     </Col>
   </Row>

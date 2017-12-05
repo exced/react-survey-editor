@@ -23,6 +23,9 @@ const Meta = ({ value, onChange }) => (
           <Option value="large">Grand</Option>
         </Select>
       </FormItem>
+      <FormItem label="Indications">
+        <Input value={value.tooltip} onChange={e => onChange({ tooltip: e.target.value })} placeholder="Indications" size="small" style={{ width: 'auto' }} />
+      </FormItem>
     </Col>
   </Row>
 )

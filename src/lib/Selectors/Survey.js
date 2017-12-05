@@ -2,7 +2,7 @@ import { createSelector } from 'reselect'
 import { result } from './Result'
 
 // Input Selectors
-export const survey = (state) => state.editor.entities.survey
+export const survey = (state) => state.editor.present.entities.survey
 
 // Selectors
 export const getSurvey = createSelector(

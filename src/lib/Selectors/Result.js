@@ -1,6 +1,5 @@
-import { createSelector } from 'reselect'
 
 // Input Selectors
-export const result = (state) => state.editor.result
+export const result = (state) => state.editor.present.result
 
 // Selectors

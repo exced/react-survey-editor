@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { Menu } from 'antd'
 import {
@@ -53,6 +53,14 @@ const QuestionMenu = ({ onClick }) => {
       <Menu.Item key="6">Classement</Menu.Item>
     </Menu>
   )
+}
+
+QuestionMenu.propTypes = {
+  onClick: PropTypes.func,
+}
+
+QuestionMenu.defaultProps = {
+  onClick: () => { }
 }
 
 export default QuestionMenu

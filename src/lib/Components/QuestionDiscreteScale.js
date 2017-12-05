@@ -1,8 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Row, Col, Input, Form, Select, Slider, InputNumber } from 'antd'
+import { Row, Col, Input, Form, Slider, InputNumber } from 'antd'
 
-const Option = Select.Option
 const FormItem = Form.Item
 
 export const Item = ({ disabled, value, onChange }) => (
@@ -24,6 +23,9 @@ const Meta = ({ value, onChange }) => (
       </FormItem>
       <FormItem label="pas">
         <InputNumber defaultValue={1} onChange={step => onChange({ step })} />
+      </FormItem>
+      <FormItem label="Indications">
+        <Input value={value.tooltip} onChange={e => onChange({ tooltip: e.target.value })} placeholder="Indications" size="small" style={{ width: 'auto' }} />
       </FormItem>
     </Col>
   </Row>

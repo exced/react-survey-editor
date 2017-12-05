@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Menu, Dropdown, Button } from 'antd'
+import { Menu, Dropdown, Button, Icon } from 'antd'
 
 const FAB = ({ onAdd, onUndo, onRedo }) => {
   const menu = (
@@ -9,10 +9,12 @@ const FAB = ({ onAdd, onUndo, onRedo }) => {
         <Button onClick={onAdd} shape="circle" icon="file-add" size='large' />
       </Menu.Item>
       <Menu.Item>
-        <Button onClick={onUndo} shape="circle" icon="backward" size='large' />
+        <Button onClick={onUndo} shape="circle" icon="rollback" size='large' />
       </Menu.Item>
       <Menu.Item>
-        <Button onClick={onRedo} shape="circle" icon="forward" size='large' />
+        <Button onClick={onRedo} shape="circle" size='large'>
+          <Icon type="enter" style={{ transform: `rotate(180deg)` }} />
+        </Button>
       </Menu.Item>
     </Menu>
   )

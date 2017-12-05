@@ -6,6 +6,7 @@ import {
 import {
   ADD_PAGE,
   REMOVE_PAGE,
+  MOVE_PAGE,
 } from '../Types/Page'
 
 const initialState = Immutable({})
@@ -44,6 +45,15 @@ const reducer = (state = initialState, action) => {
         [action.payload.surveyId]: {
           ...state[action.payload.surveyId],
           pages: state[action.payload.surveyId].pages.filter(e => e !== action.payload.id)
+        }
+      }
+
+    case MOVE_PAGE:
+      return {
+        ...state,
+        [action.payload.surveyId]: {
+          ...state[action.payload.surveyId],
+          pages: action.payload.data
         }
       }
 

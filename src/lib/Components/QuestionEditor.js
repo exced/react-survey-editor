@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Row, Col, Button, Layout, Dropdown, Menu } from 'antd'
+import { Row, Col, Button, Layout, Dropdown, Tooltip, Icon } from 'antd'
 import {
   QUESTION_TEXT,
   QUESTION_TEXT_AREA,
@@ -23,7 +23,6 @@ import QuestionImage from './QuestionImage'
 import QuestionRank from './QuestionRank'
 import QuestionMatrix from './QuestionMatrix'
 import { Handle } from '../Components/DragList'
-import ItemOptions from '../Components/ItemOptions'
 import QuestionMenu from '../Components/QuestionMenu'
 import QuestionCascade from '../Components/QuestionCascade'
 import { typeToName } from '../Transforms/Editor'
@@ -55,13 +54,20 @@ const node = (type) => ({
 })[type]
 
 export default class QuestionEditor extends Component {
+  
+  constructor(props) {
+    super(props)
+    this.state = {
+      visibleMode: false,
+    }
+  }
+
+  toggleVisibleMode = () => this.setState({ visibleMode: !this.state.visibleMode })
 
   render() {
-
+    const { visibleMode } = this.state
     const { item, onChange, onRemove, onReset, collapsed } = this.props
-
     const Node = node(item.type)
-
     return (
       <div>
         <Layout style={layoutStyle}>
@@ -69,9 +75,12 @@ export default class QuestionEditor extends Component {
             <Col span={2}>
               <Handle />
             </Col>
-            <Col span={14}>
+            <Col span={18}>
               <div style={{ textAlign: 'center' }}>
                 <h3>
+                  <Tooltip title={item.tooltip}>
+                    <Icon type="question-circle-o" />
+                  </Tooltip>
                   <EditText value={item.title} onChange={title => onChange({ title })} size="large" placeholder="Question" />
                   <sup>
                     <Button type="dashed" onClick={() => onChange({ mandatory: !item.mandatory })} shape="circle" icon={item.mandatory ? 'star' : 'star-o'} size='small' />
@@ -79,11 +88,11 @@ export default class QuestionEditor extends Component {
                 </h3>
               </div>
             </Col>
-            <Col span={8}>
+            <Col span={4}>
               <Dropdown overlay={<QuestionMenu onClick={(type) => onReset(type)} />}>
                 <Button shape="circle" type="secondary" icon="setting" size='large'>{typeToName()}</Button>
               </Dropdown>
-              <ItemOptions />
+              <Button onClick={this.toggleVisibleMode} shape="circle" icon={visibleMode ? 'eye' : 'eye-o'} size='large' />
               <Button type="danger" onClick={onRemove} shape="circle" icon='delete' size='large' />
             </Col>
           </Row>

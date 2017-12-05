@@ -3,7 +3,6 @@ import {
   ADD_PAGE,
   REMOVE_PAGE,
   SET_PAGE,
-  MOVE_PAGE,
 } from '../Types/Page'
 import {
   ADD_QUESTION,
@@ -64,6 +63,15 @@ const reducer = (state = initialState, action) => {
         [action.payload.pageId]: {
           ...state[action.payload.pageId],
           questions: state[action.payload.pageId].questions.filter(e => e !== action.payload.id)
+        }
+      }
+
+    case MOVE_QUESTION:
+      return {
+        ...state,
+        [action.payload.pageId]: {
+          ...state[action.payload.pageId],
+          questions: action.payload.data
         }
       }
 

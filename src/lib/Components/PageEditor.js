@@ -4,7 +4,7 @@ import { Row, Col, Button, Layout, Dropdown } from 'antd'
 import { Handle } from '../Components/DragList'
 import { EditText } from '../Components/EditFields'
 import QuestionMenu from '../Components/QuestionMenu'
-import QuestionList from '../Containers/QuestionList'
+import QuestionList from '../Components/QuestionList'
 
 const { Content } = Layout
 
@@ -26,13 +26,13 @@ export default class PageEditor extends Component {
     }
   }
 
-  toggle = () => this.setState({ collapsed: !this.state.collapsed })
+  toggleCollapsed = () => this.setState({ collapsed: !this.state.collapsed })
 
   render() {
 
     const { collapsed } = this.state
 
-    const { item, onChange, onRemove, onAdd } = this.props
+    const { item, onChange, onRemove, onAdd, onMove } = this.props
 
     return (
       <div>
@@ -52,12 +52,12 @@ export default class PageEditor extends Component {
               <Dropdown overlay={<QuestionMenu onClick={onAdd} />}>
                 <Button type="secondary" shape="circle" icon="plus" size='large' />
               </Dropdown>
-              <Button onClick={this.toggle} shape="circle" icon={collapsed ? 'down' : 'up'} size='large' />
+              <Button onClick={this.toggleCollapsed} shape="circle" icon={collapsed ? 'down' : 'up'} size='large' />
               <Button type="danger" onClick={onRemove} shape="circle" icon='delete' size='large' />
             </Col>
           </Row>
           <Content>
-            <QuestionList collapsed={collapsed} parent={item} data={item.questions} />
+            <QuestionList collapsed={collapsed} parent={item} data={item.questions} onMove={onMove} />
           </Content>
         </Layout>
       </div>
@@ -70,4 +70,5 @@ PageEditor.propTypes = {
   onChange: PropTypes.func.isRequired,
   onRemove: PropTypes.func.isRequired,
   onAdd: PropTypes.func.isRequired,
+  onMove: PropTypes.func.isRequired,
 }

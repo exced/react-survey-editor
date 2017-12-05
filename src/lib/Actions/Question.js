@@ -3,7 +3,6 @@ import {
   ADD_QUESTION,
   REMOVE_QUESTION,
   SET_QUESTION,
-  RESET_QUESTION,
   MOVE_QUESTION,
   QUESTION_TEXT,
   QUESTION_TEXT_AREA,
@@ -107,6 +106,14 @@ export const setQuestion = (id, value) => ({
   }
 })
 
+export const resetQuestion = (id, type) => ({
+  type: SET_QUESTION,
+  payload: {
+    id,
+    ...initialValue(type)
+  }
+})
+
 export const removeQuestion = (pageId, id) => ({
   type: REMOVE_QUESTION,
   payload: {
@@ -115,10 +122,10 @@ export const removeQuestion = (pageId, id) => ({
   }
 })
 
-export const moveQuestion = (oldId, newId) => ({
+export const moveQuestion = (pageId, data) => ({
   type: MOVE_QUESTION,
   payload: {
-    oldId,
-    newId,
+    pageId,
+    data,
   }
 })

@@ -3,7 +3,6 @@ import {
   ADD_PAGE,
   REMOVE_PAGE,
   SET_PAGE,
-  RESET_PAGE,
   MOVE_PAGE,
 } from '../Types/Page'
 
@@ -35,10 +34,10 @@ export const removePage = (surveyId, id) => ({
   }
 })
 
-export const movePage = (oldId, newId) => ({
+export const movePage = (surveyId, data) => ({
   type: MOVE_PAGE,
   payload: {
-    oldId,
-    newId,
+    surveyId,
+    data
   }
 })
