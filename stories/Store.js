@@ -1,5 +1,5 @@
 import { combineReducers, createStore, applyMiddleware, compose } from 'redux'
-import { Reducers  } from './lib'
+import { Reducers  } from '../lib'
 
 const rootReducer = combineReducers({
   ...Reducers,

@@ -1,9 +1,7 @@
 # React Survey Editor
+[![Build Status](https://travis-ci.org/exced/react-survey-editor.svg?branch=master)](https://travis-ci.org/exced/react-survey-editor)
 
 ## [Live Demo](https://exced.github.io/react-survey-editor)
-
-
-[![Build Status](https://travis-ci.org/exced/react-survey-editor.svg?branch=master)](https://travis-ci.org/exced/react-survey-editor)
 
 ## Install
 
