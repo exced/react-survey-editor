@@ -11,6 +11,22 @@ yarn add react-survey-editor
 
 ## Usage
 
+```javascript
+import React from 'react'
+import SurveyEditor from 'react-survey-editor'
+
+const App = ({ onExport }) => (
+ <SurveyEditor onExport={onExport} />
+)
+```
+
 ## API
+
+|    Name     |       Type       |       Default       | Required | Description |
+| :----------:| :-------------:  | :-----------------: | :----------:| :------------:|
+| onExport    | (string) => void | () => { }           | true |Function called when user click on Save button
+| initialValue| object           | See | false | Initial survey value  |
+| locale | string  | "enUS" | false | Ant design locale language |
+
 
 All contributions are welcome.

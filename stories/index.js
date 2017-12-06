@@ -8,4 +8,4 @@ import SurveyEditor from '../lib'
 
 storiesOf('Survey Editor', module)
   .addDecorator(story => <Provider store={store}>{story()}</Provider>)
-  .add('Default', () => <SurveyEditor />)
+  .add('Default', () => <SurveyEditor onExport={(e) => { }} />)

@@ -95,7 +95,8 @@ const QuestionEditor = ({
           </Col>
         </Row>
         <Content style={{ textAlign: 'left', margin: 10, marginLeft: 50 }}>
-          {!collapsed && <Node value={value} onChange={onChange} />}
+          {!collapsed && !visibleIfMode && <Node value={value} onChange={onChange} />}
+          {!collapsed && visibleIfMode && <p>visibleIfMode</p>}
         </Content>
       </Layout>
     </div>
