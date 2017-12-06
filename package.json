@@ -1,6 +1,6 @@
 {
   "name": "react-survey-editor",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "private": false,
   "main": "lib/index.js",
   "dependencies": {
@@ -69,7 +69,8 @@
   },
   "jest": {
     "collectCoverageFrom": [
-      "src/**/*.{js,jsx,mjs}"
+      "src/**/*.{js,jsx,mjs}",
+      "!<rootDir>/node_modules/"
     ],
     "setupFiles": [
       "<rootDir>/config/polyfills.js"
