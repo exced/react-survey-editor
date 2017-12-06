@@ -9,6 +9,11 @@
 yarn add react-survey-editor
 ```
 
+## Build
+```bash
+yarn lib
+```
+
 ## Usage
 
 ```javascript
