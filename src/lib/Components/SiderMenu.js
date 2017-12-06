@@ -38,13 +38,15 @@ export default class SiderMenu extends Component {
           return onRedo()
         case "onExport":
           return onExport(denormalize())
+        case "onToggle":
+          return this.toggleCollapsed()
         default:
           return
       }
     }
 
     return (
-      <Sider collapsible collapsed={collapsed} onCollapse={this.toggleCollapsed}>
+      <Sider collapsible trigger={null} collapsed={collapsed} onCollapse={this.toggleCollapsed} style={{ position: 'relative' }}>
         <div style={{ height: 32, background: 'rgba(255, 255, 255, .2)', margin: 16 }} />
         <Menu theme="dark" selectable={false} onClick={onClick} inlineCollapsed={collapsed}>
           <Menu.Item key="onAdd">
@@ -62,6 +64,9 @@ export default class SiderMenu extends Component {
           <Menu.Item key="onExport">
             <Icon type="save" style={iconStyle} />
             <span style={titleStyle}>Sauvegarder</span>
+          </Menu.Item>
+          <Menu.Item style={{ position: 'absolute', bottom: 0 }} key="onToggle">
+            <Icon type={collapsed ? 'right' : 'left'} style={iconStyle} />
           </Menu.Item>
         </Menu>
       </Sider>

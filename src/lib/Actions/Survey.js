@@ -2,14 +2,18 @@ import {
   SET,
   SET_SURVEY,
 } from '../Types/Survey'
-import Immutable from 'seamless-immutable'
 import { uniqueId } from 'lodash'
 import { normalize as normalizr } from '../Schemas/Survey'
 
 const initialValue = {
   id: uniqueId(),
   title: 'Questionnaire',
-
+  description: 'Description',
+  responseTime: '',
+  active: false,
+  dates: [],
+  password: '',
+  link: '',
   pages: [{
     id: uniqueId(),
     title: 'Page',
@@ -21,14 +25,14 @@ const initialValue = {
 export const set = (value) => ({
   type: SET,
   payload: {
-    value: Immutable(normalizr(value)),
+    value: normalizr(value),
   }
 })
 
 export const reset = () => ({
   type: SET,
   payload: {
-    value: Immutable(normalizr(initialValue))
+    value: normalizr(initialValue)
   }
 })
 

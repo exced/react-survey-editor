@@ -4,7 +4,7 @@ import SurveyEditor from './lib'
 class App extends Component {
   render() {
     return (
-      <SurveyEditor />
+      <SurveyEditor onExport={(v) => console.tron.log(v, true)} />
     )
   }
 }

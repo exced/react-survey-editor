@@ -10,7 +10,7 @@ const mapStateToProps = (state, ownProps) => ({
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  onAdd: () => dispatch(addPage(ownProps.item.id)),
+  onAdd: () => dispatch(addPage(ownProps.value.id)),
   onUndo: () => dispatch(UndoRedo.undo()),
   onRedo: () => dispatch(UndoRedo.redo()),
 })

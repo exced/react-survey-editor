@@ -13,7 +13,7 @@ export const addPage = (surveyId) => ({
     id: uniqueId(),
     surveyId,
     title: 'Page',
-    enabledIf: `true`,
+    visibleIf: `true`,
     questions: [],
   }
 })

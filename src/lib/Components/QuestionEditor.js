@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { Row, Col, Button, Layout, Dropdown, Tooltip, Icon } from 'antd'
 import {
@@ -56,62 +56,57 @@ const node = (type) => ({
   [QUESTION_CASCADE]: QuestionCascade,
 })[type]
 
-export default class QuestionEditor extends Component {
-
-  constructor(props) {
-    super(props)
-    this.state = {
-      visibleMode: false,
-    }
-  }
-
-  toggleVisibleMode = () => this.setState({ visibleMode: !this.state.visibleMode })
-
-  render() {
-    const { visibleMode } = this.state
-    const { item, onChange, onRemove, onReset, collapsed } = this.props
-
-    const Node = node(item.type)
-    return (
-      <div>
-        <Layout style={layoutStyle}>
-          <Row style={{ padding: 10 }}>
-            <Col span={2}>
-              <Handle />
-            </Col>
-            <Col span={18}>
-              <div style={{ textAlign: 'center' }}>
-                <h3>
-                  <Tooltip title={item.tooltip}>
-                    <Icon type="question-circle-o" />
-                  </Tooltip>
-                  <EditText value={item.title} onChange={title => onChange({ title })} size="large" placeholder="Question" />
-                  <sup>
-                    <Button type="dashed" onClick={() => onChange({ mandatory: !item.mandatory })} shape="circle" icon={item.mandatory ? 'star' : 'star-o'} size='small' />
-                  </sup>
-                </h3>
-              </div>
-            </Col>
-            <Col span={4}>
-              <Dropdown overlay={<QuestionMenu onClick={(type) => onReset(type)} />}>
-                <Button shape="circle" type="secondary" icon="setting" size='large'>{typeToName()}</Button>
-              </Dropdown>
-              <Button onClick={this.toggleVisibleMode} shape="circle" icon={visibleMode ? 'eye' : 'eye-o'} size='large' />
-              <Button type="danger" onClick={onRemove} shape="circle" icon='delete' size='large' />
-            </Col>
-          </Row>
-          <Content style={{ textAlign: 'left', margin: 10, marginLeft: 50 }}>
-            {!collapsed && <Node value={item} onChange={onChange} />}
-          </Content>
-        </Layout>
-      </div>
-    )
-  }
+const QuestionEditor = ({
+  value,
+  onChange,
+  onRemove,
+  onReset,
+  visibleIfMode,
+  onToggleVisibleIfMode,
+  collapsed
+       }) => {
+  const Node = node(value.type)
+  return (
+    <div>
+      <Layout style={layoutStyle}>
+        <Row style={{ padding: 10 }}>
+          <Col span={2}>
+            <Handle />
+          </Col>
+          <Col span={18}>
+            <div style={{ textAlign: 'center' }}>
+              <h3>
+                <Tooltip title={value.tooltip}>
+                  <Icon type="question-circle-o" />
+                </Tooltip>
+                <EditText value={value.title} onChange={title => onChange({ title })} size="large" placeholder="Question" />
+                <sup>
+                  <Button type="dashed" onClick={() => onChange({ mandatory: !value.mandatory })} shape="circle" icon={value.mandatory ? 'star' : 'star-o'} size='small' />
+                </sup>
+              </h3>
+            </div>
+          </Col>
+          <Col span={4}>
+            <Dropdown overlay={<QuestionMenu onClick={(type) => onReset(type)} />}>
+              <Button shape="circle" type="secondary" icon="setting" size='large'>{typeToName()}</Button>
+            </Dropdown>
+            <Button onClick={onToggleVisibleIfMode} shape="circle" icon={visibleIfMode ? 'eye' : 'eye-o'} size='large' />
+            <Button type="danger" onClick={onRemove} shape="circle" icon='delete' size='large' />
+          </Col>
+        </Row>
+        <Content style={{ textAlign: 'left', margin: 10, marginLeft: 50 }}>
+          {!collapsed && <Node value={value} onChange={onChange} />}
+        </Content>
+      </Layout>
+    </div>
+  )
 }
 
 QuestionEditor.propTypes = {
-  item: PropTypes.object.isRequired,
+  value: PropTypes.object.isRequired,
   onChange: PropTypes.func.isRequired,
   onRemove: PropTypes.func.isRequired,
   onReset: PropTypes.func.isRequired,
 }
+
+export default QuestionEditor

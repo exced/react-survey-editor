@@ -1,8 +1,14 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { LocaleProvider } from 'antd'
 import App from '../Containers/App'
 import { set, reset } from '../Actions/Survey'
+import enUS from 'antd/lib/locale-provider/en_US'
+
+const locales = {
+  enUS: enUS,
+}
 
 class Root extends Component {
 
@@ -18,21 +24,25 @@ class Root extends Component {
 
   render() {
 
-    const { onExport } = this.props
+    const { locale, onExport } = this.props
 
     return (
-      <App onExport={onExport} />
+      <LocaleProvider locale={locales[locale]}>
+        <App onExport={onExport} />
+      </LocaleProvider>
     )
   }
 }
 
 Root.propTypes = {
+  locale: PropTypes.string,
   initialValue: PropTypes.object,
   onExport: PropTypes.func,
 }
 
 Root.defaultProps = {
-  onExport: (v) => console.tron.log(v, true)
+  locale: "enUS",
+  onExport: (v) => { }
 }
 
 const mapDispatchToProps = dispatch => ({

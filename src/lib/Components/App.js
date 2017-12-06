@@ -6,14 +6,14 @@ import SurveyEditor from '../Containers/SurveyEditor'
 
 const { Content } = Layout
 
-const App = ({ item, onExport }) => (
+const App = ({ value, onExport }) => (
   <div>
     <Layout style={{ minHeight: '100vh' }}>
-      <SiderMenu item={item} onExport={onExport} />
+      <SiderMenu value={value} onExport={onExport} />
       <BackTop />
       <Content>
         <div style={{ padding: 24, background: '#fff', textAlign: 'center' }}>
-          <SurveyEditor item={item} />
+          <SurveyEditor value={value} />
         </div>
       </Content>
     </Layout>
@@ -21,7 +21,7 @@ const App = ({ item, onExport }) => (
 )
 
 App.propTypes = {
-  item: PropTypes.object.isRequired,
+  value: PropTypes.object.isRequired,
   onExport: PropTypes.func.isRequired,
 }
 

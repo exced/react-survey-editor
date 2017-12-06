@@ -32,7 +32,15 @@ export default class PageEditor extends Component {
 
     const { collapsed } = this.state
 
-    const { item, onChange, onRemove, onAdd, onMove } = this.props
+    const {
+      value,
+      onChange,
+      onRemove,
+      onAdd,
+      onMove,
+      visibleIfMode,
+      onToggleVisibleIfMode,
+           } = this.props
 
     return (
       <div>
@@ -44,7 +52,7 @@ export default class PageEditor extends Component {
             <Col span={18}>
               <div style={{ textAlign: 'center' }}>
                 <h2>
-                  <EditText value={item.title} onChange={title => onChange({ title })} size="large" placeholder="Page" />
+                  <EditText value={value.title} onChange={title => onChange({ title })} size="large" placeholder="Page" />
                 </h2>
               </div>
             </Col>
@@ -53,11 +61,12 @@ export default class PageEditor extends Component {
                 <Button type="secondary" shape="circle" icon="plus" size='large' />
               </Dropdown>
               <Button onClick={this.toggleCollapsed} shape="circle" icon={collapsed ? 'down' : 'up'} size='large' />
+              <Button onClick={onToggleVisibleIfMode} shape="circle" icon={visibleIfMode ? 'eye' : 'eye-o'} size='large' />
               <Button type="danger" onClick={onRemove} shape="circle" icon='delete' size='large' />
             </Col>
           </Row>
           <Content>
-            <QuestionList collapsed={collapsed} parent={item} data={item.questions} onMove={onMove} />
+            <QuestionList collapsed={collapsed} parent={value} data={value.questions} onMove={onMove} />
           </Content>
         </Layout>
       </div>
@@ -66,7 +75,7 @@ export default class PageEditor extends Component {
 }
 
 PageEditor.propTypes = {
-  item: PropTypes.object.isRequired,
+  value: PropTypes.object.isRequired,
   onChange: PropTypes.func.isRequired,
   onRemove: PropTypes.func.isRequired,
   onAdd: PropTypes.func.isRequired,
