@@ -1,5 +1,8 @@
 # React Survey Editor
-[![Build Status](https://travis-ci.org/exced/react-survey-editor.svg?branch=master)](https://travis-ci.org/exced/react-survey-editor)
+
+[![Build](https://travis-ci.org/exced/react-survey-editor.svg?branch=master)](https://travis-ci.org/exced/react-survey-editor)
+[![Npm](https://img.shields.io/npm/v/react-survey-editor.png?style=flat-square)](https://www.npmjs.com/package/react-survey-editor)
+[![Npm](https://img.shields.io/coveralls/exced/react-survey-editor/master.png?style=flat-square)](https://coveralls.io/github/exced/react-survey-editor)
 
 ## [Live Demo](https://exced.github.io/react-survey-editor)
 

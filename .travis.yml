@@ -8,11 +8,11 @@ cache:
 notifications:
   email: false  
 script:
-  # - yarn coverage
+  - yarn coverage
   - yarn lib
   - yarn build
 # after_script:
-  # - COVERALLS_REPO_TOKEN=$coveralls_repo_token yarn coveralls
+  - COVERALLS_REPO_TOKEN=$coveralls_repo_token yarn coveralls
 before_deploy:
   - yarn lib
   - yarn build-storybook
