@@ -1,11 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Row, Col, Input, Form, InputNumber } from 'antd'
+import { Row, Col, Input, Form, Rate } from 'antd'
 
 const FormItem = Form.Item
 
 export const Item = ({ disabled, value, onChange }) => (
-  <Input disabled={disabled} placeholder="Réponse courte" size={value.size} style={{ width: 'auto' }} />
+  <Rate defaultValue={3} disabled={disabled} onChange={onChange} />
 )
 
 const Meta = ({ value, onChange }) => (
@@ -15,9 +15,6 @@ const Meta = ({ value, onChange }) => (
     </Col>
     <Col span={8}>
       <h3>Méta données</h3>
-      <FormItem label="max">
-        <InputNumber defaultValue={1} onChange={max => onChange({ max })} />
-      </FormItem>
       <FormItem label="Indications">
         <Input value={value.tooltip} onChange={e => onChange({ tooltip: e.target.value })} placeholder="Indications" size="small" style={{ width: 'auto' }} />
       </FormItem>

@@ -6,12 +6,14 @@ import {
   MOVE_QUESTION,
   QUESTION_TEXT,
   QUESTION_TEXT_AREA,
+  QUESTION_RATE,
   QUESTION_DATE,
   QUESTION_DISCRETE_SCALE,
   QUESTION_NUMERICAL_SCALE,
   QUESTION_CHOICES,
   QUESTION_IMAGE,
   QUESTION_RANK,
+  QUESTION_CASCADE,
 } from '../Types/Question'
 
 // Initial Values
@@ -27,6 +29,13 @@ const initialValue = (type) => ({
   [QUESTION_TEXT_AREA]: {
     type: QUESTION_TEXT_AREA,
     title: 'Question texte long',
+    mandatory: false,
+    enabledIf: `true`,
+    tooltip: '',
+  },
+  [QUESTION_RATE]: {
+    type: QUESTION_RATE,
+    title: 'Question note',
     mandatory: false,
     enabledIf: `true`,
     tooltip: '',
@@ -85,7 +94,15 @@ const initialValue = (type) => ({
     enabledIf: `true`,
     tooltip: '',
     choices: []
-  }
+  },
+  [QUESTION_CASCADE]: {
+    type: QUESTION_CASCADE,
+    title: 'Question cascade',
+    mandatory: false,
+    enabledIf: `true`,
+    tooltip: '',
+    options: []
+  },
 })[type]
 
 // Action Creators

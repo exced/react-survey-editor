@@ -5,13 +5,13 @@ import { Row, Col, Input, Form, Slider, InputNumber } from 'antd'
 const FormItem = Form.Item
 
 export const Item = ({ disabled, value, onChange }) => (
-  <Slider disabled={disabled} min={value.min} max={value.max} step={value.step} />
+  <Slider disabled={disabled} min={value.min} max={value.max} step={value.step} style={{ width: 400 }} />
 )
 
 const Meta = ({ value, onChange }) => (
   <Row type="flex" align="bottom">
     <Col span={16}>
-      <Item disabled value={value} onChange={onChange} />
+      <Item disabled value={value} onChange={() => { }} />
     </Col>
     <Col span={8}>
       <h3>Méta données</h3>

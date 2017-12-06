@@ -28,7 +28,7 @@ export const Items = ({ disabled, value, onChange }) => (
 const Meta = ({ value, onChange }) => (
   <Row type="flex" align="bottom">
     <Col span={16}>
-      <Items disabled value={value} onChange={onChange} />
+      <Items disabled value={value} onChange={() => { }} />
     </Col>
     <Col span={8}>
       <h3>Méta données</h3>

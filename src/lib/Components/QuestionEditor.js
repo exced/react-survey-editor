@@ -12,6 +12,7 @@ import {
   QUESTION_RANK,
   QUESTION_MATRIX,
   QUESTION_CASCADE,
+  QUESTION_RATE,
 } from '../Types/Question'
 import QuestionText from './QuestionText'
 import QuestionTextArea from './QuestionTextArea'
@@ -22,9 +23,10 @@ import QuestionChoices from './QuestionChoices'
 import QuestionImage from './QuestionImage'
 import QuestionRank from './QuestionRank'
 import QuestionMatrix from './QuestionMatrix'
+import QuestionCascade from './QuestionCascade'
+import QuestionRate from './QuestionRate'
 import { Handle } from '../Components/DragList'
 import QuestionMenu from '../Components/QuestionMenu'
-import QuestionCascade from '../Components/QuestionCascade'
 import { typeToName } from '../Transforms/Editor'
 import { EditText } from '../Components/EditFields'
 
@@ -50,11 +52,12 @@ const node = (type) => ({
   [QUESTION_MATRIX]: QuestionMatrix,
   [QUESTION_IMAGE]: QuestionImage,
   [QUESTION_RANK]: QuestionRank,
+  [QUESTION_RATE]: QuestionRate,
   [QUESTION_CASCADE]: QuestionCascade,
 })[type]
 
 export default class QuestionEditor extends Component {
-  
+
   constructor(props) {
     super(props)
     this.state = {
@@ -67,6 +70,7 @@ export default class QuestionEditor extends Component {
   render() {
     const { visibleMode } = this.state
     const { item, onChange, onRemove, onReset, collapsed } = this.props
+
     const Node = node(item.type)
     return (
       <div>

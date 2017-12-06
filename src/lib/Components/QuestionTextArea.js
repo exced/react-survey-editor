@@ -25,7 +25,7 @@ class Meta extends Component {
     return (
       <Row type="flex" align="bottom">
         <Col span={16}>
-          <Item disabled value={value} onChange={onChange} />
+          <Item disabled value={value} onChange={() => { }} />
         </Col>
         <Col span={8}>
           <h3>Méta données</h3>

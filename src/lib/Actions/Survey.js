@@ -6,26 +6,29 @@ import Immutable from 'seamless-immutable'
 import { uniqueId } from 'lodash'
 import { normalize as normalizr } from '../Schemas/Survey'
 
+const initialValue = {
+  id: uniqueId(),
+  title: 'Questionnaire',
+
+  pages: [{
+    id: uniqueId(),
+    title: 'Page',
+    questions: []
+  }]
+}
+
 // Action Creators
 export const set = (value) => ({
   type: SET,
   payload: {
-    value: normalizr(value),
+    value: Immutable(normalizr(value)),
   }
 })
 
 export const reset = () => ({
   type: SET,
   payload: {
-    value: Immutable(normalizr({
-      id: uniqueId(),
-      title: 'Questionnaire',
-      pages: [{
-        id: uniqueId(),
-        title: 'Page',
-        questions: []
-      }]
-    }))
+    value: Immutable(normalizr(initialValue))
   }
 })
 
