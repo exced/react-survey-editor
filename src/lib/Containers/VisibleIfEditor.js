@@ -1,10 +1,11 @@
 import { connect } from 'react-redux'
 import { setSurvey } from '../Actions/Survey'
 import { movePage } from '../Actions/Page'
-import SurveyEditor from '../Components/SurveyEditor'
+import { getPreviousQuestionValues } from '../Selectors/Question'
+import VisibleIfEditor from '../Components/VisibleIfEditor'
 
 const mapStateToProps = (state, ownProps) => ({
-  visibleIfMode: state.controller.visibleIfMode,
+  questions: getPreviousQuestionValues(state),
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
@@ -12,4 +13,4 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   onMove: (value) => dispatch(movePage(ownProps.value.id, value)),
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(SurveyEditor)
+export default connect(mapStateToProps, mapDispatchToProps)(VisibleIfEditor)

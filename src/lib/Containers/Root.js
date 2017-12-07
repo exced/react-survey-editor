@@ -5,9 +5,11 @@ import { LocaleProvider } from 'antd'
 import App from '../Containers/App'
 import { set, reset } from '../Actions/Survey'
 import enUS from 'antd/lib/locale-provider/en_US'
+import frFR from 'antd/lib/locale-provider/fr_FR'
 
 const locales = {
   enUS: enUS,
+  frFR: frFR,
 }
 
 class Root extends Component {

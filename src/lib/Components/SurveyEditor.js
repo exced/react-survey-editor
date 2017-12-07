@@ -18,14 +18,12 @@ const layoutStyle = {
   overflow: 'hidden',
 }
 
-const SurveyEditor = ({ value, onChange, onMove }) => (
+const SurveyEditor = ({ value, onChange, onMove, visibleIfMode }) => (
   <div>
     <div style={layoutStyle}>
       <h2>
         <EditText value={value.title} onChange={title => onChange({ title })} size="large" placeholder="Questionnaire" />
-        <sup>
-          <span style={{ border: '0.5px solid #ff0059', borderRadius: 6, padding: 3, color: '#ff0059' }}>{value.link}</span>
-        </sup>
+        <sup><span style={{ border: '0.5px solid #ff0059', borderRadius: 6, padding: 3, color: '#ff0059' }}>{value.link}</span></sup>
       </h2>
       <h3>
         <EditText value={value.description} onChange={description => onChange({ description })} size="large" placeholder="Description" />
@@ -34,20 +32,22 @@ const SurveyEditor = ({ value, onChange, onMove }) => (
         <Col span={16}>
         </Col>
         <Col span={8}>
-          <h3>Méta données</h3>
-          <FormItem label="Temps de réponse">
-            <TimePicker format="mm:ss" onChange={(m, responseTime) => onChange({ responseTime })} defaultOpenValue={moment('00:00', 'mm:ss')} />
-          </FormItem>
-          <FormItem label="Actif">
-            <Switch onChange={active => onChange({ active })} defaultChecked={value.active} checkedChildren="actif" unCheckedChildren="inactif" />
-          </FormItem>
-          {value.active &&
-            <FormItem label="Activation">
-              <RangePicker defaultValue={value.dates} placeholder={["Début", "Fin"]} onChange={(m, dates) => onChange({ dates })} />
-            </FormItem>}
-          <FormItem label="Mot de passe">
-            <Input defaultValue={value.password} placeholder={"Mot de passe"} onChange={e => onChange({ password: e.target.value })} style={{ width: 'auto' }} />
-          </FormItem>
+          <div>
+            <h3>Méta données</h3>
+            <FormItem label="Temps de réponse">
+              <TimePicker placeholder="Durée" format="mm:ss" onChange={(m, responseTime) => onChange({ responseTime })} defaultOpenValue={moment('00:00', 'mm:ss')} />
+            </FormItem>
+            <FormItem label="Actif">
+              <Switch onChange={active => onChange({ active })} defaultChecked={value.active} checkedChildren="actif" unCheckedChildren="inactif" />
+            </FormItem>
+            {value.active &&
+              <FormItem label="Activation">
+                <RangePicker defaultValue={value.dates} placeholder={["Début", "Fin"]} onChange={(m, dates) => onChange({ dates })} />
+              </FormItem>}
+            <FormItem label="Mot de passe">
+              <Input defaultValue={value.password} placeholder={"Mot de passe"} onChange={e => onChange({ password: e.target.value })} style={{ width: 'auto' }} />
+            </FormItem>
+          </div>
         </Col>
       </Row>
     </div>

@@ -5,6 +5,7 @@ import { Handle } from '../Components/DragList'
 import { EditText } from '../Components/EditFields'
 import QuestionMenu from '../Components/QuestionMenu'
 import QuestionList from '../Components/QuestionList'
+import VisibleIfEditor from '../Containers/VisibleIfEditor'
 
 const { Content } = Layout
 
@@ -41,6 +42,38 @@ export default class PageEditor extends Component {
       visibleIfMode,
       onToggleVisibleIfMode,
            } = this.props
+
+    if (visibleIfMode) {
+      return (
+        <div>
+          <Layout style={layoutStyle}>
+            <Row style={{ padding: 10 }}>
+              <Col span={2}>
+                <Handle />
+              </Col>
+              <Col span={18}>
+                <div style={{ textAlign: 'center' }}>
+                  <h2>
+                    <EditText value={value.title} onChange={title => onChange({ title })} size="large" placeholder="Page" />
+                  </h2>
+                </div>
+              </Col>
+              <Col span={4}>
+                <Dropdown overlay={<QuestionMenu onClick={onAdd} />}>
+                  <Button type="secondary" shape="circle" icon="plus" size='large' />
+                </Dropdown>
+                <Button onClick={this.toggleCollapsed} shape="circle" icon={collapsed ? 'down' : 'up'} size='large' />
+                <Button onClick={onToggleVisibleIfMode} shape="circle" icon={visibleIfMode ? 'eye' : 'eye-o'} size='large' />
+              </Col>
+            </Row>
+            <Content>
+              <VisibleIfEditor />
+              <QuestionList collapsed={collapsed} parent={value} data={value.questions} onMove={onMove} />
+            </Content>
+          </Layout>
+        </div>
+      )
+    }
 
     return (
       <div>

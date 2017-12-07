@@ -14,3 +14,8 @@ export const getQuestion = createSelector(
     [questions, id],
     (questions, id) => questions[id]
 )
+
+export const getPreviousQuestionValues = createSelector(
+    [questionValues],
+    (questions) => questions
+)
