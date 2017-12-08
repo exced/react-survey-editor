@@ -48,15 +48,9 @@ export default class PageEditor extends Component {
         <div>
           <Layout style={layoutStyle}>
             <Row style={{ padding: 10 }}>
-              <Col span={2}>
-                <Handle />
-              </Col>
-              <Col span={18}>
-                <div style={{ textAlign: 'center' }}>
-                  <h2>
-                    <EditText value={value.title} onChange={title => onChange({ title })} size="large" placeholder="Page" />
-                  </h2>
-                </div>
+              <Col span={2}></Col>
+              <Col span={18} style={{ textAlign: 'center' }}>
+                <h2><EditText value={value.title} onChange={title => onChange({ title })} size="large" placeholder="Page" /></h2>
               </Col>
               <Col span={4}>
                 <Dropdown overlay={<QuestionMenu onClick={onAdd} />}>
@@ -66,10 +60,12 @@ export default class PageEditor extends Component {
                 <Button onClick={onToggleVisibleIfMode} shape="circle" icon={visibleIfMode ? 'eye' : 'eye-o'} size='large' />
               </Col>
             </Row>
-            <Content>
-              <VisibleIfEditor />
-              <QuestionList collapsed={collapsed} parent={value} data={value.questions} onMove={onMove} />
-            </Content>
+            {!collapsed &&
+              <Content>
+                <VisibleIfEditor value={value} onChange={visibleIf => onChange({ visibleIf })} />
+                <QuestionList parent={value} data={value.questions} onMove={onMove} />
+              </Content>
+            }
           </Layout>
         </div>
       )
@@ -79,15 +75,9 @@ export default class PageEditor extends Component {
       <div>
         <Layout style={layoutStyle}>
           <Row style={{ padding: 10 }}>
-            <Col span={2}>
-              <Handle />
-            </Col>
-            <Col span={18}>
-              <div style={{ textAlign: 'center' }}>
-                <h2>
-                  <EditText value={value.title} onChange={title => onChange({ title })} size="large" placeholder="Page" />
-                </h2>
-              </div>
+            <Col span={2}><Handle /></Col>
+            <Col span={18} style={{ textAlign: 'center' }}>
+              <h2><EditText value={value.title} onChange={title => onChange({ title })} size="large" placeholder="Page" /></h2>
             </Col>
             <Col span={4}>
               <Dropdown overlay={<QuestionMenu onClick={onAdd} />}>
@@ -98,9 +88,11 @@ export default class PageEditor extends Component {
               <Button type="danger" onClick={onRemove} shape="circle" icon='delete' size='large' />
             </Col>
           </Row>
-          <Content>
-            <QuestionList collapsed={collapsed} parent={value} data={value.questions} onMove={onMove} />
-          </Content>
+          {!collapsed &&
+            <Content>
+              <QuestionList parent={value} data={value.questions} onMove={onMove} />
+            </Content>
+          }
         </Layout>
       </div>
     )

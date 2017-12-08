@@ -40,7 +40,7 @@ export default class VisibleIfEditor extends Component {
     return c
   }
 
-  renderOptions = e => e.map(({ value, title, color }) => <Option key={value} value={value}><span style={{ color }}>{title}</span></Option>)
+  renderOptions = e => e.map(({ value, title, color }) => <Option key={value} value={value} filterBy={title}><span style={{ color }}>{title}</span></Option>)
 
   renderBlocks = () => {
     const { values } = this.state
@@ -70,16 +70,8 @@ export default class VisibleIfEditor extends Component {
     if (previous && (previous.type === types.QUESTION || (previous.type === types.BLOCK && previous.tokens === tokens.PARC))) {
       children = [
         ...children,
-        {
-          value: { type: types.OPERATOR, tokens: tokens.OPDAND, value: tokens.OPDAND },
-          title: 'ET',
-          color: 'red'
-        },
-        {
-          value: { type: types.OPERATOR, tokens: tokens.OPDOR, value: tokens.OPDOR },
-          title: 'OU',
-          color: 'red'
-        }
+        { value: { type: types.OPERATOR, tokens: tokens.OPDAND, value: tokens.OPDAND }, title: 'ET', color: 'red' },
+        { value: { type: types.OPERATOR, tokens: tokens.OPDOR, value: tokens.OPDOR }, title: 'OU', color: 'red' },
       ]
     }
 
@@ -109,9 +101,9 @@ export default class VisibleIfEditor extends Component {
 
   onChange = (values) => {
     this.setState({ values })
+    // Generates code as string because we want dynamic conditional rendering
     const visibleIf = Object.values(values).reduce((a, e) => a + (e.type === types.QUESTION ? "${values[" + e.value + "]}" : e.value), '')
-    console.tron.log(visibleIf, true)
-    // this.props.onChange({ visibleIf })
+    this.props.onChange(visibleIf)
   }
 
   render() {
@@ -119,9 +111,12 @@ export default class VisibleIfEditor extends Component {
       <div>
         <Select
           mode="multiple"
+          filterOption
+          optionFilterProp="filterBy"
           style={{ width: '100%' }}
           placeholder="Please select"
           onChange={this.onChange}
+          size="large"
         >
           {this.renderBlocks()}
           {this.renderOperators()}
