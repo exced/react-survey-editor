@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { Row, Col, Button, Layout, Dropdown } from 'antd'
 import { Handle } from '../Components/DragList'
@@ -18,64 +18,24 @@ const layoutStyle = {
   overflow: 'hidden',
 }
 
-export default class PageEditor extends Component {
+const PageEditor = ({
+  value,
+  onChange,
+  onRemove,
+  onAdd,
+  onMove,
+  visibleIf,
+  onToggleVisibleIf,
+  collapsed,
+  onToggleCollapsed,
+       }) => {
 
-  constructor(props) {
-    super(props)
-    this.state = {
-      collapsed: false,
-    }
-  }
-
-  toggleCollapsed = () => this.setState({ collapsed: !this.state.collapsed })
-
-  render() {
-
-    const { collapsed } = this.state
-
-    const {
-      value,
-      onChange,
-      onRemove,
-      onAdd,
-      onMove,
-      visibleIfMode,
-      onToggleVisibleIfMode,
-           } = this.props
-
-    if (visibleIfMode) {
-      return (
-        <div>
-          <Layout style={layoutStyle}>
-            <Row style={{ padding: 10 }}>
-              <Col span={2}></Col>
-              <Col span={18} style={{ textAlign: 'center' }}>
-                <h2><EditText value={value.title} onChange={title => onChange({ title })} size="large" placeholder="Page" /></h2>
-              </Col>
-              <Col span={4}>
-                <Dropdown overlay={<QuestionMenu onClick={onAdd} />}>
-                  <Button type="secondary" shape="circle" icon="plus" size='large' />
-                </Dropdown>
-                <Button onClick={this.toggleCollapsed} shape="circle" icon={collapsed ? 'down' : 'up'} size='large' />
-                <Button onClick={onToggleVisibleIfMode} shape="circle" icon={visibleIfMode ? 'eye' : 'eye-o'} size='large' />
-              </Col>
-            </Row>
-            {!collapsed &&
-              <Content>
-                <VisibleIfEditor value={value} onChange={visibleIf => onChange({ visibleIf })} />
-                <QuestionList parent={value} data={value.questions} onMove={onMove} />
-              </Content>
-            }
-          </Layout>
-        </div>
-      )
-    }
-
+  if (visibleIf) {
     return (
       <div>
         <Layout style={layoutStyle}>
           <Row style={{ padding: 10 }}>
-            <Col span={2}><Handle /></Col>
+            <Col span={2}></Col>
             <Col span={18} style={{ textAlign: 'center' }}>
               <h2><EditText value={value.title} onChange={title => onChange({ title })} size="large" placeholder="Page" /></h2>
             </Col>
@@ -83,13 +43,13 @@ export default class PageEditor extends Component {
               <Dropdown overlay={<QuestionMenu onClick={onAdd} />}>
                 <Button type="secondary" shape="circle" icon="plus" size='large' />
               </Dropdown>
-              <Button onClick={this.toggleCollapsed} shape="circle" icon={collapsed ? 'down' : 'up'} size='large' />
-              <Button onClick={onToggleVisibleIfMode} shape="circle" icon={visibleIfMode ? 'eye' : 'eye-o'} size='large' />
-              <Button type="danger" onClick={onRemove} shape="circle" icon='delete' size='large' />
+              <Button onClick={onToggleCollapsed} shape="circle" icon={collapsed ? 'down' : 'up'} size='large' />
+              <Button onClick={onToggleVisibleIf} shape="circle" icon={visibleIf ? 'eye' : 'eye-o'} size='large' />
             </Col>
           </Row>
           {!collapsed &&
             <Content>
+              <VisibleIfEditor value={value} onChange={visibleIf => onChange({ visibleIf })} />
               <QuestionList parent={value} data={value.questions} onMove={onMove} />
             </Content>
           }
@@ -97,6 +57,32 @@ export default class PageEditor extends Component {
       </div>
     )
   }
+
+  return (
+    <div>
+      <Layout style={layoutStyle}>
+        <Row style={{ padding: 10 }}>
+          <Col span={2}><Handle /></Col>
+          <Col span={18} style={{ textAlign: 'center' }}>
+            <h2><EditText value={value.title} onChange={title => onChange({ title })} size="large" placeholder="Page" /></h2>
+          </Col>
+          <Col span={4}>
+            <Dropdown overlay={<QuestionMenu onClick={onAdd} />}>
+              <Button type="secondary" shape="circle" icon="plus" size='large' />
+            </Dropdown>
+            <Button onClick={onToggleCollapsed} shape="circle" icon={collapsed ? 'down' : 'up'} size='large' />
+            <Button onClick={onToggleVisibleIf} shape="circle" icon={visibleIf ? 'eye' : 'eye-o'} size='large' />
+            <Button type="danger" onClick={onRemove} shape="circle" icon='delete' size='large' />
+          </Col>
+        </Row>
+        {!collapsed &&
+          <Content>
+            <QuestionList parent={value} data={value.questions} onMove={onMove} />
+          </Content>
+        }
+      </Layout>
+    </div>
+  )
 }
 
 PageEditor.propTypes = {
@@ -106,3 +92,5 @@ PageEditor.propTypes = {
   onAdd: PropTypes.func.isRequired,
   onMove: PropTypes.func.isRequired,
 }
+
+export default PageEditor

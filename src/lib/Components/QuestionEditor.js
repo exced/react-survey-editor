@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { Row, Col, Button, Layout, Dropdown, Tooltip, Icon } from 'antd'
 import QuestionMenu from '../Components/QuestionMenu'
@@ -20,68 +20,23 @@ const layoutStyle = {
 
 const { Content } = Layout
 
-export default class QuestionEditor extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      collapsed: false,
-    }
-  }
+const QuestionEditor = ({
+  value,
+  onChange,
+  onRemove,
+  onReset,
+  visibleIf,
+  onToggleVisibleIf,
+  collapsed,
+  onToggleCollapsed,
+       }) => {
 
-  toggleCollapsed = () => this.setState({ collapsed: !this.state.collapsed })
-
-  render() {
-
-    const { collapsed } = this.state
-
-    const {
-      value,
-      onChange,
-      onRemove,
-      onReset,
-      visibleIfMode,
-      onToggleVisibleIfMode,
-           } = this.props
-
-    if (visibleIfMode) {
-      return (
-        <div>
-          <Layout style={layoutStyle}>
-            <Row style={{ padding: 10 }}>
-              <Col span={2}></Col>
-              <Col span={18} style={{ textAlign: 'center' }}>
-                <h3>
-                  <Tooltip title={value.tooltip}>
-                    <Icon type="question-circle-o" />
-                  </Tooltip>
-                  <EditText value={value.title} onChange={title => onChange({ title })} size="large" placeholder="Question" />
-                  <sup><Button type="dashed" onClick={() => onChange({ mandatory: !value.mandatory })} shape="circle" icon={value.mandatory ? 'star' : 'star-o'} size='small' /></sup>
-                </h3>
-              </Col>
-              <Col span={4}>
-                <Dropdown overlay={<QuestionMenu onClick={(type) => onReset(type)} />}>
-                  <Button shape="circle" type="secondary" icon="setting" size='large'>{typeToName()}</Button>
-                </Dropdown>
-                <Button onClick={this.toggleCollapsed} shape="circle" icon={collapsed ? 'down' : 'up'} size='large' />
-                <Button onClick={onToggleVisibleIfMode} shape="circle" icon={visibleIfMode ? 'eye' : 'eye-o'} size='large' />
-              </Col>
-            </Row>
-            {!collapsed &&
-              <Content style={{ textAlign: 'left', margin: 10, marginLeft: 50 }}>
-                <VisibleIfEditor value={value} onChange={visibleIf => onChange({ visibleIf })} />
-                <QuestionEditorItem value={value} onChange={onChange} />
-              </Content>
-            }
-          </Layout>
-        </div>
-      )
-    }
-
+  if (visibleIf) {
     return (
       <div>
         <Layout style={layoutStyle}>
           <Row style={{ padding: 10 }}>
-            <Col span={2}><Handle /></Col>
+            <Col span={2}></Col>
             <Col span={18} style={{ textAlign: 'center' }}>
               <h3>
                 <Tooltip title={value.tooltip}>
@@ -95,13 +50,13 @@ export default class QuestionEditor extends Component {
               <Dropdown overlay={<QuestionMenu onClick={(type) => onReset(type)} />}>
                 <Button shape="circle" type="secondary" icon="setting" size='large'>{typeToName()}</Button>
               </Dropdown>
-              <Button onClick={this.toggleCollapsed} shape="circle" icon={collapsed ? 'down' : 'up'} size='large' />
-              <Button onClick={onToggleVisibleIfMode} shape="circle" icon={visibleIfMode ? 'eye' : 'eye-o'} size='large' />
-              <Button type="danger" onClick={onRemove} shape="circle" icon='delete' size='large' />
+              <Button onClick={onToggleCollapsed} shape="circle" icon={collapsed ? 'down' : 'up'} size='large' />
+              <Button onClick={onToggleVisibleIf} shape="circle" icon={visibleIf ? 'eye' : 'eye-o'} size='large' />
             </Col>
           </Row>
           {!collapsed &&
             <Content style={{ textAlign: 'left', margin: 10, marginLeft: 50 }}>
+              <VisibleIfEditor value={value} onChange={visibleIf => onChange({ visibleIf })} />
               <QuestionEditorItem value={value} onChange={onChange} />
             </Content>
           }
@@ -109,6 +64,38 @@ export default class QuestionEditor extends Component {
       </div>
     )
   }
+
+  return (
+    <div>
+      <Layout style={layoutStyle}>
+        <Row style={{ padding: 10 }}>
+          <Col span={2}><Handle /></Col>
+          <Col span={18} style={{ textAlign: 'center' }}>
+            <h3>
+              <Tooltip title={value.tooltip}>
+                <Icon type="question-circle-o" />
+              </Tooltip>
+              <EditText value={value.title} onChange={title => onChange({ title })} size="large" placeholder="Question" />
+              <sup><Button type="dashed" onClick={() => onChange({ mandatory: !value.mandatory })} shape="circle" icon={value.mandatory ? 'star' : 'star-o'} size='small' /></sup>
+            </h3>
+          </Col>
+          <Col span={4}>
+            <Dropdown overlay={<QuestionMenu onClick={(type) => onReset(type)} />}>
+              <Button shape="circle" type="secondary" icon="setting" size='large'>{typeToName()}</Button>
+            </Dropdown>
+            <Button onClick={onToggleCollapsed} shape="circle" icon={collapsed ? 'down' : 'up'} size='large' />
+            <Button onClick={onToggleVisibleIf} shape="circle" icon={visibleIf ? 'eye' : 'eye-o'} size='large' />
+            <Button type="danger" onClick={onRemove} shape="circle" icon='delete' size='large' />
+          </Col>
+        </Row>
+        {!collapsed &&
+          <Content style={{ textAlign: 'left', margin: 10, marginLeft: 50 }}>
+            <QuestionEditorItem value={value} onChange={onChange} />
+          </Content>
+        }
+      </Layout>
+    </div>
+  )
 }
 
 QuestionEditor.propTypes = {
@@ -117,3 +104,5 @@ QuestionEditor.propTypes = {
   onRemove: PropTypes.func.isRequired,
   onReset: PropTypes.func.isRequired,
 }
+
+export default QuestionEditor 

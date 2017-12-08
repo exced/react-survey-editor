@@ -6,8 +6,8 @@ import { getControllerSurvey } from '../Selectors/ControllerSurvey'
 import SurveyEditor from '../Components/SurveyEditor'
 
 const mapStateToProps = (state, ownProps) => ({
-  visibleIf: getControllerSurvey(state).visibleIf,
-  collapsed: getControllerSurvey(state).collapsed,
+  visibleIf: getControllerSurvey(state, ownProps).visibleIf,
+  collapsed: getControllerSurvey(state, ownProps).collapsed,
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({

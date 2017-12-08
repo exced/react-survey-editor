@@ -14,11 +14,7 @@ const initialValue = {
   dates: [],
   password: '',
   link: '',
-  pages: [{
-    id: uniqueId(),
-    title: 'Page',
-    questions: []
-  }]
+  pages: [],
 }
 
 // Action Creators
