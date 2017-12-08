@@ -4,7 +4,7 @@ import { Row, Col, Button, Layout, Dropdown } from 'antd'
 import { Handle } from '../Components/DragList'
 import { EditText } from '../Components/EditFields'
 import QuestionMenu from '../Components/QuestionMenu'
-import QuestionList from '../Components/QuestionList'
+import QuestionList from '../Containers/QuestionList'
 import VisibleIfEditor from '../Containers/VisibleIfEditor'
 
 const { Content } = Layout
@@ -25,12 +25,41 @@ const PageEditor = ({
   onAdd,
   onMove,
   visibleIf,
+  visibleIfMode,
   onToggleVisibleIf,
   collapsed,
   onToggleCollapsed,
        }) => {
 
-  if (visibleIf) {
+  if (visibleIfMode) {
+    if (visibleIf) {
+      return (
+        <div>
+          <Layout style={layoutStyle}>
+            <Row style={{ padding: 10 }}>
+              <Col span={2}></Col>
+              <Col span={18} style={{ textAlign: 'center' }}>
+                <h2><EditText value={value.title} onChange={title => onChange({ title })} size="large" placeholder="Page" /></h2>
+              </Col>
+              <Col span={4}>
+                <Dropdown overlay={<QuestionMenu onClick={onAdd} />}>
+                  <Button type="secondary" shape="circle" icon="plus" size='large' />
+                </Dropdown>
+                <Button onClick={onToggleCollapsed} shape="circle" icon={collapsed ? 'down' : 'up'} size='large' />
+                <Button onClick={onToggleVisibleIf} shape="circle" icon={visibleIf ? 'eye' : 'eye-o'} size='large' />
+              </Col>
+            </Row>
+            {!collapsed &&
+              <Content>
+                <VisibleIfEditor value={value} onChange={visibleIf => onChange({ visibleIf })} />
+                <QuestionList parent={value} data={value.questions} onMove={onMove} />
+              </Content>
+            }
+          </Layout>
+        </div>
+      )
+    }
+
     return (
       <div>
         <Layout style={layoutStyle}>
@@ -49,7 +78,6 @@ const PageEditor = ({
           </Row>
           {!collapsed &&
             <Content>
-              <VisibleIfEditor value={value} onChange={visibleIf => onChange({ visibleIf })} />
               <QuestionList parent={value} data={value.questions} onMove={onMove} />
             </Content>
           }

@@ -26,12 +26,47 @@ const QuestionEditor = ({
   onRemove,
   onReset,
   visibleIf,
+  visibleIfMode,
   onToggleVisibleIf,
   collapsed,
   onToggleCollapsed,
        }) => {
 
-  if (visibleIf) {
+  if (visibleIfMode) {
+    if (visibleIf) {
+      return (
+        <div>
+          <Layout style={layoutStyle}>
+            <Row style={{ padding: 10 }}>
+              <Col span={2}></Col>
+              <Col span={18} style={{ textAlign: 'center' }}>
+                <h3>
+                  <Tooltip title={value.tooltip}>
+                    <Icon type="question-circle-o" />
+                  </Tooltip>
+                  <EditText value={value.title} onChange={title => onChange({ title })} size="large" placeholder="Question" />
+                  <sup><Button type="dashed" onClick={() => onChange({ mandatory: !value.mandatory })} shape="circle" icon={value.mandatory ? 'star' : 'star-o'} size='small' /></sup>
+                </h3>
+              </Col>
+              <Col span={4}>
+                <Dropdown overlay={<QuestionMenu onClick={(type) => onReset(type)} />}>
+                  <Button shape="circle" type="secondary" icon="setting" size='large'>{typeToName()}</Button>
+                </Dropdown>
+                <Button onClick={onToggleCollapsed} shape="circle" icon={collapsed ? 'down' : 'up'} size='large' />
+                <Button onClick={onToggleVisibleIf} shape="circle" icon={visibleIf ? 'eye' : 'eye-o'} size='large' />
+              </Col>
+            </Row>
+            {!collapsed &&
+              <Content style={{ textAlign: 'left', margin: 10, marginLeft: 50 }}>
+                <VisibleIfEditor value={value} onChange={visibleIf => onChange({ visibleIf })} />
+                <QuestionEditorItem value={value} onChange={onChange} />
+              </Content>
+            }
+          </Layout>
+        </div>
+      )
+    }
+
     return (
       <div>
         <Layout style={layoutStyle}>
@@ -56,7 +91,6 @@ const QuestionEditor = ({
           </Row>
           {!collapsed &&
             <Content style={{ textAlign: 'left', margin: 10, marginLeft: 50 }}>
-              <VisibleIfEditor value={value} onChange={visibleIf => onChange({ visibleIf })} />
               <QuestionEditorItem value={value} onChange={onChange} />
             </Content>
           }

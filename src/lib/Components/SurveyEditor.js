@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Button, Row, Col, Form, Switch, DatePicker, TimePicker, Input } from 'antd'
 import { EditText } from '../Components/EditFields'
-import PageList from '../Components/PageList'
+import PageList from '../Containers/PageList'
 import moment from 'moment'
 
 const FormItem = Form.Item

@@ -1,5 +1,6 @@
 import { createSelector } from 'reselect'
 import { createDeepEqualSelector } from '../Selectors'
+import { getSurvey } from '../Selectors/Survey'
 
 // Input Selectors
 const id = (state, props) => props.id
@@ -24,4 +25,14 @@ export const getPageIds = createDeepEqualSelector(
 export const getPage = createSelector(
   [pages, id],
   (pages, id) => pages[id]
+)
+
+export const getOrderedPageIds = createSelector(
+  [getSurvey],
+  (survey) => survey.pages
+)
+
+export const getOrderedPages = createSelector(
+  [pages, getOrderedPageIds],
+  (pages, ids) => ids.map(e => pages[e])
 )

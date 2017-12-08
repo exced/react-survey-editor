@@ -21,6 +21,10 @@ const reducer = (state = initialState, action) => {
     case TOGGLE_VISIBLE_IF_QUESTION:
       return {
         ...state,
+        [action.payload.id]: {
+          ...state[action.payload.id],
+          visibleIf: !state[action.payload.id].visibleIf,
+        }
       }
 
     case TOGGLE_COLLAPSED_QUESTION:
