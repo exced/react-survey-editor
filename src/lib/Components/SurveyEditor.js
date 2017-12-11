@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Button, Row, Col, Form, Switch, DatePicker, TimePicker, Input } from 'antd'
 import { EditText } from '../Components/EditFields'
-import PageList from '../Containers/PageList'
+import PageList from '../Components/PageList'
 import moment from 'moment'
 
 const FormItem = Form.Item
@@ -18,9 +18,14 @@ const layoutStyle = {
   overflow: 'hidden',
 }
 
-const SurveyEditor = ({ value, onChange, onMove, visibleIf, collapsed, onToggleCollapsed }) => {
-
-  return (
+const SurveyEditor = ({
+  value,
+  onChange,
+  onAdd,
+  onMove,
+  collapsed,
+  onToggleCollapsed
+     }) => (
     <div>
       <div style={layoutStyle}>
         <Row style={{ padding: 10 }}>
@@ -30,11 +35,10 @@ const SurveyEditor = ({ value, onChange, onMove, visibleIf, collapsed, onToggleC
               <EditText value={value.title} onChange={title => onChange({ title })} size="large" placeholder="Questionnaire" />
               <sup><span style={{ border: '0.5px solid #ff0059', borderRadius: 6, padding: 3, color: '#ff0059' }}>{value.link}</span></sup>
             </h2>
-            <h3>
-              <EditText value={value.description} onChange={description => onChange({ description })} size="large" placeholder="Description" />
-            </h3>
+            <h3><EditText value={value.description} onChange={description => onChange({ description })} size="large" placeholder="Description" /></h3>
           </Col>
           <Col span={4}>
+            <Button onClick={onAdd} shape="circle" icon="plus" size='large' />
             <Button onClick={onToggleCollapsed} shape="circle" icon={collapsed ? 'down' : 'up'} size='large' />
           </Col>
         </Row>
@@ -66,7 +70,6 @@ const SurveyEditor = ({ value, onChange, onMove, visibleIf, collapsed, onToggleC
       <PageList parent={value} data={value.pages} onMove={onMove} />
     </div>
   )
-}
 
 
 SurveyEditor.propTypes = {

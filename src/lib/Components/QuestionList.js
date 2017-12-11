@@ -8,7 +8,6 @@ const QuestionList = ({ collapsed, parent, data, onMove }) => (
 )
 
 QuestionList.propTypes = {
-  collapsed: PropTypes.bool.isRequired,
   parent: PropTypes.object.isRequired,
   data: PropTypes.array.isRequired,
   onMove: PropTypes.func.isRequired,

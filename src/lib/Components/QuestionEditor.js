@@ -6,7 +6,7 @@ import QuestionEditorItem from '../Components/QuestionEditorItem'
 import { Handle } from '../Components/DragList'
 import { EditText } from '../Components/EditFields'
 import { typeToName } from '../Transforms/Editor'
-import VisibleIfEditor from '../Containers/VisibleIfEditor'
+import VisibleIfEditorQuestion from '../Containers/VisibleIfEditorQuestion'
 
 const layoutStyle = {
   margin: 20,
@@ -25,81 +25,9 @@ const QuestionEditor = ({
   onChange,
   onRemove,
   onReset,
-  visibleIf,
-  visibleIfMode,
-  onToggleVisibleIf,
   collapsed,
   onToggleCollapsed,
-       }) => {
-
-  if (visibleIfMode) {
-    if (visibleIf) {
-      return (
-        <div>
-          <Layout style={layoutStyle}>
-            <Row style={{ padding: 10 }}>
-              <Col span={2}></Col>
-              <Col span={18} style={{ textAlign: 'center' }}>
-                <h3>
-                  <Tooltip title={value.tooltip}>
-                    <Icon type="question-circle-o" />
-                  </Tooltip>
-                  <EditText value={value.title} onChange={title => onChange({ title })} size="large" placeholder="Question" />
-                  <sup><Button type="dashed" onClick={() => onChange({ mandatory: !value.mandatory })} shape="circle" icon={value.mandatory ? 'star' : 'star-o'} size='small' /></sup>
-                </h3>
-              </Col>
-              <Col span={4}>
-                <Dropdown overlay={<QuestionMenu onClick={(type) => onReset(type)} />}>
-                  <Button shape="circle" type="secondary" icon="setting" size='large'>{typeToName()}</Button>
-                </Dropdown>
-                <Button onClick={onToggleCollapsed} shape="circle" icon={collapsed ? 'down' : 'up'} size='large' />
-                <Button onClick={onToggleVisibleIf} shape="circle" icon={visibleIf ? 'eye' : 'eye-o'} size='large' />
-              </Col>
-            </Row>
-            {!collapsed &&
-              <Content style={{ textAlign: 'left', margin: 10, marginLeft: 50 }}>
-                <VisibleIfEditor value={value} onChange={visibleIf => onChange({ visibleIf })} />
-                <QuestionEditorItem value={value} onChange={onChange} />
-              </Content>
-            }
-          </Layout>
-        </div>
-      )
-    }
-
-    return (
-      <div>
-        <Layout style={layoutStyle}>
-          <Row style={{ padding: 10 }}>
-            <Col span={2}></Col>
-            <Col span={18} style={{ textAlign: 'center' }}>
-              <h3>
-                <Tooltip title={value.tooltip}>
-                  <Icon type="question-circle-o" />
-                </Tooltip>
-                <EditText value={value.title} onChange={title => onChange({ title })} size="large" placeholder="Question" />
-                <sup><Button type="dashed" onClick={() => onChange({ mandatory: !value.mandatory })} shape="circle" icon={value.mandatory ? 'star' : 'star-o'} size='small' /></sup>
-              </h3>
-            </Col>
-            <Col span={4}>
-              <Dropdown overlay={<QuestionMenu onClick={(type) => onReset(type)} />}>
-                <Button shape="circle" type="secondary" icon="setting" size='large'>{typeToName()}</Button>
-              </Dropdown>
-              <Button onClick={onToggleCollapsed} shape="circle" icon={collapsed ? 'down' : 'up'} size='large' />
-              <Button onClick={onToggleVisibleIf} shape="circle" icon={visibleIf ? 'eye' : 'eye-o'} size='large' />
-            </Col>
-          </Row>
-          {!collapsed &&
-            <Content style={{ textAlign: 'left', margin: 10, marginLeft: 50 }}>
-              <QuestionEditorItem value={value} onChange={onChange} />
-            </Content>
-          }
-        </Layout>
-      </div>
-    )
-  }
-
-  return (
+       }) => (
     <div>
       <Layout style={layoutStyle}>
         <Row style={{ padding: 10 }}>
@@ -118,19 +46,18 @@ const QuestionEditor = ({
               <Button shape="circle" type="secondary" icon="setting" size='large'>{typeToName()}</Button>
             </Dropdown>
             <Button onClick={onToggleCollapsed} shape="circle" icon={collapsed ? 'down' : 'up'} size='large' />
-            <Button onClick={onToggleVisibleIf} shape="circle" icon={visibleIf ? 'eye' : 'eye-o'} size='large' />
             <Button type="danger" onClick={onRemove} shape="circle" icon='delete' size='large' />
           </Col>
         </Row>
         {!collapsed &&
           <Content style={{ textAlign: 'left', margin: 10, marginLeft: 50 }}>
-            <QuestionEditorItem value={value} onChange={onChange} />
+            <VisibleIfEditorQuestion value={value} onChange={visibleIf => onChange({ visibleIf })} />
+            <QuestionEditorItem value={value} onChange={onChange} editable />
           </Content>
         }
       </Layout>
     </div>
   )
-}
 
 QuestionEditor.propTypes = {
   value: PropTypes.object.isRequired,

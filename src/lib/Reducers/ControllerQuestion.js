@@ -1,6 +1,5 @@
 import Immutable from 'seamless-immutable'
 import {
-  TOGGLE_VISIBLE_IF_QUESTION,
   TOGGLE_COLLAPSED_QUESTION,
 } from '../Types/ControllerQuestion'
 import {
@@ -11,21 +10,11 @@ import {
 const initialState = Immutable({})
 
 const initialValue = Immutable({
-  visibleIf: false,
   collapsed: false,
 })
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-
-    case TOGGLE_VISIBLE_IF_QUESTION:
-      return {
-        ...state,
-        [action.payload.id]: {
-          ...state[action.payload.id],
-          visibleIf: !state[action.payload.id].visibleIf,
-        }
-      }
 
     case TOGGLE_COLLAPSED_QUESTION:
       return {

@@ -1,21 +1,63 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Select } from 'antd'
+import { Select, Form } from 'antd'
 import { last } from 'lodash'
+import {
+  QUESTION_DATE,
+  QUESTION_DISCRETE_SCALE,
+  QUESTION_NUMERICAL_SCALE,
+  QUESTION_RATE,
+} from '../Types/Question'
+import QuestionEditorItem from '../Components/QuestionEditorItem'
 
+const FormItem = Form.Item
 const { Option, OptGroup } = Select
 
 const types = {
   BLOCK: "BLOCK",
   OPERATOR: "OPERATOR",
-  QUESTION: "QUESTION",
+  COMPARATOR: "COMPARATOR",
+  OPERAND: "OPERAND",
+  VAR: "VAR",
 }
 
 const tokens = {
-  PARO: '(',
-  PARC: ')',
+  OPAR: '(',
+  CPAR: ')',
   OPDAND: '&&',
   OPDOR: '||',
+  OPLEQ: '<=',
+  OPLT: '<',
+  OPGEQ: '>=',
+  OPGT: '>',
+  OPSEQ: '==',
+  OPDEQ: '===',
+}
+
+class InputOption extends Component {
+  constructor(props) {
+    super(props)
+    this.state = { value: null }
+  }
+
+  onChange = (value) => {
+    this.setState({ value })
+    this.props.onChange(value)
+  }
+
+  render() {
+    const { value } = this.state
+    const { children, color } = this.props
+    console.tron.log(value, true)
+    return (
+      <div>
+        {value ?
+          <span style={{ color }}>{JSON.stringify(value)}</span>
+          : React.Children.map(children, child => React.cloneElement(child, { onChange: this.onChange }))
+        }
+      </div>
+    )
+  }
 }
 
 export default class VisibleIfEditor extends Component {
@@ -23,16 +65,19 @@ export default class VisibleIfEditor extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      values: null,
+      values: [],
+      visible: false,
     }
   }
+
+  addValue = (value) => this.setState({ values: [...this.state.values, value] })
 
   countInBlock = (type) => {
     const { values } = this.state
     let c = 0
     for (let i = values.length; i--;) {
-      let v = values[i]
-      if (v.type === types.BLOCK && v.tokens === tokens.PARO) {
+      const v = values[i]
+      if (v.type === types.BLOCK && v.tokens === tokens.OPAR) {
         return c
       }
       c += v.type === type
@@ -48,11 +93,11 @@ export default class VisibleIfEditor extends Component {
     let children = []
 
     if (!previous || (previous && previous.type === types.OPERATOR)) {
-      children = [...children, { value: { type: types.BLOCK, tokens: tokens.PARO, value: tokens.PARO }, title: tokens.PARO, color: 'red' }]
+      children = [...children, { value: { type: types.BLOCK, tokens: tokens.OPAR, value: tokens.OPAR }, title: tokens.OPAR, color: 'red' }]
     }
 
-    if ((previous && previous.type === types.QUESTION && this.countInBlock(types.QUESTION) > 1)) {
-      children = [...children, { value: { type: types.BLOCK, tokens: tokens.PARC, value: tokens.PARC }, title: tokens.PARC, color: 'red' }]
+    if ((previous && previous.type === types.VAR && this.countInBlock(types.VAR) > 1)) {
+      children = [...children, { value: { type: types.BLOCK, tokens: tokens.CPAR, value: tokens.CPAR }, title: tokens.CPAR, color: 'red' }]
     }
 
     return (
@@ -67,7 +112,7 @@ export default class VisibleIfEditor extends Component {
     const previous = last(values)
     let children = []
 
-    if (previous && (previous.type === types.QUESTION || (previous.type === types.BLOCK && previous.tokens === tokens.PARC))) {
+    if (previous && (previous.type === types.OPERAND || (previous.type === types.BLOCK && previous.tokens === tokens.CPAR))) {
       children = [
         ...children,
         { value: { type: types.OPERATOR, tokens: tokens.OPDAND, value: tokens.OPDAND }, title: 'ET', color: 'red' },
@@ -82,18 +127,73 @@ export default class VisibleIfEditor extends Component {
     )
   }
 
-  renderQuestions = () => {
+  renderComparators = () => {
     const { values } = this.state
-    const { questions } = this.props
     const previous = last(values)
     let children = []
 
-    if (!previous || (previous && previous.type === types.BLOCK) || (previous && previous.type === types.OPERATOR)) {
-      children = questions.map(e => ({ value: { type: types.QUESTION, value: e.id }, title: e.title, color: 'green' }))
+    const leq = { value: { type: types.COMPARATOR, tokens: tokens.OPLEQ, value: tokens.OPLEQ }, title: '<=', color: 'blue' }
+    const lt = { value: { type: types.COMPARATOR, tokens: tokens.OPLT, value: tokens.OPLT }, title: '<', color: 'blue' }
+    const geq = { value: { type: types.COMPARATOR, tokens: tokens.OPGEQ, value: tokens.OPGEQ }, title: '>=', color: 'blue' }
+    const gt = { value: { type: types.COMPARATOR, tokens: tokens.OPGT, value: tokens.OPGT }, title: '>', color: 'blue' }
+    const deq = { value: { type: types.COMPARATOR, tokens: tokens.OPDEQ, value: tokens.OPDEQ }, title: '===', color: 'blue' }
+
+    if (previous && previous.type === types.VAR) {
+      children = [
+        ...children,
+        ...[leq, lt, geq, gt, deq],
+      ]
     }
 
     return (
-      <OptGroup label="questions">
+      <OptGroup label="comparators">
+        {this.renderOptions(children)}
+      </OptGroup>
+    )
+  }
+
+  renderOperands = () => {
+    const { values } = this.state
+    const { questionsMap } = this.props
+    const previous = last(values)
+    const previousQuestion = values && last(values.splice(0, values.length - 1))
+
+    if (previous && previous.type === types.COMPARATOR) {
+      const question = questionsMap[previousQuestion.value]
+      const value = { type: types.OPERAND, value: "" }
+      return (
+        <OptGroup label="operands">
+          <Option key={value} value={value} filterBy="title">
+            <InputOption onChange={value => this.addValue({ type: types.OPERAND, value })}>
+              <QuestionEditorItem disabled value={question} editable={false} />
+            </InputOption>
+          </Option>
+        </OptGroup>
+      )
+    }
+
+    return (
+      <OptGroup label="operands">
+      </OptGroup>
+    )
+  }
+
+  renderVars = () => {
+    const { values } = this.state
+    const { questionsMap } = this.props
+    const previous = last(values)
+    let children = []
+
+    // Keep only questions we can extract simple value from
+    if (!previous || (previous && previous.type === types.BLOCK) || (previous && previous.type === types.OPERATOR)) {
+      children =
+        Object.values(questionsMap)
+          .filter(e => e.type === QUESTION_DATE || e.type === QUESTION_DISCRETE_SCALE || e.type === QUESTION_NUMERICAL_SCALE || e.type === QUESTION_RATE)
+          .map(e => ({ value: { type: types.VAR, value: e.id }, title: e.title, color: 'green' }))
+    }
+
+    return (
+      <OptGroup label="vars">
         {this.renderOptions(children)}
       </OptGroup>
     )
@@ -102,26 +202,31 @@ export default class VisibleIfEditor extends Component {
   onChange = (values) => {
     this.setState({ values })
     // Generates code as string because we want dynamic conditional rendering
-    const visibleIf = Object.values(values).reduce((a, e) => a + (e.type === types.QUESTION ? "${values[" + e.value + "]}" : e.value), '')
-    this.props.onChange(visibleIf)
+    this.props.onChange(Object.values(values).reduce((a, e) => a + (e.type === types.VAR ? "${values[" + e.value + "]}" : e.value), ''))
   }
 
   render() {
+
     return (
       <div>
-        <Select
-          mode="multiple"
-          filterOption
-          optionFilterProp="filterBy"
-          style={{ width: '100%' }}
-          placeholder="Please select"
-          onChange={this.onChange}
-          size="large"
-        >
-          {this.renderBlocks()}
-          {this.renderOperators()}
-          {this.renderQuestions()}
-        </Select>
+        <FormItem label="Visible si">
+          <Select
+            defaultValue={this.state.values}
+            mode="multiple"
+            filterOption
+            optionFilterProp="filterBy"
+            style={{ width: '50%' }}
+            placeholder="Visible si"
+            onChange={this.onChange}
+            size="large"
+          >
+            {this.renderBlocks()}
+            {this.renderOperators()}
+            {this.renderComparators()}
+            {this.renderOperands()}
+            {this.renderVars()}
+          </Select>
+        </FormItem>
       </div>
     )
   }
@@ -130,5 +235,4 @@ export default class VisibleIfEditor extends Component {
 VisibleIfEditor.propTypes = {
   value: PropTypes.object.isRequired,
   onChange: PropTypes.func.isRequired,
-  onMove: PropTypes.func.isRequired,
 }

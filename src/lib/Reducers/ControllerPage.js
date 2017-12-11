@@ -1,6 +1,5 @@
 import Immutable from 'seamless-immutable'
 import {
-  TOGGLE_VISIBLE_IF_PAGE,
   TOGGLE_COLLAPSED_PAGE,
 } from '../Types/ControllerPage'
 import {
@@ -18,15 +17,6 @@ const initialValue = Immutable({
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-
-    case TOGGLE_VISIBLE_IF_PAGE:
-      return {
-        ...state,
-        [action.payload.id]: {
-          ...state[action.payload.id],
-          visibleIf: !state[action.payload.id].visibleIf,
-        }
-      }
 
     case TOGGLE_COLLAPSED_PAGE:
       return {

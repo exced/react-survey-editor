@@ -28,26 +28,29 @@ export const Item = ({ disabled, value, onChange }) => {
   )
 }
 
-const Meta = ({ value, onChange }) => (
-  <Row type="flex" align="bottom">
-    <Col span={16}>
-      <Item disabled value={value} onChange={() => { }} />
-    </Col>
-    <Col span={8}>
-      <h3>Méta données</h3>
-      <FormItem label="Type">
-        <Select defaultValue={value.dateType} style={{ width: 120 }} onChange={dateType => onChange({ dateType })}>
-          <Option value="date">Date</Option>
-          <Option value="month">Mois</Option>
-          <Option value="week">Semaine</Option>
-          <Option value="range">Durée</Option>
-        </Select>
-      </FormItem>
-      <FormItem label="Indications">
-        <Input value={value.tooltip} onChange={tooltip => onChange({ tooltip })} placeholder="Indications" size="small" style={{ width: 'auto' }} />
-      </FormItem>
-    </Col>
-  </Row>
+const Meta = ({ value, onChange, editable }) => (
+  editable ?
+    <Row type="flex" align="bottom">
+      <Col span={16}>
+        <Item disabled value={value} onChange={() => { }} />
+      </Col>
+      <Col span={8}>
+        <h3>Méta données</h3>
+        <FormItem label="Type">
+          <Select defaultValue={value.dateType} style={{ width: 120 }} onChange={dateType => onChange({ dateType })}>
+            <Option value="date">Date</Option>
+            <Option value="month">Mois</Option>
+            <Option value="week">Semaine</Option>
+            <Option value="range">Durée</Option>
+          </Select>
+        </FormItem>
+        <FormItem label="Indications">
+          <Input value={value.tooltip} onChange={tooltip => onChange({ tooltip })} placeholder="Indications" size="small" style={{ width: 'auto' }} />
+        </FormItem>
+      </Col>
+    </Row>
+    :
+    <Item disabled={false} value={value} onChange={onChange} />
 )
 
 Meta.propTypes = {

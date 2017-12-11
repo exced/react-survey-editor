@@ -4,8 +4,8 @@ import { Row, Col, Button, Layout, Dropdown } from 'antd'
 import { Handle } from '../Components/DragList'
 import { EditText } from '../Components/EditFields'
 import QuestionMenu from '../Components/QuestionMenu'
-import QuestionList from '../Containers/QuestionList'
-import VisibleIfEditor from '../Containers/VisibleIfEditor'
+import QuestionList from '../Components/QuestionList'
+import VisibleIfEditorPage from '../Containers/VisibleIfEditorPage'
 
 const { Content } = Layout
 
@@ -24,69 +24,9 @@ const PageEditor = ({
   onRemove,
   onAdd,
   onMove,
-  visibleIf,
-  visibleIfMode,
-  onToggleVisibleIf,
   collapsed,
   onToggleCollapsed,
-       }) => {
-
-  if (visibleIfMode) {
-    if (visibleIf) {
-      return (
-        <div>
-          <Layout style={layoutStyle}>
-            <Row style={{ padding: 10 }}>
-              <Col span={2}></Col>
-              <Col span={18} style={{ textAlign: 'center' }}>
-                <h2><EditText value={value.title} onChange={title => onChange({ title })} size="large" placeholder="Page" /></h2>
-              </Col>
-              <Col span={4}>
-                <Dropdown overlay={<QuestionMenu onClick={onAdd} />}>
-                  <Button type="secondary" shape="circle" icon="plus" size='large' />
-                </Dropdown>
-                <Button onClick={onToggleCollapsed} shape="circle" icon={collapsed ? 'down' : 'up'} size='large' />
-                <Button onClick={onToggleVisibleIf} shape="circle" icon={visibleIf ? 'eye' : 'eye-o'} size='large' />
-              </Col>
-            </Row>
-            {!collapsed &&
-              <Content>
-                <VisibleIfEditor value={value} onChange={visibleIf => onChange({ visibleIf })} />
-                <QuestionList parent={value} data={value.questions} onMove={onMove} />
-              </Content>
-            }
-          </Layout>
-        </div>
-      )
-    }
-
-    return (
-      <div>
-        <Layout style={layoutStyle}>
-          <Row style={{ padding: 10 }}>
-            <Col span={2}></Col>
-            <Col span={18} style={{ textAlign: 'center' }}>
-              <h2><EditText value={value.title} onChange={title => onChange({ title })} size="large" placeholder="Page" /></h2>
-            </Col>
-            <Col span={4}>
-              <Dropdown overlay={<QuestionMenu onClick={onAdd} />}>
-                <Button type="secondary" shape="circle" icon="plus" size='large' />
-              </Dropdown>
-              <Button onClick={onToggleCollapsed} shape="circle" icon={collapsed ? 'down' : 'up'} size='large' />
-              <Button onClick={onToggleVisibleIf} shape="circle" icon={visibleIf ? 'eye' : 'eye-o'} size='large' />
-            </Col>
-          </Row>
-          {!collapsed &&
-            <Content>
-              <QuestionList parent={value} data={value.questions} onMove={onMove} />
-            </Content>
-          }
-        </Layout>
-      </div>
-    )
-  }
-
-  return (
+       }) => (
     <div>
       <Layout style={layoutStyle}>
         <Row style={{ padding: 10 }}>
@@ -99,19 +39,18 @@ const PageEditor = ({
               <Button type="secondary" shape="circle" icon="plus" size='large' />
             </Dropdown>
             <Button onClick={onToggleCollapsed} shape="circle" icon={collapsed ? 'down' : 'up'} size='large' />
-            <Button onClick={onToggleVisibleIf} shape="circle" icon={visibleIf ? 'eye' : 'eye-o'} size='large' />
             <Button type="danger" onClick={onRemove} shape="circle" icon='delete' size='large' />
           </Col>
         </Row>
         {!collapsed &&
-          <Content>
+          <Content style={{ textAlign: 'left', margin: 10, marginLeft: 50 }}>
+            <VisibleIfEditorPage value={value} onChange={visibleIf => onChange({ visibleIf })} />
             <QuestionList parent={value} data={value.questions} onMove={onMove} />
           </Content>
         }
       </Layout>
     </div>
   )
-}
 
 PageEditor.propTypes = {
   value: PropTypes.object.isRequired,

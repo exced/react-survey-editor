@@ -39,10 +39,10 @@ const dispatcher = (type) => ({
   [QUESTION_CASCADE]: QuestionCascade,
 })[type]
 
-const QuestionEditorItem = ({ value, onChange }) => {
+const QuestionEditorItem = ({ value, onChange, editable }) => {
   const Node = dispatcher(value.type)
   return (
-    <Node value={value} onChange={onChange} />
+    <Node value={value} onChange={onChange} editable={editable} />
   )
 }
 

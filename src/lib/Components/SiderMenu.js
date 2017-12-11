@@ -10,12 +10,10 @@ const titleStyle = {
   fontSize: 14,
 }
 
-const SiderMenu = ({ onAdd, onUndo, onRedo, onExport, denormalize, collapsed, onCollapse }) => {
+const SiderMenu = ({ onUndo, onRedo, onExport, denormalize, collapsed, onCollapse }) => {
 
   const onClick = ({ key }) => {
     switch (key) {
-      case "onAdd":
-        return onAdd()
       case "onUndo":
         return onUndo()
       case "onRedo":
@@ -30,11 +28,7 @@ const SiderMenu = ({ onAdd, onUndo, onRedo, onExport, denormalize, collapsed, on
   }
 
   return (
-    <Menu theme="dark" selectable={false} onClick={onClick} inlineCollapsed={collapsed}>
-      <Menu.Item key="onAdd">
-        <Icon type="file-add" style={iconStyle} />
-        <span style={titleStyle}>Ajouter Page</span>
-      </Menu.Item>
+    <Menu theme="dark" selectable={false} onClick={onClick} mode="inline" inlineCollapsed={collapsed}>
       <Menu.Item key="onUndo">
         <Icon type="rollback" style={iconStyle} />
         <span style={titleStyle}>Undo</span>
@@ -56,7 +50,6 @@ const SiderMenu = ({ onAdd, onUndo, onRedo, onExport, denormalize, collapsed, on
 
 
 SiderMenu.propTypes = {
-  onAdd: PropTypes.func.isRequired,
   onUndo: PropTypes.func.isRequired,
   onRedo: PropTypes.func.isRequired,
   onExport: PropTypes.func.isRequired,
