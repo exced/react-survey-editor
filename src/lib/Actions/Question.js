@@ -17,7 +17,7 @@ import {
 } from '../Types/Question'
 
 // Initial Values
-const initialValue = (type) => ({
+export const initialValue = (type) => ({
   [QUESTION_TEXT]: {
     type: QUESTION_TEXT,
     title: 'Question texte court',

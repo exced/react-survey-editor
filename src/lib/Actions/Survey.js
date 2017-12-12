@@ -4,17 +4,27 @@ import {
 } from '../Types/Survey'
 import { uniqueId } from 'lodash'
 import { normalize as normalizr } from '../Schemas/Survey'
+import { initialValue as pageInitialValue } from '../Actions/Page'
 
-const initialValue = {
-  id: uniqueId(),
-  title: 'Questionnaire',
-  description: 'Description',
-  responseTime: '',
-  active: false,
-  dates: [],
-  password: '',
-  link: '',
-  pages: [],
+export const initialValue = () => {
+  const surveyId = uniqueId()
+  return {
+    id: surveyId,
+    title: 'Questionnaire',
+    description: 'Description',
+    responseTime: '',
+    active: false,
+    dates: [],
+    password: '',
+    link: '',
+    pages: [
+      {
+        id: uniqueId(),
+        surveyId,
+        ...pageInitialValue(),
+      }
+    ],
+  }
 }
 
 // Action Creators
@@ -28,7 +38,7 @@ export const set = (value) => ({
 export const reset = () => ({
   type: SET,
   payload: {
-    value: normalizr(initialValue)
+    value: normalizr(initialValue())
   }
 })
 

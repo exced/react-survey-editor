@@ -46,7 +46,8 @@ const PageEditor = ({
           <Content style={{ textAlign: 'left', margin: 10, marginLeft: 50 }}>
             <VisibleIfEditorPage value={value} onChange={visibleIf => onChange({ visibleIf })} />
             <QuestionList parent={value} data={value.questions} onMove={onMove} />
-          </Content>}
+          </Content>
+        }
       </Layout>
     </div>
   )

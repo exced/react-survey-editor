@@ -6,15 +6,19 @@ import {
   MOVE_PAGE,
 } from '../Types/Page'
 
+export const initialValue = () => ({
+  title: 'Page',
+  visibleIf: `true`,
+  questions: [],
+})
+
 // Action Creators
 export const addPage = (surveyId) => ({
   type: ADD_PAGE,
   payload: {
     id: uniqueId(),
     surveyId,
-    title: 'Page',
-    visibleIf: `true`,
-    questions: [],
+    ...initialValue(),
   }
 })
 

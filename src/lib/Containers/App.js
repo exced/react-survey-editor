@@ -6,7 +6,4 @@ const mapStateToProps = (state, ownProps) => ({
   value: getSurvey(state),
 })
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(App)
+export default connect(mapStateToProps)(App)

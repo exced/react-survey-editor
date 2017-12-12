@@ -155,7 +155,7 @@ export default class VisibleIfEditor extends Component {
     const { values } = this.state
     const { questionsMap } = this.props
     const previous = last(values)
-    const previousQuestion = values && last(values.splice(0, values.length - 1))
+    const previousQuestion = values && last(values.slice(0, values.length - 1))
 
     if (previous && previous.type === types.COMPARATOR) {
       const question = questionsMap[previousQuestion.value]
