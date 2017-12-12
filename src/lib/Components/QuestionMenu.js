@@ -12,7 +12,6 @@ import {
   QUESTION_IMAGE,
   QUESTION_RANK,
   QUESTION_RATE,
-  QUESTION_CASCADE,
 } from '../Types/Question'
 
 const SubMenu = Menu.SubMenu
@@ -35,7 +34,6 @@ const QuestionMenu = ({ onClick }) => (
     <Menu.Item key={QUESTION_IMAGE}>Image</Menu.Item>
     <Menu.Item key={QUESTION_RANK}>Classement</Menu.Item>
     <Menu.Item key={QUESTION_RATE}>Note</Menu.Item>
-    <Menu.Item key={QUESTION_CASCADE}>Cascade</Menu.Item>
   </Menu>
 )
 

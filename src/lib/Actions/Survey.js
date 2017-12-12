@@ -4,28 +4,18 @@ import {
 } from '../Types/Survey'
 import { uniqueId } from 'lodash'
 import { normalize as normalizr } from '../Schemas/Survey'
-import { initialValue as pageInitialValue } from '../Actions/Page'
 
-export const initialValue = () => {
-  const surveyId = uniqueId()
-  return {
-    id: surveyId,
-    title: 'Questionnaire',
-    description: 'Description',
-    responseTime: '',
-    active: false,
-    dates: [],
-    password: '',
-    link: '',
-    pages: [
-      {
-        id: uniqueId(),
-        surveyId,
-        ...pageInitialValue(),
-      }
-    ],
-  }
-}
+const initialValue = () => ({
+  id: uniqueId(),
+  title: 'Questionnaire',
+  description: 'Description',
+  responseTime: '',
+  active: false,
+  dates: [],
+  password: '',
+  link: '',
+  pages: [],
+})
 
 // Action Creators
 export const set = (value) => ({

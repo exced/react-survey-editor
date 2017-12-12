@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Row, Col, Button, Layout, Dropdown } from 'antd'
+import { Row, Col, Button, Layout, Dropdown, Tag } from 'antd'
 import { Handle } from '../Components/DragList'
 import { EditText } from '../Components/EditFields'
 import QuestionMenu from '../Components/QuestionMenu'
@@ -19,6 +19,7 @@ const layoutStyle = {
 }
 
 const PageEditor = ({
+  index,
   value,
   onChange,
   onRemove,
@@ -31,7 +32,8 @@ const PageEditor = ({
       <Layout style={layoutStyle}>
         <Row style={{ padding: 10 }}>
           <Col span={2}><Handle /></Col>
-          <Col span={18} style={{ textAlign: 'center' }}>
+          <Col span={2}><Tag color="blue">{`Page ${index}`}</Tag></Col>
+          <Col span={16} style={{ textAlign: 'center' }}>
             <h2><EditText value={value.title} onChange={title => onChange({ title })} size="large" placeholder="Page" /></h2>
           </Col>
           <Col span={4}>

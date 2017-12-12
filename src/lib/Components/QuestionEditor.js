@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Row, Col, Button, Layout, Dropdown, Tooltip, Icon } from 'antd'
+import { Row, Col, Button, Layout, Dropdown, Tooltip, Icon, Tag } from 'antd'
 import QuestionMenu from '../Components/QuestionMenu'
 import QuestionEditorItem from '../Components/QuestionEditorItem'
 import { Handle } from '../Components/DragList'
@@ -21,6 +21,7 @@ const layoutStyle = {
 const { Content } = Layout
 
 const QuestionEditor = ({
+  index,
   value,
   onChange,
   onRemove,
@@ -32,7 +33,8 @@ const QuestionEditor = ({
       <Layout style={layoutStyle}>
         <Row style={{ padding: 10 }}>
           <Col span={2}><Handle /></Col>
-          <Col span={18} style={{ textAlign: 'center' }}>
+          <Col span={2}><Tag color="gold">{`Question ${index}`}</Tag></Col>
+          <Col span={16} style={{ textAlign: 'center' }}>
             <h3>
               <Tooltip title={value.tooltip}>
                 <Icon type="question-circle-o" />
@@ -43,7 +45,7 @@ const QuestionEditor = ({
           </Col>
           <Col span={4}>
             <Dropdown overlay={<QuestionMenu onClick={(type) => onReset(type)} />}>
-              <Button shape="circle" type="secondary" icon="setting" size='large'>{typeToName()}</Button>
+              <Button shape="circle" type="secondary" icon="rollback" size='large'>{typeToName()}</Button>
             </Dropdown>
             <Button onClick={onToggleCollapsed} shape="circle" icon={collapsed ? 'down' : 'up'} size='large' />
             <Button type="danger" onClick={onRemove} shape="circle" icon='delete' size='large' />

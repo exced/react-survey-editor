@@ -6,7 +6,7 @@ import {
   MOVE_PAGE,
 } from '../Types/Page'
 
-export const initialValue = () => ({
+const initialValue = () => ({
   title: 'Page',
   visibleIf: `true`,
   questions: [],

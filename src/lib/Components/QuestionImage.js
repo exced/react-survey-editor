@@ -20,7 +20,7 @@ export const Meta = ({ value, onChange }) => (
   </div>
 )
 
-const Default = ({ value, onChange, editable }) => Editable(Item, Meta)
+const Default = (props) => Editable(Item, Meta)(props)
 
 Default.propTypes = {
   value: PropTypes.object.isRequired,

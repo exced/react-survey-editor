@@ -1,9 +1,25 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Row, Col, Input, Form, Icon, Button, InputNumber, Radio, Checkbox } from 'antd'
+import { Input, Form, Icon, Button, Radio, Checkbox } from 'antd'
+import { NumericInput } from '../Components/EditFields'
+import Editable from '../Components/Editable'
 
-const { RadioGroup } = Radio
+const RadioGroup = Radio.Group
+const CheckboxGroup = Checkbox.Group
+
 const FormItem = Form.Item
+
+const formItemLayout = {
+  labelCol: {
+    xs: { span: 24 },
+    sm: { span: 8 },
+  },
+  wrapperCol: {
+    xs: { span: 24 },
+    sm: { span: 16 },
+  },
+}
+
 
 const radioStyle = {
   display: 'block',
@@ -11,60 +27,55 @@ const radioStyle = {
   lineHeight: '30px',
 }
 
-export const Item = ({ disabled, max, value, onChange }) => (
-  max === 1 ?
-    <Radio disabled={disabled} style={radioStyle} value={value} onChange={onChange}>{value}</Radio> :
-    <Checkbox disabled={disabled} onChange={onChange}>{value}</Checkbox>
-)
-
-export const Items = ({ disabled, value, onChange }) => (
-  <RadioGroup disabled>
-    {value.choices.map((a, i) => (
-      <Item max={value.choices.max} disabled value={a} onChange={onChange} size="small" />
-    ))}
-  </RadioGroup>
+export const Item = ({ disabled, value, onChange }) => (
+  <div>
+    {value.max === 1 ?
+      <RadioGroup disabled={disabled}>
+        {value.choices.map((a, i) => (
+          <Radio key={`${a}-${i}`} disabled={disabled} style={radioStyle} value={a} onChange={onChange}>{a}</Radio>
+        ))}
+      </RadioGroup>
+      :
+      <CheckboxGroup disabled={disabled}>
+        {value.choices.map((a, i) => (
+          <Checkbox key={`${a}-${i}`} disabled={disabled} style={radioStyle} value={a} onChange={onChange}>{a}</Checkbox>
+        ))}
+      </CheckboxGroup>
+    }
+  </div>
 )
 
 const Meta = ({ value, onChange }) => (
-  <Row type="flex" align="bottom">
-    <Col span={16}>
-      <Items disabled value={value} onChange={() => { }} />
-    </Col>
-    <Col span={8}>
-      <h3>Méta données</h3>
-      <FormItem label="max">
-        <InputNumber defaultValue={4} onChange={max => onChange({ max })} />
+  <div>
+    <FormItem label="Choix max" {...formItemLayout}>
+      <NumericInput min={0} max={4} value={value.max} onChange={max => onChange({ max })} />
+    </FormItem>
+    {value.choices.map((a, i) => (
+      <FormItem label={`choix ${i + 1}`} {...formItemLayout}>
+        <Input
+          value={a}
+          onChange={e => onChange({ choices: value.choices.map((b, j) => (j === i) ? e.target.value : b) })}
+          placeholder={`Choix ${i + 1}`} size="small" style={{ width: 'auto' }} />
+        <Icon type="minus-circle-o" style={{ color: 'red' }} disabled={value.choices.length === 1} onClick={() => onChange({ choices: value.choices.filter((b, j) => i !== j) })} />
       </FormItem>
-      {value.choices.map((a, i) => (
-        <FormItem label={`choix ${i}`}>
-          <Input
-            value={a}
-            onChange={e => onChange({ choices: value.choices.map((b, j) => (j === i) ? e.target.value : b) })}
-            placeholder={`Choix ${i}`} size="small" style={{ width: 'auto' }} />
-          <Icon
-            type="minus-circle-o"
-            disabled={value.choices.length === 1}
-            onClick={() => onChange({ choices: value.choices.filter((b, j) => i !== j) })}
-          />
-        </FormItem>
-      ))}
-      <Button
-        type="dashed"
-        onClick={() => onChange({ choices: [value.choices, 'Nouveau choix'] })}
-        style={{ width: '60%' }}
-      >
-        <Icon type="plus" /> Ajouter choix
-    </Button>
-      <FormItem label="Indications">
-        <Input value={value.tooltip} onChange={e => onChange({ tooltip: e.target.value })} placeholder="Indications" size="small" style={{ width: 'auto' }} />
-      </FormItem>
-    </Col>
-  </Row>
+    ))}
+    <Button icon="plus" disabled={value.choices.length >= 4} type="dashed" onClick={() => onChange({ choices: [...value.choices, 'Nouveau choix'] })} style={{ width: '60%' }}>Ajouter choix</Button>
+    <FormItem label="Indications" {...formItemLayout}>
+      <Input value={value.tooltip} onChange={e => onChange({ tooltip: e.target.value })} placeholder="Indications" size="small" style={{ width: 'auto' }} />
+    </FormItem>
+  </div>
 )
 
-Meta.propTypes = {
+const Default = (props) => Editable(Item, Meta)(props)
+
+Default.propTypes = {
   value: PropTypes.object.isRequired,
   onChange: PropTypes.func.isRequired,
+  editable: PropTypes.bool,
 }
 
-export default Meta
+Default.defaultProps = {
+  editable: true
+}
+
+export default Default

@@ -4,12 +4,12 @@ import { Row, Col } from 'antd'
 const Editable = (Item, Meta) => ({ value, onChange, editable }) => (
   editable ?
     <Row type="flex" align="bottom">
-      <Col span={16}>
+      <Col span={14}>
         <Item disabled value={value} onChange={() => { }} />
       </Col>
-      <Col span={8}>
+      <Col span={10} style={{textAlign: 'center'}}>
         <h3>Méta données</h3>
-        <Meta />
+        <Meta value={value} onChange={onChange} editable={editable} />
       </Col>
     </Row>
     :

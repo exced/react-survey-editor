@@ -163,7 +163,7 @@ export default class VisibleIfEditor extends Component {
       return (
         <OptGroup label="operands">
           <Option key={value} value={value} filterBy="title">
-            <InputOption onChange={value => this.addValue({ type: types.OPERAND, value })}>
+            <InputOption onChange={value => this.addValue({ type: types.OPERAND, value })} color="orange">
               <QuestionEditorItem disabled value={question} editable={false} />
             </InputOption>
           </Option>

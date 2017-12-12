@@ -8,28 +8,28 @@ const { MonthPicker, RangePicker, WeekPicker } = DatePicker
 const Option = Select.Option
 const FormItem = Form.Item
 
-const node = (type) => ({
+const getNode = (type) => ({
   date: DatePicker,
   month: MonthPicker,
   week: WeekPicker,
   range: RangePicker,
 })[type]
 
-const placeholder = (type) => ({
+const getPlaceholder = (type) => ({
   date: "Sélectionner date",
   month: "Sélectionner mois",
   week: "Sélectionner semaine",
   range: ["Début", "Fin"],
 })[type]
 
-export const Item = ({ disabled, value, onChange }) => {
-  const Node = node(value.dateType)
+const Item = ({ disabled, value, onChange }) => {
+  const Node = getNode(value.dateType)
   return (
-    <Node disabled={disabled} placeholder={placeholder(value.dateType)} onChange={onChange} />
+    <Node disabled={disabled} placeholder={getPlaceholder(value.dateType)} onChange={onChange} />
   )
 }
 
-export const Meta = ({ value, onChange, editable }) => (
+const Meta = ({ value, onChange, editable }) => (
   <div>
     <FormItem label="Type">
       <Select defaultValue={value.dateType} style={{ width: 120 }} onChange={dateType => onChange({ dateType })}>
@@ -45,7 +45,7 @@ export const Meta = ({ value, onChange, editable }) => (
   </div>
 )
 
-const Default = ({ value, onChange, editable }) => Editable(Item, Meta)
+const Default = (props) => Editable(Item, Meta)(props)
 
 Default.propTypes = {
   value: PropTypes.object.isRequired,

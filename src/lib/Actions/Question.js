@@ -17,14 +17,13 @@ import {
 } from '../Types/Question'
 
 // Initial Values
-export const initialValue = (type) => ({
+const initialValue = (type) => ({
   [QUESTION_TEXT]: {
     type: QUESTION_TEXT,
     title: 'Question texte court',
     mandatory: false,
     visibleIf: `true`,
     tooltip: '',
-    size: 'small',
   },
   [QUESTION_TEXT_AREA]: {
     type: QUESTION_TEXT_AREA,
@@ -47,8 +46,8 @@ export const initialValue = (type) => ({
     visibleIf: `true`,
     tooltip: '',
     dateType: 'date',
-    min: null,
-    max: null,
+    min: '',
+    max: '',
   },
   [QUESTION_DISCRETE_SCALE]: {
     type: QUESTION_DISCRETE_SCALE,
@@ -69,6 +68,7 @@ export const initialValue = (type) => ({
     min: 0,
     max: 100,
     step: 1,
+    marks: {},
   },
   [QUESTION_CHOICES]: {
     type: QUESTION_CHOICES,
@@ -77,7 +77,7 @@ export const initialValue = (type) => ({
     visibleIf: `true`,
     tooltip: '',
     choices: [],
-    max: 1,
+    max: 4,
   },
   [QUESTION_IMAGE]: {
     type: QUESTION_IMAGE,

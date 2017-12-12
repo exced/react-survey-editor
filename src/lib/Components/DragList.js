@@ -84,12 +84,18 @@ Wrapper.defaultProps = {
 }
 
 const DragList = ({ Component, data, onMove, ...rest }) => {
-  const Element = SortableElement(props => <Component {...props} />)
+  const Element = (newProps) => SortableElement(props => <Component {...props} {...newProps} />)
+  const Wrapped = (props) => {
+    const Wrapper = Element(props)
+    return (
+      <Wrapper {...props} />
+    )
+  }
   const Container = SortableContainer(({ data, ...props }) => (
     // pass a list of ids instead of plain objects to avoid useless re-rendering on item changes
     <div>
       {data.map((item, index) => (
-        <Element key={item} index={index} id={item} {...props} />
+        <Wrapped key={item} index={index} id={item} {...props} />
       ))}
     </div>
   ))
