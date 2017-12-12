@@ -71,7 +71,6 @@ const SurveyEditor = ({
     </div>
   )
 
-
 SurveyEditor.propTypes = {
   value: PropTypes.object.isRequired,
   onChange: PropTypes.func.isRequired,

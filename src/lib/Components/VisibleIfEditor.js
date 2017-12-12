@@ -48,7 +48,6 @@ class InputOption extends Component {
   render() {
     const { value } = this.state
     const { children, color } = this.props
-    console.tron.log(value, true)
     return (
       <div>
         {value ?

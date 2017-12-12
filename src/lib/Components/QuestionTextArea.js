@@ -9,7 +9,7 @@ export const Item = ({ disabled, value, onChange }) => (
   <Input.TextArea disabled placeholder="Réponse longue" autosize />
 )
 
-class Meta extends Component {
+export class Meta extends Component {
   constructor(props) {
     super(props)
     this.state = {

@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Row, Col, Input, DatePicker, Form, Select } from 'antd'
+import { Input, DatePicker, Form, Select } from 'antd'
+import Editable from '../Components/Editable'
 
 const { MonthPicker, RangePicker, WeekPicker } = DatePicker
 
@@ -28,34 +29,32 @@ export const Item = ({ disabled, value, onChange }) => {
   )
 }
 
-const Meta = ({ value, onChange, editable }) => (
-  editable ?
-    <Row type="flex" align="bottom">
-      <Col span={16}>
-        <Item disabled value={value} onChange={() => { }} />
-      </Col>
-      <Col span={8}>
-        <h3>Méta données</h3>
-        <FormItem label="Type">
-          <Select defaultValue={value.dateType} style={{ width: 120 }} onChange={dateType => onChange({ dateType })}>
-            <Option value="date">Date</Option>
-            <Option value="month">Mois</Option>
-            <Option value="week">Semaine</Option>
-            <Option value="range">Durée</Option>
-          </Select>
-        </FormItem>
-        <FormItem label="Indications">
-          <Input value={value.tooltip} onChange={tooltip => onChange({ tooltip })} placeholder="Indications" size="small" style={{ width: 'auto' }} />
-        </FormItem>
-      </Col>
-    </Row>
-    :
-    <Item disabled={false} value={value} onChange={onChange} />
+export const Meta = ({ value, onChange, editable }) => (
+  <div>
+    <FormItem label="Type">
+      <Select defaultValue={value.dateType} style={{ width: 120 }} onChange={dateType => onChange({ dateType })}>
+        <Option value="date">Date</Option>
+        <Option value="month">Mois</Option>
+        <Option value="week">Semaine</Option>
+        <Option value="range">Durée</Option>
+      </Select>
+    </FormItem>
+    <FormItem label="Indications">
+      <Input value={value.tooltip} onChange={tooltip => onChange({ tooltip })} placeholder="Indications" size="small" style={{ width: 'auto' }} />
+    </FormItem>
+  </div>
 )
 
-Meta.propTypes = {
+const Default = ({ value, onChange, editable }) => Editable(Item, Meta)
+
+Default.propTypes = {
   value: PropTypes.object.isRequired,
   onChange: PropTypes.func.isRequired,
+  editable: PropTypes.bool,
 }
 
-export default Meta
+Default.defaultProps = {
+  editable: true
+}
+
+export default Default
