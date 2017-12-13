@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {
+  QUESTION_SWITCH,
   QUESTION_TEXT,
   QUESTION_TEXT_AREA,
   QUESTION_DATE,
@@ -13,6 +14,7 @@ import {
   QUESTION_CASCADE,
   QUESTION_RATE,
 } from '../Types/Question'
+import QuestionSwitch from '../Components/QuestionSwitch'
 import QuestionText from '../Components/QuestionText'
 import QuestionTextArea from '../Components/QuestionTextArea'
 import QuestionDate from '../Components/QuestionDate'
@@ -26,6 +28,7 @@ import QuestionCascade from '../Components/QuestionCascade'
 import QuestionRate from '../Components/QuestionRate'
 
 const dispatcher = (type) => ({
+  [QUESTION_SWITCH]: QuestionSwitch,
   [QUESTION_TEXT]: QuestionText,
   [QUESTION_TEXT_AREA]: QuestionTextArea,
   [QUESTION_DATE]: QuestionDate,

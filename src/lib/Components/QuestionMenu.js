@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Menu } from 'antd'
 import {
+  QUESTION_SWITCH,
   QUESTION_TEXT,
   QUESTION_TEXT_AREA,
   QUESTION_DATE,
@@ -18,6 +19,7 @@ const SubMenu = Menu.SubMenu
 
 const QuestionMenu = ({ onClick }) => (
   <Menu onClick={({ key }) => onClick(key)}>
+    <Menu.Item key={QUESTION_SWITCH}>Switch</Menu.Item>
     <SubMenu title="Texte">
       <Menu.Item key={QUESTION_TEXT}>Court</Menu.Item>
       <Menu.Item key={QUESTION_TEXT_AREA}>Long</Menu.Item>

@@ -4,6 +4,7 @@ import {
   REMOVE_QUESTION,
   SET_QUESTION,
   MOVE_QUESTION,
+  QUESTION_SWITCH,
   QUESTION_TEXT,
   QUESTION_TEXT_AREA,
   QUESTION_RATE,
@@ -18,6 +19,15 @@ import {
 
 // Initial Values
 const initialValue = (type) => ({
+  [QUESTION_SWITCH]: {
+    type: QUESTION_SWITCH,
+    title: 'Question switch',
+    mandatory: false,
+    visibleIf: `true`,
+    checkedChildren: 'Oui',
+    unCheckedChildren: 'Non',
+    tooltip: '',
+  },
   [QUESTION_TEXT]: {
     type: QUESTION_TEXT,
     title: 'Question texte court',
@@ -38,6 +48,7 @@ const initialValue = (type) => ({
     mandatory: false,
     visibleIf: `true`,
     tooltip: '',
+    count: 5,
   },
   [QUESTION_DATE]: {
     type: QUESTION_DATE,
@@ -93,7 +104,7 @@ const initialValue = (type) => ({
     mandatory: false,
     visibleIf: `true`,
     tooltip: '',
-    choices: []
+    choices: [],
   },
   [QUESTION_CASCADE]: {
     type: QUESTION_CASCADE,
@@ -101,7 +112,7 @@ const initialValue = (type) => ({
     mandatory: false,
     visibleIf: `true`,
     tooltip: '',
-    options: []
+    options: [],
   },
 })[type]
 

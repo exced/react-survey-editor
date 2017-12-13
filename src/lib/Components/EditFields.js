@@ -79,16 +79,21 @@ export class UploadImage extends Component {
   }
 
   render() {
+
+    const { imageUrl } = this.state
+
+    const { disabled } = this.props
+
     const uploadButton = (
       <div>
         <Icon type={this.state.loading ? 'loading' : 'plus'} />
         <div className="ant-upload-text">Image</div>
       </div>
     )
-    const { imageUrl } = this.state
 
     return (
       <Upload
+        disabled={disabled}
         name="avatar"
         listType="picture-card"
         showUploadList={false}
@@ -104,6 +109,11 @@ export class UploadImage extends Component {
 
 UploadImage.propTypes = {
   onChange: PropTypes.func.isRequired,
+  disabled: PropTypes.boolean,
+}
+
+UploadImage.defaultProps = {
+  disabled: false,
 }
 
 export class NumericInput extends Component {

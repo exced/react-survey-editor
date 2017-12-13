@@ -83,7 +83,7 @@ Wrapper.defaultProps = {
   itemClass: classNames(style.item, style.stylizedItem),
 }
 
-const DragList = ({ Component, data, onMove, ...rest }) => {
+const DragList = ({ Component, data, onMove, disabled, ...rest }) => {
   const Element = (newProps) => SortableElement(props => <Component {...props} {...newProps} />)
   const Wrapped = (props) => {
     const Wrapper = Element(props)
@@ -116,6 +116,12 @@ const DragList = ({ Component, data, onMove, ...rest }) => {
 DragList.propTypes = {
   data: PropTypes.array.isRequired, // ids
   Component: PropTypes.func.isRequired,
+  onMove: PropTypes.func.isRequired,
+  disabled: PropTypes.bool,
+}
+
+DragList.defaultProps = {
+  disabled: false,
 }
 
 export default DragList

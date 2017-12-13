@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Input, Form, Rate } from 'antd'
-import { NumericInput } from '../Components/EditFields'
+import { Input, Switch, Form } from 'antd'
 import Editable from '../Components/Editable'
 
 const FormItem = Form.Item
@@ -18,15 +17,18 @@ const formItemLayout = {
 }
 
 export const Item = ({ disabled, value, onChange }) => (
-  <Rate count={value.count} disabled={disabled} onChange={onChange} />
+  <Switch disabled={disabled} checkedChildren={value.checkedChildren} unCheckedChildren={value.unCheckedChildren} onChange={onChange} />
 )
 
-export const Meta = ({ value, onChange }) => (
+export const Meta = ({ value, onChange, editable }) => (
   <div>
-    <FormItem label="max" {...formItemLayout}>
-      <NumericInput min={3} max={10} value={value.count} onChange={count => onChange({ count })} />
+    <FormItem label="Texte positif" {...formItemLayout}>
+      <Input value={value.checkedChildren} onChange={e => onChange({ checkedChildren: e.target.value })} placeholder="Indications" size="small" style={{ width: 'auto' }} />
     </FormItem>
-    <FormItem label="Indications">
+    <FormItem label="Texte négatif" {...formItemLayout}>
+      <Input value={value.unCheckedChildren} onChange={e => onChange({ unCheckedChildren: e.target.value })} placeholder="Indications" size="small" style={{ width: 'auto' }} />
+    </FormItem>
+    <FormItem label="Indications" {...formItemLayout}>
       <Input value={value.tooltip} onChange={e => onChange({ tooltip: e.target.value })} placeholder="Indications" size="small" style={{ width: 'auto' }} />
     </FormItem>
   </div>
