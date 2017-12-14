@@ -48,7 +48,7 @@ export default class QuestionEditor extends Component {
         <Layout style={layoutStyle}>
           <Row style={{ padding: 10 }}>
             <Col span={2}><Handle /></Col>
-            <Col span={2}><Tag color="gold">{`Question ${index}`}</Tag></Col>
+            <Col span={2}><Tag color="gold">{`Question ${index + 1}`}</Tag></Col>
             <Col span={14} style={{ textAlign: 'center' }}>
               <h3>
                 <Tooltip title={value.tooltip}>

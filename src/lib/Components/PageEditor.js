@@ -48,7 +48,7 @@ export default class PageEditor extends Component {
         <Layout style={layoutStyle}>
           <Row style={{ padding: 10 }}>
             <Col span={2}><Handle /></Col>
-            <Col span={2}><Tag color="blue">{`Page ${index}`}</Tag></Col>
+            <Col span={2}><Tag color="blue">{`Page ${index + 1}`}</Tag></Col>
             <Col span={14} style={{ textAlign: 'center' }}>
               <h2><EditText value={value.title} onChange={title => onChange({ title })} size="large" placeholder="Page" /></h2>
             </Col>
