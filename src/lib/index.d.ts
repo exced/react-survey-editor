@@ -1,5 +1,17 @@
 // React Survey Editor
 // https://github.com/exced/react-survey-editor
-declare module 'react-survey-editor' {
-    import * as React from 'react';
+
+import * as React from "react";
+
+declare module "react-survey-editor" {
+
+    export interface SurveyEditorProps extends React.Props {
+        onExport: (value: object) => void;
+        initialValue?: object;
+        locale?: string;
+    }
+
+    export default class Scrollbars extends React.Component<SurveyEditorProps, {}> {
+
+    }
 }
