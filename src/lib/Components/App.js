@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Layout, BackTop} from 'antd'
+import { Layout, BackTop } from 'antd'
 import FAB from '../Containers/FAB'
 import SurveyEditor from '../Containers/SurveyEditor'
 
@@ -10,7 +10,7 @@ const App = ({ value, onExport }) => (
   <div>
     <Layout style={{ minHeight: '100vh' }}>
       <BackTop />
-      <div style={{ position: 'fixed', bottom: 30, right: 30 }}>
+      <div style={{ zIndex: 9999, position: 'fixed', bottom: 30, right: 30 }}>
         <FAB value={value} onExport={onExport} />
       </div>
       <Content>
