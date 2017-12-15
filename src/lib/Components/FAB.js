@@ -2,20 +2,43 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Menu, Icon, Button, Dropdown } from 'antd'
 
+const iconStyle = {
+  fontSize: 20,
+}
+
+const titleStyle = {
+  fontSize: 14,
+}
+
+
 const FAB = ({ onUndo, onRedo, onExport, denormalize }) => {
 
+  const onClick = ({ key }) => {
+    switch (key) {
+      case "onUndo":
+        return onUndo()
+      case "onRedo":
+        return onRedo()
+      case "onExport":
+        return onExport(denormalize())
+      default:
+        return
+    }
+  }
+
   const menu = (
-    <Menu>
+    <Menu onClick={onClick}>
       <Menu.Item key="onUndo">
-        <Button type="primary" onClick={onUndo} shape="circle" icon="rollback" size='large' />
+        <Icon type="rollback" style={iconStyle} />
+        <span style={titleStyle}>Undo</span>
       </Menu.Item>
       <Menu.Item key="onRedo">
-        <Button type="primary" onClick={onRedo} shape="circle" size='large'>
-          <Icon type="enter" style={{ transform: `rotate(180deg)` }} />
-        </Button>
+        <Icon type="enter" style={{ ...iconStyle, transform: `rotate(180deg)` }} />
+        <span style={titleStyle}>Redo</span>
       </Menu.Item>
       <Menu.Item key="onExport">
-        <Button type="primary" onClick={() => onExport(denormalize())} shape="circle" icon="save" size='large' />
+        <Icon type="save" style={iconStyle} />
+        <span style={titleStyle}>Sauvegarder</span>
       </Menu.Item>
     </Menu>
   )
