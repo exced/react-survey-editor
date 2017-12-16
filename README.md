@@ -19,6 +19,7 @@ yarn lib
 ```
 
 ## Usage
+With Redux
 
 ```javascript
 import React from 'react'
@@ -37,5 +38,8 @@ const App = ({ onExport }) => (
 | initialValue| object           | See | false | Initial survey value  |
 | locale | string  | "enUS" | false | Ant design locale language |
 
+## TODO
+
+- Allow question models as props to be flexlible
 
 All contributions are welcome.
