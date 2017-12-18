@@ -2,20 +2,10 @@ import {
   SET,
   SET_SURVEY,
 } from '../Types/Survey'
-import { uniqueId } from 'lodash'
+import { initialValue } from '../Models/Survey'
 import { normalize as normalizr } from '../Schemas/Survey'
 
-const initialValue = () => ({
-  id: uniqueId(),
-  title: 'Questionnaire',
-  description: 'Description',
-  responseTime: '',
-  active: false,
-  dates: [],
-  password: '',
-  link: '',
-  pages: [],
-})
+
 
 // Action Creators
 export const set = (value) => ({

@@ -1,126 +1,16 @@
-import { uniqueId } from 'lodash'
 import {
   ADD_QUESTION,
   REMOVE_QUESTION,
   SET_QUESTION,
   MOVE_QUESTION,
-  QUESTION_SWITCH,
-  QUESTION_TEXT,
-  QUESTION_TEXT_AREA,
-  QUESTION_RATE,
-  QUESTION_DATE,
-  QUESTION_DISCRETE_SCALE,
-  QUESTION_NUMERICAL_SCALE,
-  QUESTION_CHOICES,
-  QUESTION_IMAGE,
-  QUESTION_RANK,
-  QUESTION_CASCADE,
 } from '../Types/Question'
+import { initialValue } from '../Models/Question'
 
-// Initial Values
-const initialValue = (type) => ({
-  [QUESTION_SWITCH]: {
-    type: QUESTION_SWITCH,
-    title: 'Question switch',
-    mandatory: false,
-    visibleIf: `true`,
-    checkedChildren: 'Oui',
-    unCheckedChildren: 'Non',
-    tooltip: '',
-  },
-  [QUESTION_TEXT]: {
-    type: QUESTION_TEXT,
-    title: 'Question texte court',
-    mandatory: false,
-    visibleIf: `true`,
-    tooltip: '',
-  },
-  [QUESTION_TEXT_AREA]: {
-    type: QUESTION_TEXT_AREA,
-    title: 'Question texte long',
-    mandatory: false,
-    visibleIf: `true`,
-    tooltip: '',
-  },
-  [QUESTION_RATE]: {
-    type: QUESTION_RATE,
-    title: 'Question note',
-    mandatory: false,
-    visibleIf: `true`,
-    tooltip: '',
-    count: 5,
-  },
-  [QUESTION_DATE]: {
-    type: QUESTION_DATE,
-    title: 'Question date',
-    mandatory: false,
-    visibleIf: `true`,
-    tooltip: '',
-    dateType: 'date',
-    min: '',
-    max: '',
-  },
-  [QUESTION_DISCRETE_SCALE]: {
-    type: QUESTION_DISCRETE_SCALE,
-    title: 'Question échelle discrète',
-    mandatory: false,
-    visibleIf: `true`,
-    tooltip: '',
-    min: 0,
-    max: 100,
-    step: 1,
-  },
-  [QUESTION_NUMERICAL_SCALE]: {
-    type: QUESTION_NUMERICAL_SCALE,
-    title: 'Question échelle numérique',
-    mandatory: false,
-    visibleIf: `true`,
-    tooltip: '',
-    min: 0,
-    max: 100,
-    step: 1,
-    marks: {},
-  },
-  [QUESTION_CHOICES]: {
-    type: QUESTION_CHOICES,
-    title: 'Question choix multiples',
-    mandatory: false,
-    visibleIf: `true`,
-    tooltip: '',
-    choices: [],
-    max: 4,
-  },
-  [QUESTION_IMAGE]: {
-    type: QUESTION_IMAGE,
-    title: 'Question Image',
-    mandatory: false,
-    visibleIf: `true`,
-    tooltip: '',
-    maxSize: 10000,
-  },
-  [QUESTION_RANK]: {
-    type: QUESTION_RANK,
-    title: 'Question rang',
-    mandatory: false,
-    visibleIf: `true`,
-    tooltip: '',
-    choices: [],
-  },
-  [QUESTION_CASCADE]: {
-    type: QUESTION_CASCADE,
-    title: 'Question cascade',
-    mandatory: false,
-    visibleIf: `true`,
-    tooltip: '',
-    options: [],
-  },
-})[type]
 
 // Action Creators
 export const addQuestion = (pageId, type) => ({
   type: ADD_QUESTION,
   payload: {
-    id: uniqueId(),
     pageId,
     ...initialValue(type),
   }

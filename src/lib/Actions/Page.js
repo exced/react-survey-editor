@@ -1,22 +1,15 @@
-import { uniqueId } from 'lodash'
 import {
   ADD_PAGE,
   REMOVE_PAGE,
   SET_PAGE,
   MOVE_PAGE,
 } from '../Types/Page'
-
-const initialValue = () => ({
-  title: 'Page',
-  visibleIf: `true`,
-  questions: [],
-})
+import { initialValue } from '../Models/Page'
 
 // Action Creators
 export const addPage = (surveyId) => ({
   type: ADD_PAGE,
   payload: {
-    id: uniqueId(),
     surveyId,
     ...initialValue(),
   }
