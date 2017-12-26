@@ -11,24 +11,24 @@ import { initialValue } from '../Models/Question'
 export const addQuestion = (pageId, type) => ({
   type: ADD_QUESTION,
   payload: {
-    pageId,
     ...initialValue(type),
+    pageId,
   }
 })
 
 export const setQuestion = (id, value) => ({
   type: SET_QUESTION,
   payload: {
-    id,
     ...value,
+    id,
   }
 })
 
 export const resetQuestion = (id, type) => ({
   type: SET_QUESTION,
   payload: {
+    ...initialValue(type),
     id,
-    ...initialValue(type)
   }
 })
 

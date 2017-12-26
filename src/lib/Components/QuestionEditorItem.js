@@ -11,7 +11,6 @@ import {
   QUESTION_IMAGE,
   QUESTION_RANK,
   QUESTION_MATRIX,
-  QUESTION_CASCADE,
   QUESTION_RATE,
 } from '../Types/Question'
 import QuestionSwitch from '../Components/QuestionSwitch'
@@ -24,7 +23,6 @@ import QuestionChoices from '../Components/QuestionChoices'
 import QuestionImage from '../Components/QuestionImage'
 import QuestionRank from '../Components/QuestionRank'
 import QuestionMatrix from '../Components/QuestionMatrix'
-import QuestionCascade from '../Components/QuestionCascade'
 import QuestionRate from '../Components/QuestionRate'
 
 const dispatcher = (type) => ({
@@ -39,7 +37,6 @@ const dispatcher = (type) => ({
   [QUESTION_IMAGE]: QuestionImage,
   [QUESTION_RANK]: QuestionRank,
   [QUESTION_RATE]: QuestionRate,
-  [QUESTION_CASCADE]: QuestionCascade,
 })[type]
 
 const QuestionEditorItem = ({ value, onChange, editable }) => {

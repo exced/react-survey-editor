@@ -10,7 +10,6 @@ import {
   QUESTION_CHOICES,
   QUESTION_IMAGE,
   QUESTION_RANK,
-  QUESTION_CASCADE,
 } from '../Types/Question'
 
 export const initialValue = (type) => ({
@@ -20,9 +19,9 @@ export const initialValue = (type) => ({
     title: 'Question switch',
     mandatory: false,
     visibleIf: 'true',
+    tooltip: '',
     checkedChildren: 'Oui',
     unCheckedChildren: 'Non',
-    tooltip: '',
   },
   [QUESTION_TEXT]: {
     id: uniqueId(),
@@ -39,6 +38,7 @@ export const initialValue = (type) => ({
     mandatory: false,
     visibleIf: 'true',
     tooltip: '',
+    autosize: true,
   },
   [QUESTION_RATE]: {
     id: uniqueId(),
@@ -47,7 +47,7 @@ export const initialValue = (type) => ({
     mandatory: false,
     visibleIf: 'true',
     tooltip: '',
-    count: 5,
+    max: 5,
   },
   [QUESTION_DATE]: {
     id: uniqueId(),
@@ -110,14 +110,5 @@ export const initialValue = (type) => ({
     visibleIf: 'true',
     tooltip: '',
     choices: [],
-  },
-  [QUESTION_CASCADE]: {
-    id: uniqueId(),
-    type: QUESTION_CASCADE,
-    title: 'Question cascade',
-    mandatory: false,
-    visibleIf: 'true',
-    tooltip: '',
-    options: [],
-  },
+  }
 })[type]

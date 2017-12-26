@@ -40,6 +40,6 @@ const App = ({ onExport }) => (
 
 ## TODO
 
-- Allow question models as props to be flexlible
+- Put survey logic on top of the app -> bring your own data model
 
 All contributions are welcome.

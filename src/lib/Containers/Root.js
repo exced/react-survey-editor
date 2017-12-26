@@ -24,13 +24,18 @@ class Root extends Component {
     }
   }
 
+  // Added this in case you need your own save logic
+  onSave = () => {
+    this.app.onExport()
+  }
+
   render() {
 
     const { locale, onExport } = this.props
 
     return (
       <LocaleProvider locale={locales[locale]}>
-        <App onExport={onExport} />
+        <App ref={ref => this.app = ref} onExport={onExport} />
       </LocaleProvider>
     )
   }
