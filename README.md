@@ -38,8 +38,7 @@ const App = ({ onExport }) => (
 | initialValue| object           | See | false | Initial survey value  |
 | locale | string  | "enUS" | false | Ant design locale language |
 
-## TODO
-
-- Put survey logic on top of the app -> bring your own data model
+## TODO:
+- Add i18n translation
 
 All contributions are welcome.

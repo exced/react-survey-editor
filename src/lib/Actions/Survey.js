@@ -2,7 +2,6 @@ import {
   SET,
   SET_SURVEY,
 } from '../Types/Survey'
-import { initialValue } from '../Models/Survey'
 import { normalize as normalizr } from '../Schemas/Survey'
 
 
@@ -12,13 +11,6 @@ export const set = (value) => ({
   type: SET,
   payload: {
     value: normalizr(value),
-  }
-})
-
-export const reset = () => ({
-  type: SET,
-  payload: {
-    value: normalizr(initialValue())
   }
 })
 

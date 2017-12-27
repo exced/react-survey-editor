@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
-import App from '../Components/App'
 import { getSurvey } from '../Selectors/Survey'
+import App from '../Components/App'
 
 const mapStateToProps = (state, ownProps) => ({
   value: getSurvey(state),

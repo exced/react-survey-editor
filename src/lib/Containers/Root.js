@@ -3,7 +3,8 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { LocaleProvider } from 'antd'
 import App from '../Containers/App'
-import { set, reset } from '../Actions/Survey'
+import { set } from '../Actions/Survey'
+import { initialValue } from '../Models/Survey'
 import enUS from 'antd/lib/locale-provider/en_US'
 import frFR from 'antd/lib/locale-provider/fr_FR'
 
@@ -15,13 +16,11 @@ const locales = {
 class Root extends Component {
 
   componentWillMount = () => {
-    this.props.reset()
+    this.props.set(this.props.initialValue)
   }
 
   componentWillReceiveProps = (nextProps) => {
-    if (nextProps.initialValue) {
-      this.props.set(nextProps.initialValue)
-    }
+    this.props.set(nextProps.initialValue)
   }
 
   // Added this in case you need your own save logic
@@ -42,19 +41,21 @@ class Root extends Component {
 }
 
 Root.propTypes = {
+  initialValue: PropTypes.shape({
+
+  }),
   locale: PropTypes.string,
-  initialValue: PropTypes.object,
   onExport: PropTypes.func,
 }
 
 Root.defaultProps = {
+  initialValue: initialValue(),
   locale: "enUS",
   onExport: (v) => { }
 }
 
 const mapDispatchToProps = dispatch => ({
   set: (v) => dispatch(set(v)),
-  reset: () => dispatch(reset())
 })
 
 export default connect(null, mapDispatchToProps)(Root)
