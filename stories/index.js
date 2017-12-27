@@ -41,7 +41,34 @@ const initialValue = {
           tooltip: 'Question text tooltip',
         },
       ],
-    }
+    },
+    {
+      id: uniqueId(),
+      title: 'Second Page',
+      visibleIf: 'true',
+      questions: [
+        {
+          id: uniqueId(),
+          type: Types.QUESTION_RATE,
+          title: 'Question rate',
+          mandatory: false,
+          visibleIf: 'true',
+          tooltip: 'Question rate tooltip',
+          max: 5,
+        },
+        {
+          id: uniqueId(),
+          type: Types.QUESTION_CHOICES,
+          title: 'Question choices',
+          mandatory: true,
+          visibleIf: 'true',
+          choices: [
+            "Choice 1", "Choice 2", "Choice 3"
+          ],
+          max: 1,
+        },
+      ],
+    },
   ],
 }
 
