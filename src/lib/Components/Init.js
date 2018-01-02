@@ -1,9 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
 import { LocaleProvider } from 'antd'
 import App from '../Containers/App'
-import { set } from '../Actions/Survey'
 import { initialValue } from '../Models/Survey'
 import enUS from 'antd/lib/locale-provider/en_US'
 import frFR from 'antd/lib/locale-provider/fr_FR'
@@ -13,7 +11,7 @@ const locales = {
   frFR: frFR,
 }
 
-class Root extends Component {
+export default class Init extends Component {
 
   componentWillMount = () => {
     this.props.set(this.props.initialValue)
@@ -23,10 +21,8 @@ class Root extends Component {
     this.props.set(nextProps.initialValue)
   }
 
-  // Added this in case you need your own save logic
-  onSave = () => {
-    this.app.onExport()
-  }
+  // Put this in case you need your own save logic
+  onExport = () => this.app.wrappedInstance.onExport()
 
   render() {
 
@@ -40,22 +36,14 @@ class Root extends Component {
   }
 }
 
-Root.propTypes = {
-  initialValue: PropTypes.shape({
-
-  }),
+Init.propTypes = {
+  initialValue: PropTypes.object,
   locale: PropTypes.string,
   onExport: PropTypes.func,
 }
 
-Root.defaultProps = {
+Init.defaultProps = {
   initialValue: initialValue(),
   locale: "enUS",
   onExport: (v) => { }
 }
-
-const mapDispatchToProps = dispatch => ({
-  set: (v) => dispatch(set(v)),
-})
-
-export default connect(null, mapDispatchToProps)(Root)

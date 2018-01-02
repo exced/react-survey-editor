@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import SurveyEditor, { Types } from './lib'
 
 const initialValue = {
@@ -72,8 +72,14 @@ const initialValue = {
   ],
 }
 
-const App = () => (
-  <SurveyEditor initialValue={initialValue} locale="enUS" onExport={(v) => console.tron.log(v, true)} />
-)
+export default class App extends Component {
+  render() {
+    return (
+      <div>
+        <button onClick={() => console.tron.log(this.app.onExport(), true)}>onExport</button>
+        <SurveyEditor ref={ref => this.app = ref} initialValue={initialValue} locale="enUS" onExport={(v) => console.tron.log(v, true)} />
+      </div>
+    )
+  }
+}
 
-export default App

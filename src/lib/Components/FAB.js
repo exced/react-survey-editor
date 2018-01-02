@@ -11,7 +11,7 @@ const titleStyle = {
 }
 
 
-const FAB = ({ onUndo, onRedo, onExport, denormalize }) => {
+const FAB = ({ onUndo, onRedo, onExport }) => {
 
   const onClick = ({ key }) => {
     switch (key) {
@@ -20,7 +20,7 @@ const FAB = ({ onUndo, onRedo, onExport, denormalize }) => {
       case "onRedo":
         return onRedo()
       case "onExport":
-        return onExport(denormalize())
+        return onExport()
       default:
         return
     }
@@ -57,7 +57,6 @@ FAB.propTypes = {
   onUndo: PropTypes.func.isRequired,
   onRedo: PropTypes.func.isRequired,
   onExport: PropTypes.func.isRequired,
-  denormalize: PropTypes.func.isRequired,
 }
 
 export default FAB
