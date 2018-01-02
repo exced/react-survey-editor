@@ -34,5 +34,5 @@ export const getOrderedPageIds = createSelector(
 
 export const getOrderedPages = createSelector(
   [pages, getOrderedPageIds],
-  (pages, ids) => ids.reduce((a, e) => ({ ...a, [e]: pages[e] }), {})
+  (pages, ids) => ids.map(e => pages[e])
 )

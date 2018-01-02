@@ -10,7 +10,6 @@ export const getQuestionValues = createSelector(
     (questions) => Object.values(questions)
 )
 
-export const questionKeys = (state) => Object.keys(state.editor.present.entities.questions)
 
 // Selectors
 export const getQuestion = createSelector(

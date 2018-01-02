@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { Select, Form } from 'antd'
 import { last } from 'lodash'
 import {
+  QUESTION_SWITCH,
   QUESTION_DATE,
   QUESTION_DISCRETE_SCALE,
   QUESTION_NUMERICAL_SCALE,
@@ -17,8 +18,8 @@ const types = {
   BLOCK: "BLOCK",
   OPERATOR: "OPERATOR",
   COMPARATOR: "COMPARATOR",
-  OPERAND: "OPERAND",
   VAR: "VAR",
+  VALUE: "VALUE",
 }
 
 const tokens = {
@@ -32,6 +33,8 @@ const tokens = {
   OPGT: '>',
   OPSEQ: '==',
   OPDEQ: '===',
+  TRUE: 'true',
+  FALSE: 'false',
 }
 
 class InputOption extends Component {
@@ -76,7 +79,7 @@ export default class VisibleIfEditor extends Component {
     let c = 0
     for (let i = values.length; i--;) {
       const v = values[i]
-      if (v.type === types.BLOCK && v.tokens === tokens.OPAR) {
+      if (v.type === types.BLOCK && v.value === tokens.OPAR) {
         return c
       }
       c += v.type === type
@@ -84,7 +87,12 @@ export default class VisibleIfEditor extends Component {
     return c
   }
 
-  renderOptions = e => e.map(({ value, title, color }) => <Option key={value} value={value} filterBy={title}><span style={{ color }}>{title}</span></Option>)
+  renderOptions = e => (
+    e.map(({ value, title, render }) =>
+      <Option key={value} value={value} filterBy={title}>
+        {render()}
+      </Option>)
+  )
 
   renderBlocks = () => {
     const { values } = this.state
@@ -92,11 +100,13 @@ export default class VisibleIfEditor extends Component {
     let children = []
 
     if (!previous || (previous && previous.type === types.OPERATOR)) {
-      children = [...children, { value: { type: types.BLOCK, tokens: tokens.OPAR, value: tokens.OPAR }, title: tokens.OPAR, color: 'red' }]
+      children = [...children, {
+        value: { type: types.BLOCK, value: tokens.OPAR }, title: tokens.OPAR, render: () => <span style={{ color: 'red' }}>{tokens.OPAR}</span>
+      }]
     }
 
     if ((previous && previous.type === types.VAR && this.countInBlock(types.VAR) > 1)) {
-      children = [...children, { value: { type: types.BLOCK, tokens: tokens.CPAR, value: tokens.CPAR }, title: tokens.CPAR, color: 'red' }]
+      children = [...children, { value: { type: types.BLOCK, value: tokens.CPAR }, title: tokens.CPAR, render: () => <span style={{ color: 'red' }}>{tokens.CPAR}</span> }]
     }
 
     return (
@@ -111,11 +121,11 @@ export default class VisibleIfEditor extends Component {
     const previous = last(values)
     let children = []
 
-    if (previous && (previous.type === types.OPERAND || (previous.type === types.BLOCK && previous.tokens === tokens.CPAR))) {
+    if (previous && (previous.type === types.VALUE || (previous.type === types.BLOCK && previous.value === tokens.CPAR))) {
       children = [
         ...children,
-        { value: { type: types.OPERATOR, tokens: tokens.OPDAND, value: tokens.OPDAND }, title: 'ET', color: 'red' },
-        { value: { type: types.OPERATOR, tokens: tokens.OPDOR, value: tokens.OPDOR }, title: 'OU', color: 'red' },
+        { value: { type: types.OPERATOR, value: tokens.OPDAND }, title: tokens.OPDAND, render: () => <span style={{ color: 'red' }}>{tokens.OPDAND}</span> },
+        { value: { type: types.OPERATOR, value: tokens.OPDOR }, title: tokens.OPDOR, render: () => <span style={{ color: 'red' }}>{tokens.OPDOR}</span> },
       ]
     }
 
@@ -129,18 +139,30 @@ export default class VisibleIfEditor extends Component {
   renderComparators = () => {
     const { values } = this.state
     const previous = last(values)
+    const { questionsMap } = this.props
     let children = []
 
-    const leq = { value: { type: types.COMPARATOR, tokens: tokens.OPLEQ, value: tokens.OPLEQ }, title: '<=', color: 'blue' }
-    const lt = { value: { type: types.COMPARATOR, tokens: tokens.OPLT, value: tokens.OPLT }, title: '<', color: 'blue' }
-    const geq = { value: { type: types.COMPARATOR, tokens: tokens.OPGEQ, value: tokens.OPGEQ }, title: '>=', color: 'blue' }
-    const gt = { value: { type: types.COMPARATOR, tokens: tokens.OPGT, value: tokens.OPGT }, title: '>', color: 'blue' }
-    const deq = { value: { type: types.COMPARATOR, tokens: tokens.OPDEQ, value: tokens.OPDEQ }, title: '===', color: 'blue' }
+    const comparators = {
+      leq: { value: { type: types.COMPARATOR, value: tokens.OPLEQ }, title: tokens.OPLEQ, render: () => <span style={{ color: 'blue' }}>{tokens.OPLEQ}</span> },
+      lt: { value: { type: types.COMPARATOR, value: tokens.OPLT }, title: tokens.OPLT, render: () => <span style={{ color: 'blue' }}>{tokens.OPLT}</span> },
+      geq: { value: { type: types.COMPARATOR, value: tokens.OPGEQ }, title: tokens.OPGEQ, render: () => <span style={{ color: 'blue' }}>{tokens.OPGEQ}</span> },
+      gt: { value: { type: types.COMPARATOR, value: tokens.OPGT }, title: tokens.OPGT, render: () => <span style={{ color: 'blue' }}>{tokens.OPGT}</span> },
+      deq: { value: { type: types.COMPARATOR, value: tokens.OPDEQ }, title: tokens.OPDEQ, render: () => <span style={{ color: 'blue' }}>{tokens.OPDEQ}</span> },
+    }
+
+    const comparatorsMap = {
+      [QUESTION_SWITCH]: [comparators.deq],
+      [QUESTION_RATE]: [comparators.leq, comparators.lt, comparators.geq, comparators.gt, comparators.deq],
+      [QUESTION_DATE]: [comparators.leq, comparators.lt, comparators.geq, comparators.gt, comparators.deq],
+      [QUESTION_DISCRETE_SCALE]: [comparators.leq, comparators.lt, comparators.geq, comparators.gt, comparators.deq],
+      [QUESTION_NUMERICAL_SCALE]: [comparators.leq, comparators.lt, comparators.geq, comparators.gt, comparators.deq],
+    }
 
     if (previous && previous.type === types.VAR) {
+      const questionType = questionsMap[previous.value].type
       children = [
         ...children,
-        ...[leq, lt, geq, gt, deq],
+        ...comparatorsMap[questionType],
       ]
     }
 
@@ -151,44 +173,60 @@ export default class VisibleIfEditor extends Component {
     )
   }
 
-  renderOperands = () => {
+  renderValues = () => {
     const { values } = this.state
     const { questionsMap } = this.props
     const previous = last(values)
     const previousQuestion = values && last(values.slice(0, values.length - 1))
 
+    const optionsMap = {
+      [QUESTION_SWITCH]: [
+        { value: { type: types.VALUE, value: tokens.TRUE }, title: tokens.TRUE, render: () => <span style={{ color: 'orange' }}>{tokens.TRUE}</span> },
+        { value: { type: types.VALUE, value: tokens.FALSE }, title: tokens.FALSE, render: () => <span style={{ color: 'orange' }}>{tokens.FALSE}</span> },
+      ],
+      [QUESTION_RATE]: [],
+      [QUESTION_DATE]: [],
+      [QUESTION_DISCRETE_SCALE]: [],
+      [QUESTION_NUMERICAL_SCALE]: [],
+    }
+
     if (previous && previous.type === types.COMPARATOR) {
       const question = questionsMap[previousQuestion.value]
-      const value = { type: types.OPERAND, value: "" }
+      const value = { type: types.VALUE, value: "" }
+      const options = optionsMap[question.type]
       return (
-        <OptGroup label="operands">
-          <Option key={value} value={value} filterBy="title">
-            <InputOption onChange={value => this.addValue({ type: types.OPERAND, value })} color="orange">
-              <QuestionEditorItem disabled value={question} editable={false} />
-            </InputOption>
-          </Option>
+        <OptGroup label="values">
+          {(options && options.length > 0) ?
+            this.renderOptions(options)
+            :
+            <Option key={value} value={value} filterBy="title">
+              <InputOption onChange={value => this.addValue({ type: types.VALUE, value })} color="orange">
+                <QuestionEditorItem disabled value={question} editable={false} />
+              </InputOption>
+            </Option>
+          }
         </OptGroup>
       )
     }
 
     return (
-      <OptGroup label="operands">
+      <OptGroup label="values">
       </OptGroup>
     )
   }
 
   renderVars = () => {
     const { values } = this.state
-    const { questionsMap } = this.props
+    const { previousQuestions } = this.props
     const previous = last(values)
     let children = []
 
     // Keep only questions we can extract simple value from
     if (!previous || (previous && previous.type === types.BLOCK) || (previous && previous.type === types.OPERATOR)) {
       children =
-        Object.values(questionsMap)
-          .filter(e => e.type === QUESTION_DATE || e.type === QUESTION_DISCRETE_SCALE || e.type === QUESTION_NUMERICAL_SCALE || e.type === QUESTION_RATE)
-          .map(e => ({ value: { type: types.VAR, value: e.id }, title: e.title, color: 'green' }))
+        previousQuestions
+          .filter(e => [QUESTION_SWITCH, QUESTION_DATE, QUESTION_DISCRETE_SCALE, QUESTION_NUMERICAL_SCALE, QUESTION_RATE].includes(e.type))
+          .map(e => ({ value: { type: types.VAR, value: e.id }, title: e.title, render: () => <span style={{ color: 'green' }}>{e.title}</span> }))
     }
 
     return (
@@ -222,8 +260,8 @@ export default class VisibleIfEditor extends Component {
             {this.renderBlocks()}
             {this.renderOperators()}
             {this.renderComparators()}
-            {this.renderOperands()}
             {this.renderVars()}
+            {this.renderValues()}
           </Select>
         </FormItem>
       </div>

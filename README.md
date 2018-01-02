@@ -34,7 +34,7 @@ const App = ({ onExport }) => (
 
 |    Name     |       Type       |       Default       | Required | Description |
 | :----------:| :-------------:  | :-----------------: | :----------:| :------------:|
-| onExport    | (string) => void | () => { }           | false |Function called when user click on Save button
+| onExport    | (string) => void | () => { }           | false |Function called when user click on Save button.
 | initialValue| object           | See | false | Initial survey value  |
 | locale | string  | "enUS" | false | Ant design locale language |
 

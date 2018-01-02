@@ -1,7 +1,7 @@
 import { uniqueId } from 'lodash'
 
 export const initialValue = () => ({
-    id: uniqueId(),
+    id: `@@${uniqueId()}`,
     title: 'Page',
     visibleIf: 'true',
     questions: [],

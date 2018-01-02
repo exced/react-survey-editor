@@ -76,6 +76,7 @@ const SurveyEditor = ({
 SurveyEditor.propTypes = {
   value: PropTypes.object.isRequired,
   onChange: PropTypes.func.isRequired,
+  onAdd: PropTypes.func.isRequired,
   onMove: PropTypes.func.isRequired,
   onToggleCollapsed: PropTypes.func.isRequired,
 }

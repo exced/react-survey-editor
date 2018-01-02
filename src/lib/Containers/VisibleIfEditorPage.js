@@ -1,9 +1,11 @@
 import { connect } from 'react-redux'
-import { getPreviousQuestionsMapFromPage } from '../Selectors/ControllerQuestion'
+import { getPreviousQuestionsFromPage } from '../Selectors/ControllerQuestion'
+import { questions } from '../Selectors/Question'
 import VisibleIfEditor from '../Components/VisibleIfEditor'
 
 const mapStateToProps = (state, ownProps) => ({
-  questionsMap: getPreviousQuestionsMapFromPage(state, ownProps),
+  previousQuestions: getPreviousQuestionsFromPage(state, ownProps),
+  questionsMap: questions(state)
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({

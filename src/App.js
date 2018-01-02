@@ -1,9 +1,8 @@
 import React from 'react'
 import SurveyEditor, { Types } from './lib'
-import { uniqueId } from 'lodash'
 
 const initialValue = {
-  id: uniqueId(),
+  id: 1,
   title: 'My Survey',
   description: 'Introduction survey',
   responseTime: "",
@@ -14,12 +13,12 @@ const initialValue = {
   image: "defaultPhoto.png",
   pages: [
     {
-      id: uniqueId(),
+      id: 1,
       title: 'First Page',
       visibleIf: 'true',
       questions: [
         {
-          id: uniqueId(),
+          id: 1,
           type: Types.QUESTION_SWITCH,
           title: 'Question switch',
           mandatory: false,
@@ -27,41 +26,46 @@ const initialValue = {
           tooltip: 'Question switch tooltip',
           checkedChildren: 'Yes',
           unCheckedChildren: 'No',
+          pageId: 1,
         },
         {
-          id: uniqueId(),
+          id: 2,
           type: Types.QUESTION_TEXT,
           title: 'Question text',
           mandatory: true,
           visibleIf: 'true',
           tooltip: 'Question text tooltip',
+          pageId: 1,
         },
       ],
     },
     {
-      id: uniqueId(),
+      id: 2,
       title: 'Second Page',
       visibleIf: 'true',
       questions: [
         {
-          id: uniqueId(),
+          id: 3,
           type: Types.QUESTION_RATE,
           title: 'Question rate',
           mandatory: false,
           visibleIf: 'true',
           tooltip: 'Question rate tooltip',
           max: 5,
+          pageId: 2,
         },
         {
-          id: uniqueId(),
+          id: 4,
           type: Types.QUESTION_CHOICES,
           title: 'Question choices',
           mandatory: true,
           visibleIf: 'true',
+          tooltip: 'Question rate choices',
           choices: [
             "Choice 1", "Choice 2", "Choice 3"
           ],
           max: 1,
+          pageId: 2,
         },
       ],
     },
@@ -69,7 +73,7 @@ const initialValue = {
 }
 
 const App = () => (
-  <SurveyEditor initialValue={initialValue} locale="frFR" onExport={(v) => console.tron.log(v, true)} />
+  <SurveyEditor initialValue={initialValue} locale="enUS" onExport={(v) => console.tron.log(v, true)} />
 )
 
 export default App
