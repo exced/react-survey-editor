@@ -5,7 +5,7 @@ import * as React from "react";
 
 declare module "react-survey-editor" {
 
-    enum QuestionEnum {
+    export enum Types {
         QUESTION_SWITCH = "QUESTION_SWITCH",
         QUESTION_TEXT = "QUESTION_TEXT",
         QUESTION_TEXT_AREA = "QUESTION_TEXT_AREA",
@@ -18,9 +18,9 @@ declare module "react-survey-editor" {
         QUESTION_RANK = "QUESTION_RANK",
     }
 
-    interface Question {
+    export interface Question {
         id: string,
-        type: QuestionEnum,
+        type: Types,
         title: string,
         mandatory: boolean,
         visibleIf: string,
@@ -35,14 +35,14 @@ declare module "react-survey-editor" {
         choices?: Array<string>,
     }
 
-    interface Page {
+    export interface Page {
         id: string,
         title: string,
         visibleIf: string,
         questions: Array<Question>
     }
 
-    interface Survey {
+    export interface Survey {
         id: string,
         title: string,
         description: string,
@@ -55,7 +55,7 @@ declare module "react-survey-editor" {
         pages: Array<Page>
     }
 
-    interface SurveyEditorProps extends React.Props {
+    export interface SurveyEditorProps extends React.Props {
         onExport: (value: object) => void;
         initialValue?: Survey;
         locale?: string;
