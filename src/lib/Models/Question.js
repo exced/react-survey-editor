@@ -59,8 +59,7 @@ export const initialValue = (type) => {
       visibleIf: 'true',
       tooltip: '',
       dateType: 'date',
-      min: '',
-      max: '',
+      disabledDate: '',
     },
     [QUESTION_DISCRETE_SCALE]: {
       id,

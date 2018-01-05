@@ -43,6 +43,7 @@
     "react": "^16.1.1",
     "react-dev-utils": "^4.2.1",
     "react-dom": "^16.1.1",
+    "react-file-base64": "^1.0.3",
     "react-redux": "^5.0.6",
     "react-sortable-hoc": "^0.6.8",
     "redux": "^3.7.2",

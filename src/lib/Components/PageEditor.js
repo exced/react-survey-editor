@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Row, Col, Button, Layout, Dropdown, Tag } from 'antd'
 import { Handle } from '../Components/DragList'
-import { EditText } from '../Components/EditFields'
+import { EditText, UploadImage } from '../Components/EditFields'
 import QuestionMenu from '../Components/QuestionMenu'
 import QuestionList from '../Components/QuestionList'
 import VisibleIfEditorPage from '../Containers/VisibleIfEditorPage'
@@ -48,8 +48,9 @@ export default class PageEditor extends Component {
         <Layout style={layoutStyle}>
           <Row style={{ padding: 10 }}>
             <Col span={2}><Handle /></Col>
+            <Col span={4}><UploadImage value={value.image} onChange={image => onChange({ image })} /></Col>
             <Col span={2}><Tag color="blue">{`Page ${index + 1}`}</Tag></Col>
-            <Col span={14} style={{ textAlign: 'center' }}>
+            <Col span={10} style={{ textAlign: 'center' }}>
               <h2><EditText value={value.title} onChange={title => onChange({ title })} size="large" placeholder="Page" /></h2>
             </Col>
             <Col span={6}>

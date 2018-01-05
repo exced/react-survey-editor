@@ -10,17 +10,19 @@ const initialValue = {
   dates: [],
   password: "ThisIsASecretPassword",
   link: "link",
-  image: "defaultPhoto.png",
+  image: '',
   pages: [
     {
       id: 1,
       title: 'First Page',
+      image: '',
       visibleIf: 'true',
       questions: [
         {
           id: 1,
           type: Types.QUESTION_SWITCH,
           title: 'Question switch',
+          image: '',
           mandatory: false,
           visibleIf: 'true',
           tooltip: 'Question switch tooltip',
@@ -32,6 +34,7 @@ const initialValue = {
           id: 2,
           type: Types.QUESTION_TEXT,
           title: 'Question text',
+          image: '',
           mandatory: true,
           visibleIf: 'true',
           tooltip: 'Question text tooltip',
@@ -42,12 +45,14 @@ const initialValue = {
     {
       id: 2,
       title: 'Second Page',
+      image: '',
       visibleIf: 'true',
       questions: [
         {
           id: 3,
           type: Types.QUESTION_RATE,
           title: 'Question rate',
+          image: '',
           mandatory: false,
           visibleIf: 'true',
           tooltip: 'Question rate tooltip',
@@ -58,6 +63,7 @@ const initialValue = {
           id: 4,
           type: Types.QUESTION_CHOICES,
           title: 'Question choices',
+          image: '',
           mandatory: true,
           visibleIf: 'true',
           tooltip: 'Question rate choices',

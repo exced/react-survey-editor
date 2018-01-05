@@ -29,10 +29,8 @@ const SurveyEditor = ({
     <div>
       <div style={layoutStyle}>
         <Row style={{ padding: 10 }}>
-          <Col span={2}>
-            <UploadImage />
-          </Col>
-          <Col span={18} style={{ textAlign: 'center' }}>
+          <Col span={4}><UploadImage value={value.image} onChange={image => onChange({ image })} /></Col>
+          <Col span={16} style={{ textAlign: 'center' }}>
             <h2>
               <EditText value={value.title} onChange={title => onChange({ title })} size="large" placeholder="Questionnaire" />
               <sup><span style={{ border: '0.5px solid #ff0059', borderRadius: 6, padding: 3, color: '#ff0059' }}>{value.link}</span></sup>

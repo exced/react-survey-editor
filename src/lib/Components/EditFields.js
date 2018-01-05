@@ -42,7 +42,7 @@ export class UploadImage extends Component {
     super(props)
     this.state = {
       loading: false,
-      imageUrl: '',
+      imageUrl: props.value,
     }
   }
 
@@ -71,10 +71,13 @@ export class UploadImage extends Component {
     }
     if (info.file.status === 'done') {
       // Get this url from response in real world.
-      this.getBase64(info.file.originFileObj, imageUrl => this.setState({
-        imageUrl,
-        loading: false,
-      }))
+      this.getBase64(info.file.originFileObj, imageUrl => {
+        this.props.onChange(imageUrl)
+        this.setState({
+          imageUrl,
+          loading: false,
+        })
+      })
     }
   }
 
@@ -93,6 +96,7 @@ export class UploadImage extends Component {
 
     return (
       <Upload
+        defaultFileList={[imageUrl]}
         disabled={disabled}
         name="avatar"
         listType="picture-card"

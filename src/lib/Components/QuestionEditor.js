@@ -4,7 +4,7 @@ import { Row, Col, Button, Layout, Dropdown, Tooltip, Icon, Tag } from 'antd'
 import QuestionMenu from '../Components/QuestionMenu'
 import QuestionEditorItem from '../Components/QuestionEditorItem'
 import { Handle } from '../Components/DragList'
-import { EditText } from '../Components/EditFields'
+import { EditText, UploadImage } from '../Components/EditFields'
 import { typeToName } from '../Transforms/Editor'
 import VisibleIfEditorQuestion from '../Containers/VisibleIfEditorQuestion'
 
@@ -48,8 +48,9 @@ export default class QuestionEditor extends Component {
         <Layout style={layoutStyle}>
           <Row style={{ padding: 10 }}>
             <Col span={2}><Handle /></Col>
+            <Col span={4}><UploadImage value={value.image} onChange={image => onChange({ image })} /></Col>
             <Col span={2}><Tag color="gold">{`Question ${index + 1}`}</Tag></Col>
-            <Col span={14} style={{ textAlign: 'center' }}>
+            <Col span={10} style={{ textAlign: 'center' }}>
               <h3>
                 <Tooltip title={value.tooltip}>
                   <Icon type="question-circle-o" />
