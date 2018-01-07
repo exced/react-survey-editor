@@ -85,8 +85,6 @@ export class UploadImage extends Component {
 
     const { imageUrl } = this.state
 
-    const { disabled } = this.props
-
     const uploadButton = (
       <div>
         <Icon type={this.state.loading ? 'loading' : 'plus'} />
@@ -97,7 +95,6 @@ export class UploadImage extends Component {
     return (
       <Upload
         defaultFileList={[imageUrl]}
-        disabled={disabled}
         name="avatar"
         listType="picture-card"
         showUploadList={false}
